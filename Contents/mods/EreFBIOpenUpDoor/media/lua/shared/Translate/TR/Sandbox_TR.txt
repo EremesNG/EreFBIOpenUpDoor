@@ -1,0 +1,5 @@
+Sandbox_TR = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Otomatik Kapanma Kapisi"
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Kapiyi kapatmak için zamanlanmis eylemi etkinlestirir"
+}

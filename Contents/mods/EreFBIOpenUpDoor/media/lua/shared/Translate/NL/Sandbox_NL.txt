@@ -1,0 +1,5 @@
+Sandbox_NL = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Deur automatisch sluiten"
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activeert de getimede actie om de deur te sluiten"
+}

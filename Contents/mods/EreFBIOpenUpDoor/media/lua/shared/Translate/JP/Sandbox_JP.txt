@@ -1,0 +1,5 @@
+Sandbox_JP = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "オートクローズドア"
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "ドアを閉じるための時限アクションをアクティブにします"
+}

@@ -1,0 +1,9 @@
+VERSION = 1,
+
+option EreFBIOpenUpDoor.AutoCloseDoor
+{
+	type = boolean,
+	default = true,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_AutoCloseDoor,
+}

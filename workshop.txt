@@ -1,0 +1,11 @@
+version=1
+id=2732513069
+title=FBI Open Up Door
+description=Auto open/close doors (not barricaded or locked) when running or sprinting.
+description=
+description=The auto close doors feature has no way of knowing if you're already through the door, so it's a timed action, however I think 99.9% of the time you will be on the other side. If this is a problem for you you can disable this option in the sandbox settings.
+description=Also, if you think the time of the timed action should be different, please let me know, thanks.
+description=
+description=I code this mod for my own easy playthrough...
+tags=Build 41;Misc
+visibility=public
