@@ -15,30 +15,52 @@ function TAEreFBIOpenUpDoor:start()
 end
 
 function TAEreFBIOpenUpDoor:stop()
-    print("EREMES TIMED ACTION STOP");
     ISBaseTimedAction.stop(self);
 end
 
 -- Perform attack
 function TAEreFBIOpenUpDoor:perform()
-    print("EREMES TIMED ACTION PERFORM");
-    if self.item:IsOpen() then
-        print("EREMES TIMED ACTION TOGGLE");
-        self.item:ToggleDoor(self.character);
-    end
+	local cSq = self.square;
+	if (self.thumpable) then
+		for i = 1, 3, 1
+		do
+			if(self.north) then
+				cSq = cSq:getE();
+			else
+				cSq = cSq:getN();
+			end
+			if not (cSq:getDoor(self.north) == nil) then
+				break
+			end
+		end
+		if cSq:getDoor(self.north):IsOpen() then
+			cSq:getDoor(self.north):ToggleDoor(self.character);
+		else
+			self:stop();
+		end
+	else
+		if self.item:IsOpen() then
+			self.item:ToggleDoor(self.character);
+		else
+			self:stop();
+		end
+	end
     ISBaseTimedAction.perform(self);
 end
 
 
 -- Set up timed action variables
-function TAEreFBIOpenUpDoor:new(character, item, time)
+function TAEreFBIOpenUpDoor:new(character, item, square, thumpable, north, time)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character;
 	o.item = item;
-    print("EREMES TIMED ACTION");
-	print(item);
+	o.square = square;
+	o.thumpable = thumpable;
+	o.north = north;
+    --print("EREMES TIMED ACTION");
+	--print(item);
     o.useProgressBar = false;
 	o.stopOnWalk = false;
 	o.stopOnRun = false;
