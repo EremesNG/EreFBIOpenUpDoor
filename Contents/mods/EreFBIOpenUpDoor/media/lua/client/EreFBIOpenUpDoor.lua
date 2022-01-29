@@ -18,7 +18,7 @@ function fbiopenupdoor(character, collider)
     if instanceof(character, 'IsoPlayer') and (character:isSprinting() or character:IsRunning() ) then
         -- Check if this is a collision with a window.
         if instanceof(collider, 'IsoDoor') or isEreThumbDoor(collider) then
-            -- Door isn't barricaded.
+            -- Door isn't barricaded, isn't LockedNyKey, isn't Obstructed.
             if not collider:isBarricaded() and not collider:isLockedByKey() and not EreObs(collider) then
                 -- Open the door if closed
                 if not collider:IsOpen() then
@@ -34,6 +34,7 @@ function fbiopenupdoor(character, collider)
     end
 end
 
+-- To know if the door is obstructed, in case of gate we need to compare NSWE+ because every square have his own
 function EreObs(collider)
     if (collider:isObstructed()) then return true end
     if not (isEreThumbDoor(collider)) then
@@ -56,7 +57,7 @@ function EreObs(collider)
     return false;
 end
 
-
+-- To know if is a gate
 function isEreThumbDoor(collider)
     if(instanceof(collider, 'IsoThumpable')) then
         return collider:isDoor()

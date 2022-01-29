@@ -20,7 +20,9 @@ end
 
 -- Perform attack
 function TAEreFBIOpenUpDoor:perform()
+	-- Save square to compare
 	local cSq = self.square;
+	-- In case of gate we need to compare the NSWE++ squares cause when opened they change
 	if (self.thumpable) then
 		for i = 1, 3, 1
 		do
