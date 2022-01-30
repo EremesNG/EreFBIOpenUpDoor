@@ -54,8 +54,8 @@ end
 function EreGetTumpObs(collider)
     local sq = collider:getSquare();
     if (collider:getNorth()) then
-        local tNE = sq:getE():getDoor(true);
-        local tNW = sq:getW():getDoor(true);
+        local tNE = sq:getE():getDoor(collider:getNorth());
+        local tNW = sq:getW():getDoor(collider:getNorth());
         if not (tNE == nil) then
             if (tNE:isObstructed()) then
                 return true;
@@ -67,8 +67,8 @@ function EreGetTumpObs(collider)
             end 
         end
     else
-        local tSN = sq:getN():getDoor(true);
-        local tSS = sq:getS():getDoor(true);
+        local tSN = sq:getN():getDoor(collider:getNorth());
+        local tSS = sq:getS():getDoor(collider:getNorth());
         if not (tSN == nil) then 
             if (tSN:isObstructed()) then 
                 return true;
