@@ -22,17 +22,19 @@ end
 function TAEreFBIOpenUpDoor:perform()
 	-- Save square to compare
 	local cSq = self.square;
+	local _cSq = cSq;
 	-- In case of gate we need to compare the NSWE++ squares cause when opened they change
 	if (self.thumpable) then
 		for i = 1, 3, 1
 		do
 			if(self.north) then
-				cSq = cSq:getE();
+				_cSq = _cSq:getE();
 			else
-				cSq = cSq:getN();
+				_cSq = _cSq:getN();
 			end
-			if not (cSq:getDoor(self.north) == nil) then
-				break
+			if not (_cSq:getDoor(self.north) == nil) then
+				cSq = _cSq;
+				break;
 			end
 		end
 		if cSq:getDoor(self.north):IsOpen() then

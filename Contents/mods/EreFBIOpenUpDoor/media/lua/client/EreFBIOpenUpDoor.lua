@@ -40,22 +40,48 @@ function EreObs(collider)
     if not (isEreThumbDoor(collider)) then
         return collider:isObstructed();
     else
-        local thumpObs = collider:isObstructed();
-        local sq = collider:getSquare();
-        if (collider:getNorth()) then
-            local tNE = sq:getE():getDoor(true);
-            local tNW = sq:getW():getDoor(true);
-            if not (tNE == nil) then if (tNE:isObstructed()) then return true end end
-            if not (tNW == nil) then if (tNW:isObstructed()) then return true end end
+        local sts, obsval = pcall(EreGetTumpObs, collider);
+        if (sts) then
+            return obsval;
         else
-            local tSN = sq:getN():getDoor(true);
-            local tSS = sq:getS():getDoor(true);
-            if not (tSN == nil) then if (tSN:isObstructed()) then return true end end
-            if not (tSS == nil) then if (tSS:isObstructed()) then return true end end
+            return collider:isObstructed();
         end
     end
     return false;
 end
+
+-- Mitigate other mods converting door to thumpables and the crafted ones
+function EreGetTumpObs(collider)
+    local sq = collider:getSquare();
+    if (collider:getNorth()) then
+        local tNE = sq:getE():getDoor(true);
+        local tNW = sq:getW():getDoor(true);
+        if not (tNE == nil) then
+            if (tNE:isObstructed()) then
+                return true;
+            end 
+        end
+        if not (tNW == nil) then 
+            if (tNW:isObstructed()) then 
+                return true;
+            end 
+        end
+    else
+        local tSN = sq:getN():getDoor(true);
+        local tSS = sq:getS():getDoor(true);
+        if not (tSN == nil) then 
+            if (tSN:isObstructed()) then 
+                return true;
+            end 
+        end
+        if not (tSS == nil) then 
+            if (tSS:isObstructed()) then 
+                return true;
+            end 
+        end
+    end
+end
+
 
 -- To know if is a gate
 function isEreThumbDoor(collider)
