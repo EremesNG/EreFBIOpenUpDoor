@@ -19,7 +19,7 @@ function fbiopenupdoor(character, collider)
         -- Check if this is a collision with a window.
         if instanceof(collider, 'IsoDoor') or isEreThumbDoor(collider) then
             -- Door isn't barricaded, isn't LockedNyKey, isn't Obstructed.
-            if not collider:isBarricaded() and not collider:isLockedByKey() and not EreObs(collider) then
+            if not collider:isBarricaded() and not EreDoorLocked(character, collider) and not EreObs(collider) then
                 -- Open the door if closed
                 if not collider:IsOpen() then
                     collider:ToggleDoor(character);
@@ -30,6 +30,23 @@ function fbiopenupdoor(character, collider)
                 end
             end
             return;
+        end
+    end
+end
+
+-- Check if exterior door is locked, this assume that collider isDoor
+function EreDoorLocked(character, collider)
+    if (instanceof(collider, 'IsoDoor')) then
+        if (collider:isExteriorDoor(character)) then
+            return collider:isLockedByKey();
+        else
+            return false;
+        end
+    else
+        if (collider:isLockedByKey() or collider:isLockedByPadlock()) then
+            return true
+        else
+            return false
         end
     end
 end
@@ -59,7 +76,7 @@ function EreGetTumpObs(collider)
             tNE = sq:getE():getDoor(collider:getNorth());
         end
         local tNW = sq:getW();
-        if not (tNE == nil) then
+        if not (tNW == nil) then
             tNW = sq:getW():getDoor(collider:getNorth());
         end
         if not (tNE == nil) then
