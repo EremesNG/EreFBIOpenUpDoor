@@ -1,5 +1,0 @@
-Sandbox_DA = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisk lukning af dør"
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsindstillede handling for at lukke døren"
-}

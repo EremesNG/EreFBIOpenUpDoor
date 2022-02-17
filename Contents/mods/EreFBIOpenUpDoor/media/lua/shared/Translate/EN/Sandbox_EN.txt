@@ -1,5 +1,9 @@
 Sandbox_EN = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Close Door"
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activates the timed action to close the door"
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Close Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activates the timed action to close the door",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Running",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Auto open/close door while running",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Auto open/close door while sprinting",
 }

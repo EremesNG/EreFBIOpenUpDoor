@@ -15,7 +15,7 @@ end
 -- If the character is sprinting and enters a collision chech for a door
 function fbiopenupdoor(character, collider)
     -- Check if this is a collision for the current player.
-    if instanceof(character, 'IsoPlayer') and (character:isSprinting() or character:IsRunning() ) then
+    if instanceof(character, 'IsoPlayer') and (EreCheckSprinting(character) or EreCheckRunning(character) ) then
         -- Check if this is a collision with a window.
         if instanceof(collider, 'IsoDoor') or isEreThumbDoor(collider) then
             -- Door isn't barricaded, isn't LockedNyKey, isn't Obstructed.
@@ -32,6 +32,22 @@ function fbiopenupdoor(character, collider)
             return;
         end
     end
+end
+
+-- Check running
+function EreCheckRunning(character)
+    if not (SandboxVars.EreFBIOpenUpDoor.WhileRunning) then
+        return false;
+    end
+    return character:IsRunning();
+end
+
+-- Check sprinting
+function EreCheckSprinting(character)
+    if not (SandboxVars.EreFBIOpenUpDoor.WhileSprinting) then
+        return false;
+    end
+    return character:isSprinting();
 end
 
 -- Check if exterior door is locked, this assume that collider isDoor

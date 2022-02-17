@@ -1,5 +1,0 @@
-Sandbox_CN = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "自动关门"
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "激活定时关门动作"
-}

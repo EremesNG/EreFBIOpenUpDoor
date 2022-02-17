@@ -1,5 +1,0 @@
-Sandbox_EE = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Ukse automaatne sulgemine"
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiveerib ajastatud toimingu ukse sulgemiseks"
-}

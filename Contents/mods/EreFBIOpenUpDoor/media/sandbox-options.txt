@@ -5,5 +5,19 @@ option EreFBIOpenUpDoor.AutoCloseDoor
 	type = boolean,
 	default = true,
 	page = EreFBIOpenUpDoor,
-	translation = EreFBIOpenUpDoor_AutoCloseDoor,
+	translation = EreFBIOpenUpDoor_AutoCloseDoor
+}
+option EreFBIOpenUpDoor.WhileRunning
+{
+	type = boolean,
+	default = true,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_WhileRunning
+}
+option EreFBIOpenUpDoor.WhileSprinting
+{
+	type = boolean,
+	default = true,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_WhileSprinting
 }
