@@ -36,6 +36,8 @@ function TAEreFBIOpenUpDoor:perform()
 				if not (_cSq:getDoor(self.north) == nil) then
 					cSq = _cSq;
 					break;
+				else
+					break;
 				end
 			else
 				break;
