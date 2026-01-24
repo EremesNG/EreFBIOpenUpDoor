@@ -1,10 +1,6 @@
 version=1
 id=2732513069
 title=FBI Open Up Door
-tags=Build 42;Build 41;Misc
-visibility=public
-description=[h1]FBI Open Up Door[/h1]
-description=
 description=Auto opens doors and gates while running/sprinting.
 description=
 description=[hr][/hr]
@@ -24,3 +20,5 @@ description=[url=https://github.com/EremesNG/EreFBIOpenUpDoor]https://github.com
 description=
 description=Workshop ID: 2732513069
 description=Mod ID: EreFBIOpenUpDoor
+tags=Build 41;Build 42;Misc;QoL
+visibility=public
