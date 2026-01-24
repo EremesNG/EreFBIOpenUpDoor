@@ -2,6 +2,8 @@
 -- Author: EremesNG
 -- Version: 1.42
 
+require "TimedActions/TAEreFBIOpenUpDoor"
+
 local MOD_ID = "EreFBIOpenUpDoor"
 local CLOSE_DELAY = 13
 
