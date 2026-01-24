@@ -1,0 +1,9 @@
+Sandbox_CA = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tancament automàtic de la porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa l'acció cronometrada per tancar la porta",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Córrer",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Obre/tanca automàticament la porta mentre s'executa",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Obre/tanca automàticament la porta mentre s'esprint",
+}

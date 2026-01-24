@@ -1,0 +1,9 @@
+Sandbox_CN = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "自动关门",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "激活定时动作以关门",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "跑步",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "运行时自动开关门",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "短跑",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "冲刺时自动开关门",
+}

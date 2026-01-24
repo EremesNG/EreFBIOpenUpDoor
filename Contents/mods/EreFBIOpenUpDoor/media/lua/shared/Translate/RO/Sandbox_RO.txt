@@ -1,0 +1,9 @@
+Sandbox_RO = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Închidere automată ușă",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activează acțiunea temporizată pentru a închide ușa",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Funcţionare",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Deschide/închide automat ușa în timpul rulării",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Deschide/închide automat ușa în timpul sprintului",
+}

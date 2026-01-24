@@ -1,0 +1,9 @@
+Sandbox_NL = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisch gesloten deur",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activeert de getimede actie om de deur te sluiten",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Rennen",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisch openen/sluiten van de deur tijdens het hardlopen",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinten",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisch openen/sluiten van de deur tijdens het sprinten",
+}

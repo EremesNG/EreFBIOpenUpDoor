@@ -1,0 +1,9 @@
+Sandbox_TR = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Otomatik Kapanan Kapý",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Kapýyý kapatmak için zamanlanmýþ eylemi etkinleþtirir",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Koþma",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Çalýþýrken kapýyý otomatik aç / kapat",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Koþarken kapýyý otomatik açma/kapama",
+}

@@ -1,0 +1,9 @@
+Sandbox_ID = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tutup Pintu Otomatis",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Mengaktifkan tindakan berwaktu untuk menutup pintu",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Berlari",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Buka/tutup pintu otomatis saat berjalan",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Berlari",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Buka/tutup pintu otomatis saat berlari",
+}

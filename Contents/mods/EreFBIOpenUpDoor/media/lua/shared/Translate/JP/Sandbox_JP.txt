@@ -1,0 +1,9 @@
+Sandbox_JP = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "オートクローズドア",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "ドアを閉める時限アクションをアクティブ化します",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "ランニング",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "走行中ドア自動開閉",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "スプリント",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "ダッシュ中にドアを自動開閉",
+}

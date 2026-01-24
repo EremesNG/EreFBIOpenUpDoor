@@ -1,0 +1,9 @@
+Sandbox_KO = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "자동 닫힘 도어",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "문을 닫는 시간 제한 동작을 활성화합니다.",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "달리기",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "주행 중 도어 자동 열림/닫힘",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "질주",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "달리는 동안 도어 자동 열림/닫힘",
+}

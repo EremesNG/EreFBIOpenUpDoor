@@ -1,0 +1,9 @@
+Sandbox_NO = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Lukk døren automatisk",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsinnstilte handlingen for å lukke døren",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Løper",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisk åpne/lukke dør mens du kjører",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisk åpne/lukke dør under sprint",
+}

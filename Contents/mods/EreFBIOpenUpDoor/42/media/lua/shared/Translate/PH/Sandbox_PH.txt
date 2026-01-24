@@ -1,0 +1,9 @@
+Sandbox_PH = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Isara ang Pinto",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Ina-activate ang naka-time na pagkilos para isara ang pinto",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Tumatakbo",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Awtomatikong buksan/isara ang pinto habang tumatakbo",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Awtomatikong buksan/isara ang pinto habang tumatakbo",
+}
