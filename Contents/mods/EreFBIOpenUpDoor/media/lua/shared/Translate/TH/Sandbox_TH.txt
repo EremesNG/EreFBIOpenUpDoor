@@ -1,0 +1,9 @@
+Sandbox_TH = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "ปิดประตูอัตโนมัติ",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "เปิดใช้งานการดำเนินการตามกำหนดเวลาเพื่อปิดประตู",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "วิ่ง",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "ประตูเปิด/ปิดอัตโนมัติขณะวิ่ง",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "การวิ่ง",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "ประตูเปิด/ปิดอัตโนมัติขณะวิ่ง",
+}

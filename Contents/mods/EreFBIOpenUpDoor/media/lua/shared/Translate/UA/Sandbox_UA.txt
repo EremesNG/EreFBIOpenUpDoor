@@ -1,0 +1,9 @@
+Sandbox_UA = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Автоматичне закриття дверей",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Активує тимчасову дію для закриття дверей",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Біг",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Автоматичне відкриття/закриття дверей під час роботи",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Спринт",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Автоматичне відкриття/закриття дверей під час бігу",
+}

@@ -68,7 +68,16 @@ function TAEreFBIOpenUpDoor:new(character, item, square, thumpable, north, time)
     o.useProgressBar = false
     o.stopOnWalk = false
     o.stopOnRun = false
+    o.stopOnAim = false
     o.maxTime = time or 13
 
     return o
+end
+
+function TAEreFBIOpenUpDoor:adjustMaxTime(maxTime)
+    return maxTime
+end
+
+function TAEreFBIOpenUpDoor:isValidStart()
+    return self:isValid()
 end

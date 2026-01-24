@@ -1,0 +1,9 @@
+Sandbox_HU = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatikus ajtózárás",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiválja az idõzített mûveletet az ajtó bezárásához",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Futás",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Az ajtó automatikus nyitása/zárása futás közben",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintelés",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatikus ajtónyitás/zárás futás közben",
+}

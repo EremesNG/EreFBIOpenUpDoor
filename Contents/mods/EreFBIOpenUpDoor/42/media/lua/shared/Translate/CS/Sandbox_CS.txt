@@ -1,0 +1,9 @@
+Sandbox_CS = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatické zavøení dveøí",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivuje naèasovanou akci k zavøení dveøí",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Bìh",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatické otevírání/zavírání dveøí za chodu",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintovat",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatické otevírání/zavírání dveøí pøi sprintu",
+}

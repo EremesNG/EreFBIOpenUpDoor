@@ -1,0 +1,9 @@
+Sandbox_IT = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Chiusura automatica della porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Attiva l'azione temporizzata di chiusura della porta",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Corsa",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/chiusura automatica della porta durante la corsa",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Apertura/chiusura automatica della porta durante lo sprint",
+}

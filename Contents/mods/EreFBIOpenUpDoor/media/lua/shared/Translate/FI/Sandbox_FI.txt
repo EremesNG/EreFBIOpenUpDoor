@@ -1,0 +1,9 @@
+Sandbox_FI = {
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Oven automaattinen sulkeminen",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivoi ajastetun toiminnon oven sulkemiseksi",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Juoksemassa",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Oven automaattinen avaaminen/sulkeminen ajon aikana",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintti",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automaattinen oven avaaminen/sulkeminen sprintin aikana",
+}
