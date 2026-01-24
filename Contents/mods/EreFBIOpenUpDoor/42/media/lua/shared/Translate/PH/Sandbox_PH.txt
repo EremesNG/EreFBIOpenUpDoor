@@ -6,4 +6,25 @@ Sandbox_PH = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Awtomatikong buksan/isara ang pinto habang tumatakbo",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Awtomatikong buksan/isara ang pinto habang tumatakbo",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Itulak ang mga kalapit na zombie",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Kapag ang pinto ay binuksan ng mod, itulak ang mga zombie malapit sa pinto (at maaaring matumba sila).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Saklaw ng shove",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius sa mga tile sa paligid ng pinto na apektado ng tulak.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove arc (degrees)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Nakakaapekto lamang sa mga zombie sa harap ng pinto, sa direksyon ng player na nakaharap. Mas malawak na anggulo = higit na nakakaapekto sa isang kono.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Tsansang knockdown (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Pagkakataon para sa mga apektadong zombie na matumba (kung hindi man ay sumuray-suray).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Paganahin ang pagpapalaganap",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Kung pinagana, ang shove ay maaaring magpalaganap pasulong sa mga zombie sa likod ng mga nauna (tulad ng isang shove wave).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Lalim ng pagpapalaganap",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Ilang tile forward ang shove wave ang maaaring magpatuloy (0 = walang propagation).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Lakas ng pagpapalaganap (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Pagkakataon para sa shove wave na makaapekto sa mga zombie sa susunod na tile forward (mas mataas = mas kumakalat).",
 }

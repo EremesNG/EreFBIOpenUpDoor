@@ -6,4 +6,25 @@ Sandbox_TH = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "ประตูเปิด/ปิดอัตโนมัติขณะวิ่ง",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "การวิ่ง",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "ประตูเปิด/ปิดอัตโนมัติขณะวิ่ง",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "ผลักซอมบี้ที่อยู่ใกล้เคียง",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "เมื่อ mod เปิดประตู ให้ผลักซอมบี้เข้าไปใกล้ประตู (และอาจล้มพวกมันลงได้)",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "ระยะการผลัก",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "รัศมีในกระเบื้องรอบประตูที่ได้รับผลกระทบจากการดัน",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "ดันส่วนโค้ง (องศา)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "ส่งผลต่อซอมบี้ที่อยู่หน้าประตูในทิศทางที่ผู้เล่นหันหน้าเท่านั้น มุมกว้าง = ส่งผลต่อกรวยมากขึ้น",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "โอกาสล้มลง (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "โอกาสที่ซอมบี้ที่ได้รับผลกระทบจะล้มลง (ไม่เช่นนั้นพวกมันจะโซเซ)",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "เปิดใช้งานการขยายพันธุ์",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "หากเปิดใช้งาน การผลักสามารถแพร่กระจายไปข้างหน้าไปยังซอมบี้ที่อยู่ด้านหลังซอมบี้ตัวแรก (เหมือนคลื่นการผลัก)",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "ความลึกของการขยายพันธุ์",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "จำนวนไทล์ที่ส่งต่อคลื่นดันสามารถดำเนินต่อไปได้ (0 = ไม่มีการแพร่กระจาย)",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "ความแข็งแรงของการขยายพันธุ์ (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "โอกาสที่คลื่นผลักจะส่งผลต่อซอมบี้ในช่องต่อไปข้างหน้า (สูง = กระจายมากขึ้น)",
 }

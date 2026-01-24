@@ -6,4 +6,25 @@ Sandbox_CH = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "運行時自動開關門",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "短跑",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "衝刺時自動開關門",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "推開附近的殭屍",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "當門被模組打開時，將殭屍推到門附近（並可能將它們擊倒）。",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "推力範圍",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "受推力影響的門周圍瓷磚的半徑。",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "推力弧度（度）",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "只影響門前、玩家面向方向的殭屍。更寬的角度=對圓錐體的影響更大。",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "擊倒機率(%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "受影響的殭屍有機會被擊倒（否則他們會蹣跚而行）。",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "啟用傳播",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "如果啟用，推力可以向前傳播到第一個殭屍後面的殭屍（就像推力波一樣）。",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "傳播深度",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "推力波可以繼續前進多少格（0 = 不傳播）。",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "傳播強度（%）",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "推動波有機會影響前方下一個方塊上的殭屍（越高=傳播得越多）。",
 }

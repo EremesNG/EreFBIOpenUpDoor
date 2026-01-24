@@ -1,9 +1,30 @@
 Sandbox_CA = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tancament autom�tic de la porta",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa l'acci� cronometrada per tancar la porta",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "C�rrer",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Obre/tanca autom�ticament la porta mentre s'executa",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tancament automàtic de la porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa l'acció cronometrada per tancar la porta",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Córrer",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Obre/tanca automàticament la porta mentre s'executa",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Obre/tanca autom�ticament la porta mentre s'esprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Obre/tanca automàticament la porta mentre s'esprint",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Empuja els zombis propers",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Quan el mod obre la porta, empeny els zombis a prop de la porta (i pot derrocar-los).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Gamma d'empenta",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radi en rajoles al voltant de la porta afectada per l'empenta.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Empujar l'arc (graus)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Només afecta els zombis davant de la porta, en la direcció del jugador. Angle més ampli = afecta més en un con.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Probabilitat de caiguda (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Possibilitat que els zombis afectats siguin enderrocats (en cas contrari es trontollen).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Activa la propagació",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Si està activat, l'empenta es pot propagar cap als zombis darrere dels primers (com una ona d'empenta).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profunditat de propagació",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Quantes fitxes cap endavant pot continuar l'ona d'empenta (0 = sense propagació).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagació (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilitat que l'onada d'empenta afecti els zombis a la fitxa següent cap endavant (més alt = s'estén més).",
 }

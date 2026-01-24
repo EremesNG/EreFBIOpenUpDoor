@@ -6,4 +6,25 @@ Sandbox_NL = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisch openen/sluiten van de deur tijdens het hardlopen",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinten",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisch openen/sluiten van de deur tijdens het sprinten",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Duw nabijgelegen zombies",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Wanneer de deur door de mod wordt geopend, duwt de mod zombies naar de deur (en kan ze neerhalen).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Schuif bereik",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Straal in tegels rond de deur die wordt beïnvloed door de duw.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Schuifboog (graden)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Heeft alleen invloed op zombies die voor de deur staan, in de richting van de speler. Grotere hoek = beïnvloedt meer in een kegel.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Kans op knock-down (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Kans dat getroffen zombies worden neergehaald (anders wankelen ze).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Doorgifte inschakelen",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Indien ingeschakeld, kan de duw zich voortplanten naar zombies achter de eersten (zoals een duwgolf).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Voortplantingsdiepte",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Hoeveel tegels vooruit kan de schuifgolf doorgaan (0 = geen voortplanting).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Voortplantingssterkte (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Kans dat de duwgolf invloed heeft op zombies op de volgende tegel naar voren (hoger = verspreidt zich meer).",
 }

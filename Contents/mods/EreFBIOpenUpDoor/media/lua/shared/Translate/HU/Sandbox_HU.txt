@@ -1,9 +1,30 @@
 Sandbox_HU = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatikus ajt�z�r�s",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiv�lja az id�z�tett m�veletet az ajt� bez�r�s�hoz",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Fut�s",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Az ajt� automatikus nyit�sa/z�r�sa fut�s k�zben",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintel�s",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatikus ajt�nyit�s/z�r�s fut�s k�zben",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatikus ajtózárás",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiválja az időzített műveletet az ajtó bezárásához",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Futás",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Az ajtó automatikus nyitása/zárása futás közben",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintelés",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatikus ajtónyitás/zárás futás közben",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Lökd ki a közeli zombikat",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Amikor a mod kinyitja az ajtót, zombikat lök az ajtó közelébe (és leütheti őket).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove tartomány",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Az ajtó körüli csempe sugara, amelyet a lökés érint.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Tolóív (fok)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Csak az ajtó előtt álló zombikat érinti, a játékosokkal szemben. Szélesebb szög = többet érint a kúpban.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Leütési esély (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Esély, hogy az érintett zombikat leütik (különben megtántorodnak).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Engedélyezze a terjedést",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Ha engedélyezve van, a shove továbbterjedhet az elsők mögött álló zombikhoz (mint egy shove hullám).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Szaporítási mélység",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Hány lapkával tovább folytatódhat a shove hullám (0 = nincs terjedés).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Terjedési erő (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Esély, hogy a shove hullám hatással lesz a zombikra a következő lapkán előre (magasabb = tovább terjed).",
 }

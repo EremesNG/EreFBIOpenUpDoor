@@ -1,9 +1,30 @@
 Sandbox_NO = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Lukk d�ren automatisk",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsinnstilte handlingen for � lukke d�ren",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "L�per",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisk �pne/lukke d�r mens du kj�rer",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Lukk døren automatisk",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsinnstilte handlingen for å lukke døren",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Løper",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisk åpne/lukke dør mens du kjører",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisk �pne/lukke d�r under sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisk åpne/lukke dør under sprint",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Skyv nærliggende zombier",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Når døren åpnes av moden, skyver zombier nær døren (og kan slå dem ned).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Skyv rekkevidde",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius i fliser rundt døren påvirket av dyttet.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Skyvebue (grader)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Påvirker kun zombier foran døren, i spillerens retning. Bredere vinkel = påvirker mer i en kjegle.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Slå ned sjanse (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Sjans for berørte zombier til å bli slått ned (ellers vakler de).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Aktiver spredning",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Hvis den er aktivert, kan skytingen forplante seg fremover til zombier bak de første (som en skyvebølge).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Formeringsdybde",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Hvor mange fliser fremover skyvebølgen kan fortsette (0 = ingen forplantning).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Formeringsstyrke (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Sjansen for skyvebølgen til å påvirke zombier på neste flis fremover (høyere = sprer seg mer).",
 }

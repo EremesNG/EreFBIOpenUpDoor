@@ -1,9 +1,30 @@
 Sandbox_RU = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "�������������� �������� �����",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "���������� ��������� ��������, ����� ������� �����",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "���",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "�������������� ��������/�������� ����� �� ����� ������",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "������",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "�������������� ��������/�������� ����� �� ����� ����",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Автоматическое закрытие двери",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Активирует временное действие, чтобы закрыть дверь",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Бег",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Автоматическое открытие/закрытие двери во время работы",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Спринт",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Автоматическое открытие/закрытие двери во время бега",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Отшвырните ближайших зомби",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "При открытии двери мод отталкивает зомби возле двери (и может сбить их с ног).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Диапазон толчка",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Радиус плиток вокруг двери, на который влияет толчок.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Дуга толчка (градусы)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Действует только на зомби перед дверью, в направлении игрока. Более широкий угол = больше влияет на конус.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Вероятность нокдауна (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Шанс, что пораженные зомби будут сбиты с ног (иначе они пошатнутся).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Включить распространение",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Если эта опция включена, толчок может распространяться вперед на зомби позади первых (как волна толчка).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Глубина распространения",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "На сколько клеток вперед может продолжаться волна толчка (0 = нет распространения).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Сила распространения (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Шанс, что волна толчка затронет зомби на следующей клетке вперед (чем выше = больше распространяется).",
 }

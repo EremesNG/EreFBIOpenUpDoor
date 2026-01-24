@@ -1,9 +1,30 @@
 Sandbox_CS = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatick� zav�en� dve��",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivuje na�asovanou akci k zav�en� dve��",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "B�h",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatick� otev�r�n�/zav�r�n� dve�� za chodu",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatické zavření dveří",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivuje načasovanou akci k zavření dveří",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Běh",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatické otevírání/zavírání dveří za chodu",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintovat",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatick� otev�r�n�/zav�r�n� dve�� p�i sprintu",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatické otevírání/zavírání dveří při sprintu",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Strčte blízké zombie",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Když mod otevře dveře, tlačí zombie blízko dveří (a může je srazit dolů).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove range",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Poloměr v dlaždicích kolem dveří ovlivněných strkáním.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove oblouk (stupně)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Ovlivňuje pouze zombíky přede dveřmi, ve směru hráče čelem. Širší úhel = působí více v kuželu.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Šance na seskočení (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Šance na sražení postižených zombie (jinak se potácejí).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Povolit šíření",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Pokud je povoleno, shove se může šířit dopředu k zombie za prvními (jako vlna shove).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Hloubka šíření",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "O kolik dlaždic vpřed může shove vlna pokračovat (0 = žádné šíření).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Síla šíření (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Šance, že vlna shove ovlivní zombíky na další destičce vpřed (vyšší = více se rozšíří).",
 }

@@ -6,4 +6,25 @@ Sandbox_ID = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Buka/tutup pintu otomatis saat berjalan",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Berlari",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Buka/tutup pintu otomatis saat berlari",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Dorong zombie di dekatnya",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Saat pintu dibuka oleh mod, mendorong zombie ke dekat pintu (dan mungkin menjatuhkan mereka).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Jarak dorong",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Jari-jari ubin di sekitar pintu terkena dorongan.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Busur dorong (derajat)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Hanya mempengaruhi zombie di depan pintu, menghadap ke arah pemain. Sudut yang lebih lebar = mempengaruhi lebih banyak dalam sebuah kerucut.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Peluang knockdown (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Peluang bagi zombie yang terkena dampak untuk dirobohkan (jika tidak, mereka akan terhuyung-huyung).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Aktifkan propagasi",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Jika diaktifkan, dorongan tersebut dapat merambat ke depan ke zombie di belakang zombie pertama (seperti gelombang dorongan).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Kedalaman propagasi",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Berapa ubin ke depan gelombang dorong dapat berlanjut (0 = tidak ada rambat).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Kekuatan propagasi (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Peluang gelombang dorong mempengaruhi zombie di ubin berikutnya ke depan (lebih tinggi = menyebar lebih banyak).",
 }

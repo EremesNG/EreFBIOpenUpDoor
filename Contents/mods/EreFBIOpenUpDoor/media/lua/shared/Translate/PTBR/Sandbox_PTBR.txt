@@ -6,4 +6,25 @@ Sandbox_PTBR = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Abertura/fechamento automático da porta durante a execução",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Corrida",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Abertura/fechamento automático da porta durante a corrida",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Empurre zumbis próximos",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Quando a porta é aberta pelo mod, empurra os zumbis para perto da porta (podendo derrubá-los).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Alcance de empurrão",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Raio nos ladrilhos ao redor da porta afetado pelo empurrão.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Arco de empurrão (graus)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Afeta apenas zumbis na frente da porta, na direção do jogador. Ângulo mais amplo = afeta mais em um cone.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Chance de nocaute (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance de os zumbis afetados serem derrubados (caso contrário, eles cambaleiam).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Habilitar propagação",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Se ativado, o empurrão pode se propagar para os zumbis atrás dos primeiros (como uma onda de empurrão).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profundidade de propagação",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Quantos blocos à frente a onda de empurrão pode continuar (0 = sem propagação).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagação (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance da onda de empurrão afetar os zumbis no próximo bloco à frente (maior = espalha mais).",
 }

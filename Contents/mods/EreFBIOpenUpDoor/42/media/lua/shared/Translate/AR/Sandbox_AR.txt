@@ -1,9 +1,30 @@
 Sandbox_AR = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Puerta cerrada autom�ticamente",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa la acci�n temporizada para cerrar la puerta.",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Puerta cerrada automáticamente",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa la acción temporizada para cerrar la puerta.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Correr",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/cierre autom�tico de puerta mientras se ejecuta",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/cierre automático de puerta mientras se ejecuta",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "corriendo",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Apertura/cierre autom�tico de la puerta mientras corres",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Apertura/cierre automático de la puerta mientras corres",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Empujar a los zombies cercanos",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Cuando el mod abre la puerta, empuja a los zombis cerca de la puerta (y puede derribarlos).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Rango de empuje",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radio en baldosas alrededor de la puerta afectada por el empujón.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Arco de empuje (grados)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Solo afecta a los zombis que se encuentran frente a la puerta, en la dirección del jugador. Ángulo más amplio = afecta más en un cono.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Probabilidad de derribo (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Posibilidad de que los zombis afectados sean derribados (de lo contrario, se tambalearán).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Habilitar propagación",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Si está habilitado, el empujón puede propagarse hacia los zombis detrás de los primeros (como una onda de empujón).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profundidad de propagación",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "¿Cuántas fichas hacia adelante puede continuar la onda de empuje (0 = sin propagación)?",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Fuerza de propagación (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Posibilidad de que la ola de empujón afecte a los zombis en la siguiente casilla (mayor = se propaga más).",
 }
