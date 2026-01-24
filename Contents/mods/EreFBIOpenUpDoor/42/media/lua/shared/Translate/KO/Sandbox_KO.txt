@@ -1,4 +1,4 @@
-Sandbox_KO = {
+﻿Sandbox_KO = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "자동 닫힘 도어",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "문을 닫는 시간 제한 동작을 활성화합니다.",
@@ -6,4 +6,25 @@ Sandbox_KO = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "주행 중 도어 자동 열림/닫힘",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "질주",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "달리는 동안 도어 자동 열림/닫힘",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "근처의 좀비를 밀어낸다",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "모드에 의해 문이 열리면 좀비를 문 근처로 밀어냅니다(그리고 쓰러뜨릴 수도 있습니다).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "쇼브 범위",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "밀림의 영향을 받는 문 주변 타일의 반경입니다.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "호를 밀기(도)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "플레이어가 바라보는 방향으로 문 앞에 있는 좀비에게만 영향을 미칩니다. 더 넓은 각도 = 원뿔에서 더 많은 영향을 미칩니다.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "넉다운 확률(%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "영향을 받은 좀비가 쓰러질 확률이 있습니다(그렇지 않으면 비틀거립니다).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "전파 활성화",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "활성화되면 밀치기는 첫 번째 좀비 뒤에 있는 좀비에게 앞으로 전파될 수 있습니다(밀치기 파동처럼).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "전파 깊이",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "밀려나는 파도가 앞으로 나아갈 수 있는 타일 수입니다(0 = 전파 없음).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "전파 강도(%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "밀치는 파도가 다음 타일 앞으로 있는 좀비에게 영향을 미칠 확률이 높습니다(높을수록 더 많이 퍼짐).",
 }

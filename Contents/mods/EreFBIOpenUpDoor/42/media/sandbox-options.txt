@@ -23,3 +23,69 @@ option EreFBIOpenUpDoor.WhileSprinting
 	page = EreFBIOpenUpDoor,
 	translation = EreFBIOpenUpDoor_WhileSprinting,
 }
+
+option EreFBIOpenUpDoor.ShoveNearbyZombies
+{
+	type = boolean,
+	default = false,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_ShoveNearbyZombies,
+}
+
+option EreFBIOpenUpDoor.ShoveRange
+{
+	type = double,
+	default = 1.8,
+	min = 0.0,
+	max = 10.0,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_ShoveRange,
+}
+
+option EreFBIOpenUpDoor.ShoveAngle
+{
+	type = double,
+	default = 120.0,
+	min = 0.0,
+	max = 180.0,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_ShoveAngle,
+}
+
+option EreFBIOpenUpDoor.KnockdownChance
+{
+	type = integer,
+	default = 35,
+	min = 0,
+	max = 100,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_KnockdownChance,
+}
+
+option EreFBIOpenUpDoor.EnablePropagation
+{
+	type = boolean,
+	default = false,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_EnablePropagation,
+}
+
+option EreFBIOpenUpDoor.PropagationDepth
+{
+	type = integer,
+	default = 2,
+	min = 0,
+	max = 10,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_PropagationDepth,
+}
+
+option EreFBIOpenUpDoor.PropagationStrength
+{
+	type = integer,
+	default = 60,
+	min = 0,
+	max = 100,
+	page = EreFBIOpenUpDoor,
+	translation = EreFBIOpenUpDoor_PropagationStrength,
+}

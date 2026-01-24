@@ -6,4 +6,25 @@ Sandbox_IT = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/chiusura automatica della porta durante la corsa",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Apertura/chiusura automatica della porta durante lo sprint",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Spingi gli zombi vicini",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Quando la porta viene aperta dal mod, spinge gli zombi vicino alla porta (e può buttarli a terra).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Portata di spinta",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Raggio delle piastrelle attorno alla porta interessata dallo spintone.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Arco di spinta (gradi)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Colpisce solo gli zombi davanti alla porta, nella direzione rivolta al giocatore. Angolo più ampio = influisce maggiormente in un cono.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Probabilità di knockdown (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Possibilità che gli zombi colpiti vengano abbattuti (altrimenti barcollano).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Abilita la propagazione",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Se abilitato, la spinta può propagarsi in avanti agli zombi dietro ai primi (come un'onda di spinta).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profondità di propagazione",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Quante tessere in avanti può continuare l'onda di spinta (0 = nessuna propagazione).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Forza di propagazione (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilità che l'ondata di spinta colpisca gli zombi sulla tessera successiva in avanti (maggiore = si diffonde di più).",
 }

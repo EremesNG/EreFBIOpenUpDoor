@@ -1,9 +1,30 @@
 Sandbox_DA = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisk lukning af d�r",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsindstillede handling for at lukke d�ren",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "L�b",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "�bner/lukker d�ren automatisk under k�rsel",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisk lukning af dør",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsindstillede handling for at lukke døren",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Løb",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Åbner/lukker døren automatisk under kørsel",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "�bner/lukker d�ren automatisk under sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Åbner/lukker døren automatisk under sprint",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Skub nærliggende zombier",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Når døren åbnes af mod'en, skubber zombier nær døren (og kan slå dem ned).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove rækkevidde",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius i fliser omkring døren påvirket af skubningen.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Skubbebue (grader)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Påvirker kun zombier foran døren, i spillerens retning. Bredere vinkel = påvirker mere i en kegle.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Mulighed for knockdown (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Mulighed for, at berørte zombier bliver væltet (ellers vakler de).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Aktiver udbredelse",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Hvis det er aktiveret, kan shove forplante sig frem til zombier bag de første (som en shove-bølge).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Formeringsdybde",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Hvor mange fliser frem kan skubbebølgen fortsætte (0 = ingen udbredelse).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Formeringsstyrke (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Mulighed for, at skub-bølgen påvirker zombier på den næste flise fremad (højere = spreder sig mere).",
 }

@@ -6,4 +6,25 @@ Sandbox_JP = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "走行中ドア自動開閉",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "スプリント",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "ダッシュ中にドアを自動開閉",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "近くのゾンビを突き飛ばす",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "MOD によってドアが開くと、ゾンビをドアの近くに押し込みます (ノックダウンする可能性があります)。",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "ショブ範囲",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "押し込みの影響を受けるドアの周囲のタイルの半径。",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "ショブ円弧 (度)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "ドアの前、プレイヤーの向いている方向にいるゾンビにのみ影響します。角度が広い = 円錐内での影響が大きくなります。",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "ノックダウン確率 (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "影響を受けたゾンビがノックダウンされる可能性があります (そうでない場合はよろめきます)。",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "伝播を有効にする",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "有効にすると、押し込みは最初のゾンビの後ろのゾンビに前方に伝播できます (押し込み波のように)。",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "伝播深さ",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "押し出す波を前方に何タイル継続できるか (0 = 伝播なし)。",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "伝播強度(%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "突き飛ばす波が前方の次のタイルのゾンビに影響を与える可能性があります (高い = 広がりが大きくなります)。",
 }

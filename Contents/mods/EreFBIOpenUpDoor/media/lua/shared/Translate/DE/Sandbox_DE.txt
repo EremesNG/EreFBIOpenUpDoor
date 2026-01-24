@@ -6,4 +6,25 @@ Sandbox_DE = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisches Öffnen/Schließen der Tür während des Betriebs",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinten",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatisches Öffnen/Schließen der Tür beim Sprinten",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Stoße in der Nähe befindliche Zombies weg",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Wenn die Tür vom Mod geöffnet wird, schiebt er Zombies in die Nähe der Tür (und schlägt sie möglicherweise nieder).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Schubreichweite",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius der Fliesen um die vom Stoß betroffene Tür.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Schubbogen (Grad)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Betrifft nur Zombies vor der Tür, in Blickrichtung des Spielers. Größerer Winkel = wirkt stärker in einem Kegel.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Knockdown-Chance (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance, dass betroffene Zombies niedergeschlagen werden (sonst taumeln sie).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Weitergabe aktivieren",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Wenn diese Option aktiviert ist, kann sich der Stoß nach vorne auf die Zombies hinter den ersten ausbreiten (wie eine Stoßwelle).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Ausbreitungstiefe",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Wie viele Kacheln vorwärts kann die Schubwelle andauern (0 = keine Ausbreitung).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Ausbreitungsstärke (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Es besteht eine Chance, dass die Stoßwelle Zombies auf dem nächsten Feld betrifft (höher = breitet sich stärker aus).",
 }

@@ -6,4 +6,25 @@ Sandbox_EN = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Auto open/close door while running",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Auto open/close door while sprinting",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Shove nearby zombies",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "When the door is opened by the mod, pushes zombies near the door (and may knock them down).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove range",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius in tiles around the door affected by the shove.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove arc (degrees)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Only affects zombies in front of the door, in the player's facing direction. Wider angle = affects more in a cone.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Knockdown chance (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance for affected zombies to be knocked down (otherwise they stagger).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Enable propagation",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "If enabled, the shove can propagate forward to zombies behind the first ones (like a shove wave).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Propagation depth",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "How many tiles forward the shove wave can continue (0 = no propagation).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Propagation strength (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance for the shove wave to affect zombies on the next tile forward (higher = spreads more).",
 }

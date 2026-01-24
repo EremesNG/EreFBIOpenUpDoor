@@ -1,9 +1,30 @@
 Sandbox_TR = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Otomatik Kapanan Kap�",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Kap�y� kapatmak i�in zamanlanm�� eylemi etkinle�tirir",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Ko�ma",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "�al���rken kap�y� otomatik a� / kapat",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Otomatik Kapanan Kapı",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Kapıyı kapatmak için zamanlanmış eylemi etkinleştirir",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Koşma",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Çalışırken kapıyı otomatik aç / kapat",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Ko�arken kap�y� otomatik a�ma/kapama",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Koşarken kapıyı otomatik açma/kapama",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Yakındaki zombileri itin",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Mod tarafından kapı açıldığında, zombileri kapının yakınına iter (ve onları yere serebilir).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "İtme aralığı",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "İtmeden etkilenen kapının etrafındaki döşemelerin yarıçapı.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Yayı itin (derece)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Yalnızca kapının önündeki, oyuncunun baktığı yöndeki zombileri etkiler. Daha geniş açı = bir koniyi daha fazla etkiler.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Devrilme şansı (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Etkilenen zombilerin yere serilme şansı (aksi takdirde sendelerler).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Yayılımı etkinleştir",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Etkinleştirilirse, itme ilk zombilerin arkasındaki zombilere doğru ilerleyebilir (bir itme dalgası gibi).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Yayılma derinliği",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "İtme dalgasının kaç kare ileriye doğru devam edebileceği (0 = yayılma yok).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Yayılma gücü (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "İtme dalgasının bir sonraki karodaki zombileri etkileme şansı (daha yüksek = daha fazla yayılır).",
 }

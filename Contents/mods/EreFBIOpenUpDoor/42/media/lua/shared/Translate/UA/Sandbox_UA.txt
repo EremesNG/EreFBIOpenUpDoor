@@ -1,9 +1,30 @@
 Sandbox_UA = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "����������� �������� ������",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "������ ��������� �� ��� �������� ������",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "���",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "����������� ��������/�������� ������ �� ��� ������",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "������",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "����������� ��������/�������� ������ �� ��� ���",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Автоматичне закриття дверей",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Активує тимчасову дію для закриття дверей",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Біг",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Автоматичне відкриття/закриття дверей під час роботи",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Спринт",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Автоматичне відкриття/закриття дверей під час бігу",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Відштовхуйте найближчих зомбі",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Коли двері відкриваються модом, штовхає зомбі біля дверей (і може збити їх).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Шов діапазон",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Радіус плиток навколо дверей, на які впливає штовхання.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Дуга поштовху (градуси)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Впливає лише на зомбі перед дверима, у напрямку до гравця. Широкий кут = більше впливає на конус.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Шанс нокдауну (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Шанс для уражених зомбі бути збитими (інакше вони хитаються).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Увімкнути розповсюдження",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Якщо ввімкнено, поштовх може поширюватися вперед до зомбі позаду перших (як хвиля поштовху).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Глибина поширення",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "На скільки плиток вперед може тривати хвиля поштовху (0 = відсутність поширення).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Сила поширення (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Шанс, щоб хвиля поштовху вплинула на зомбі на наступній плитці вперед (вище = більше поширення).",
 }

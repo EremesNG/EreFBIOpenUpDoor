@@ -6,4 +6,25 @@ Sandbox_RO = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Deschide/închide automat ușa în timpul rulării",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Deschide/închide automat ușa în timpul sprintului",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Împingeți zombi din apropiere",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Când ușa este deschisă de către mod, împinge zombi în apropierea ușii (și poate să-i doboare).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Gama Shove",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Raza în plăci în jurul ușii afectate de împingere.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Împingeți arcul (grade)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Afectează doar zombii din fața ușii, în direcția cu fața jucătorului. Unghi mai larg = afectează mai mult într-un con.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Șansa de doborâre (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Șansa ca zombii afectați să fie doborâți (altfel se clătină).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Activați propagarea",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Dacă este activat, împingerea se poate propaga către zombi din spatele primilor (ca un val de împins).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Adâncimea de propagare",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Câte plăci înainte poate continua valul de împingere (0 = fără propagare).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Puterea de propagare (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Șansa ca valul de împingere să afecteze zombi de pe următoarea piesă înainte (mai mare = se răspândește mai mult).",
 }

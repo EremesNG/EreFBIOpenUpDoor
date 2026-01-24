@@ -6,4 +6,25 @@ Sandbox_FR = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Ouverture/fermeture automatique de la porte pendant la course",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Ouverture/fermeture automatique de la porte pendant le sprint",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Poussez les zombies à proximité",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Lorsque la porte est ouverte par le mod, il pousse les zombies près de la porte (et peut les renverser).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Portée de poussée",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Rayon des carreaux autour de la porte affecté par le coup.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Arc de poussée (degrés)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "N'affecte que les zombies devant la porte, dans la direction du joueur. Angle plus large = affecte davantage dans un cône.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Chances de renversement (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance pour les zombies affectés d'être renversés (sinon ils chancellent).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Activer la propagation",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Si cette option est activée, la poussée peut se propager aux zombies derrière les premiers (comme une vague de poussée).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profondeur de propagation",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Combien de tuiles en avant la vague de poussée peut continuer (0 = pas de propagation).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Force de propagation (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance que la vague de poussée affecte les zombies sur la prochaine tuile en avant (plus élevée = se propage davantage).",
 }

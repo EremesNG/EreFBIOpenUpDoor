@@ -1,9 +1,30 @@
 Sandbox_PL = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatyczne zamykanie drzwi",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktywuje dzia�anie czasowe zamykania drzwi",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Dzia�anie",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktywuje działanie czasowe zamykania drzwi",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Działanie",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatyczne otwieranie/zamykanie drzwi podczas pracy",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatyczne otwieranie/zamykanie drzwi podczas sprintu",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Odepchnij pobliskie zombie",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Kiedy mod otwiera drzwi, wypycha zombie w pobliże drzwi (i może je powalić).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Zakres pchnięć",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Promień płytek wokół drzwi dotknięty pchnięciem.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Łuk pchnięcia (stopnie)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Działa tylko na zombie znajdujące się przed drzwiami, w stronę gracza. Szerszy kąt = wpływa na więcej w stożku.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Szansa na powalenie (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Szansa na powalenie dotkniętych zombie (w przeciwnym razie zataczają się).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Włącz propagację",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Jeśli jest włączone, pchnięcie może rozprzestrzeniać się do zombie znajdujących się za pierwszymi (jak fala pchnięcia).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Głębokość propagacji",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Ile pól do przodu może kontynuować fala pchania (0 = brak propagacji).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Siła propagacji (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Szansa, że ​​fala pchnięcia wpłynie na zombie na następnym polu do przodu (wyżej = większy zasięg).",
 }

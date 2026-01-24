@@ -1,61 +1,132 @@
 -- EreFBIOpenUp Door (Build 42)
--- Author: EremesNG
--- Updated: B42 (Run via collide, Sprint via probe, AutoClose via manager)
-
 EreFBIOpenUpDoor = EreFBIOpenUpDoor or {}
 local MOD = EreFBIOpenUpDoor
 
 -- =========================================================
 -- Tunables (Safe default configuration)
 -- =========================================================
-local SPRINT_PROBE_INTERVAL_MS = 60   -- How often to probe ahead while sprinting (ms)
-local SPRINT_PROBE_STEP_DIST   = 0.5  -- Step distance for probing
-local SPRINT_PROBE_MAX_DIST    = 0.5  -- Max distance to probe
-local AUTO_CLOSE_MIN_DELAY_MS  = 100  -- Minimum delay after opening before allowing auto-close
-local AUTO_CLOSE_ADJACENT_DIST = 0.7  -- Close when distance is no longer adjacent
-local DOOR_COOLDOWN_MS         = 300  -- Prevents immediate re-trigger and action stacking
+local SPRINT_PROBE_INTERVAL_MS = 60   -- How often to check for doors while sprinting
+local SPRINT_PROBE_STEP_DIST   = 0.5  -- Raycast step distance
+local SPRINT_PROBE_MAX_DIST    = 0.5  -- Max distance to check ahead when sprinting
+local AUTO_CLOSE_MIN_DELAY_MS  = 100  -- Minimum time before auto-close triggers
+local AUTO_CLOSE_ADJACENT_DIST = 0.7  -- Distance threshold to consider player "past" the door
+local DOOR_COOLDOWN_MS         = 300  -- Cooldown to prevent spamming open/close
+local GATE_SCAN_MAX_TILES      = 3    -- Max tiles to scan for multi-tile gates
 
--- Internal state
 MOD._state = MOD._state or {
-    pendingClose = {},      -- Stores doors waiting to be auto-closed
-    cooldownUntil = {},     -- Stores cooldown timestamps for specific doors
-    lastSprintProbeAt = 0   -- Timestamp of the last sprint probe
+    pendingClose = {},
+    cooldownUntil = {},
+    lastSprintProbeAt = 0
 }
 
 local _localPlayerIndex = 0
 local _localPlayerObjIndex = nil
 
 -- =========================================================
--- Helpers
+-- Helpers: Basics
 -- =========================================================
--- Returns current timestamp in milliseconds
+-- Get current timestamp in milliseconds.
 local function nowMs()
     if getTimestampMs then return getTimestampMs() end
     return os.time() * 1000
 end
 
--- Reads SandboxVars.EreFBIOpenUpDoor options with defaults
+-- Fetch Sandbox Variables with fallback defaults.
 local function sv()
-    -- Reads SandboxVars.EreFBIOpenUpDoor options
     local root = SandboxVars and SandboxVars.EreFBIOpenUpDoor
     return {
         AutoCloseDoor  = (root == nil or root.AutoCloseDoor ~= false),
         WhileRunning   = (root == nil or root.WhileRunning ~= false),
         WhileSprinting = (root == nil or root.WhileSprinting ~= false),
+
+        ShoveNearbyZombies = (root ~= nil and root.ShoveNearbyZombies == true),
+        ShoveRange         = (root ~= nil and root.ShoveRange) or 1.8,
+        ShoveAngle         = (root ~= nil and root.ShoveAngle) or 70.0,
+        KnockdownChance    = (root ~= nil and root.KnockdownChance) or 25,
+
+        EnablePropagation  = (root ~= nil and root.EnablePropagation == true),
+        PropagationDepth   = (root ~= nil and root.PropagationDepth) or 1,
+        PropagationStrength= (root ~= nil and root.PropagationStrength) or 60,
     }
 end
 
--- Checks if object is a player-made door/gate (IsoThumpable)
+-- Safe wrapper for random number generation.
+local function ZombRandSafe(max)
+    if ZombRand then return ZombRand(max) end
+    return math.random(max)
+end
+
+-- =========================================================
+-- Helpers: Geometry & Direction
+-- =========================================================
+-- Convert IsoDirection to a local vector (x, y).
+local function dirToVectorLocal(dir)
+    if dir == IsoDirections.N  then return 0, -1 end
+    if dir == IsoDirections.S  then return 0,  1 end
+    if dir == IsoDirections.E  then return 1,  0 end
+    if dir == IsoDirections.W  then return -1, 0 end
+    if dir == IsoDirections.NE then return 1, -1 end
+    if dir == IsoDirections.NW then return -1,-1 end
+    if dir == IsoDirections.SE then return 1,  1 end
+    if dir == IsoDirections.SW then return -1, 1 end
+    return 0, 0
+end
+
+local function dirToVector(dir)
+    return dirToVectorLocal(dir)
+end
+
+-- Get the player's forward direction as a unit vector.
+local function getForwardUnit(player)
+    local ok, ang = pcall(function()
+        local fd = player:getForwardDirection()
+        return fd and fd:getDirection()
+    end)
+    if ok and ang then
+        return math.cos(ang), math.sin(ang)
+    end
+
+    local dx, dy = dirToVectorLocal(player:getDir())
+    if dx == 0 and dy == 0 then return 0, 0 end
+    if dx ~= 0 and dy ~= 0 then
+        local inv = 1 / math.sqrt(2)
+        dx, dy = dx * inv, dy * inv
+    end
+    return dx, dy
+end
+
+-- Get a simplified step vector (1, 0, -1) based on player facing.
+local function getForwardStep(player)
+    local fx, fy = getForwardUnit(player)
+    local sx, sy = 0, 0
+    if math.abs(fx) > 0.33 then sx = (fx > 0) and 1 or -1 end
+    if math.abs(fy) > 0.33 then sy = (fy > 0) and 1 or -1 end
+    return sx, sy
+end
+
+-- Calculate squared distance from point to the center of a square.
+local function distSqToSquareCenter(px, py, sq)
+    local cx = sq:getX() + 0.5
+    local cy = sq:getY() + 0.5
+    local dx = px - cx
+    local dy = py - cy
+    return dx*dx + dy*dy
+end
+
+-- =========================================================
+-- Helpers: Door Property Checks
+-- =========================================================
+-- Check if object is a thumpable door (player built or specific types).
 local function isThumpDoor(obj)
     return instanceof(obj, "IsoThumpable") and obj:isDoor()
 end
 
--- Checks if object is any kind of door (IsoDoor or IsoThumpable)
+-- Check if object is any valid door type.
 local function isDoor(obj)
     return instanceof(obj, "IsoDoor") or isThumpDoor(obj)
 end
 
--- Safely checks if a door is open using pcall to handle API variations
+-- Check if door is currently open.
 local function doorIsOpen(door)
     local ok, v = pcall(function() return door:IsOpen() end)
     if ok then return v end
@@ -64,17 +135,16 @@ local function doorIsOpen(door)
     return false
 end
 
--- Safely checks if a door is barricaded
+-- Check if door is barricaded.
 local function doorIsBarricaded(door)
     local ok, v = pcall(function() return door:isBarricaded() end)
     if ok then return v end
     return false
 end
 
--- Checks if a door is locked (key or padlock)
+-- Check if door is locked (key or padlock).
 local function doorIsLocked(player, door)
     if instanceof(door, "IsoDoor") then
-        -- Only check locked-by-key for exterior doors
         local okExt, isExt = pcall(function() return door:isExteriorDoor(player) end)
         if okExt and isExt then
             local ok, v = pcall(function() return door:isLockedByKey() end)
@@ -82,7 +152,6 @@ local function doorIsLocked(player, door)
         end
         return false
     end
-    -- Thumpable doors / gates
     local okK, lockedKey = pcall(function() return door:isLockedByKey() end)
     if okK and lockedKey then return true end
     local okP, lockedPad = pcall(function() return door:isLockedByPadlock() end)
@@ -90,9 +159,8 @@ local function doorIsLocked(player, door)
     return false
 end
 
--- Checks for obstructions on multi-tile gates (Thumpables)
+-- Check for obstructions on multi-tile thumpable doors.
 local function getThumpObstructedAcrossSquares(thumpDoor)
-    -- Checks obstructions on gates occupying multiple tiles
     local sq = thumpDoor:getSquare()
     if not sq then return true end
 
@@ -123,18 +191,16 @@ local function getThumpObstructedAcrossSquares(thumpDoor)
 
     local north = thumpDoor:getNorth()
     if north then
-        -- E / W
         if checkSq(sq:getE()) then return true end
         if checkSq(sq:getW()) then return true end
     else
-        -- N / S
         if checkSq(sq:getN()) then return true end
         if checkSq(sq:getS()) then return true end
     end
     return false
 end
 
--- General check for door obstruction
+-- Check if door is obstructed by objects or characters.
 local function doorIsObstructed(door)
     local ok, v = pcall(function() return door:isObstructed() end)
     if ok and v then return true end
@@ -145,7 +211,7 @@ local function doorIsObstructed(door)
     return false
 end
 
--- Validates if the player can interact with the door (not open, not locked, etc.)
+-- Comprehensive check if a player can interact with the door.
 local function canUseDoor(player, door)
     if not door or not isDoor(door) then return false end
     if doorIsOpen(door) then return false end
@@ -155,7 +221,282 @@ local function canUseDoor(player, door)
     return true
 end
 
--- Generates a unique string key for a door based on position and type
+-- =========================================================
+-- Helpers: Multi-tile Gate Scanning
+-- =========================================================
+-- Safely get sprite name.
+local function spriteNameSafe(obj)
+    local ok, sp = pcall(function() return obj:getSprite() end)
+    if ok and sp then
+        local ok2, name = pcall(function() return sp:getName() end)
+        if ok2 then return name end
+    end
+    return nil
+end
+
+-- Safely get object orientation (North/West).
+local function northSafe(obj, fallback)
+    local ok, v = pcall(function() return obj:getNorth() end)
+    if ok then return v end
+    return fallback
+end
+
+-- Find a part of a multi-tile gate on a specific square that matches the base door.
+local function findMatchingGatePartOnSquare(baseDoor, sq)
+    if not sq then return nil end
+    local baseNorth = northSafe(baseDoor, false)
+    local baseSprite = spriteNameSafe(baseDoor)
+
+    local function matches(o)
+        if not o or not isThumpDoor(o) then return false end
+        if northSafe(o, baseNorth) ~= baseNorth then return false end
+
+        local sn = spriteNameSafe(o)
+        if baseSprite and sn and sn ~= baseSprite then return false end
+
+        if doorIsOpen(o) ~= doorIsOpen(baseDoor) then
+        end
+
+        return true
+    end
+
+    local so = sq:getSpecialObjects()
+    if so then
+        for i = 0, so:size() - 1 do
+            local o = so:get(i)
+            if matches(o) then return o end
+        end
+    end
+    local objs = sq:getObjects()
+    if objs then
+        for i = 0, objs:size() - 1 do
+            local o = objs:get(i)
+            if matches(o) then return o end
+        end
+    end
+    return nil
+end
+
+-- Get all squares occupied by a door (handles large gates).
+local function getDoorOriginSquares(door)
+    local out, seen = {}, {}
+    local sq = door and door:getSquare()
+    if not sq then return out end
+
+    local function addSq(s)
+        if not s then return end
+        local key = string.format("%d:%d:%d", s:getX(), s:getY(), s:getZ())
+        if seen[key] then return end
+        seen[key] = true
+        table.insert(out, s)
+    end
+
+    addSq(sq)
+
+    if not isThumpDoor(door) then
+        return out
+    end
+
+    local north = northSafe(door, false)
+
+    local function stepE(s) return s and s:getE() end
+    local function stepW(s) return s and s:getW() end
+    local function stepN(s) return s and s:getN() end
+    local function stepS(s) return s and s:getS() end
+
+    local stepPos, stepNeg
+    if north then
+        stepPos, stepNeg = stepE, stepW
+    else
+        stepPos, stepNeg = stepN, stepS
+    end
+
+    local cur = sq
+    for _ = 1, GATE_SCAN_MAX_TILES do
+        cur = stepPos(cur)
+        if not cur then break end
+        local part = findMatchingGatePartOnSquare(door, cur)
+        if not part then break end
+        addSq(cur)
+    end
+
+    cur = sq
+    for _ = 1, GATE_SCAN_MAX_TILES do
+        cur = stepNeg(cur)
+        if not cur then break end
+        local part = findMatchingGatePartOnSquare(door, cur)
+        if not part then break end
+        addSq(cur)
+    end
+
+    return out
+end
+
+-- =========================================================
+-- Helpers: Zombie Shove & Propagation
+-- =========================================================
+-- Check if zombie is valid for physics effects.
+local function isStaggerableZombie(z)
+    return z
+            and instanceof(z, "IsoZombie")
+            and not z:isDead()
+            and not z:isKnockedDown()
+end
+
+-- Check if a zombie is within a cone behind the door relative to the player.
+local function inOutwardCone(player, doorCx, doorCy, zombie, angleDeg)
+    if angleDeg >= 180 then return true end
+    if angleDeg <= 0 then
+        angleDeg = 0.1
+    end
+    local angleRad = math.rad(angleDeg)
+    local cosThr = math.cos(angleRad)
+
+    local zx, zy = zombie:getX(), zombie:getY()
+    local dx, dy = zx - doorCx, zy - doorCy
+    local dist = math.sqrt(dx*dx + dy*dy)
+    if dist <= 0.001 then return false end
+    dx, dy = dx / dist, dy / dist
+
+    local fx, fy = getForwardUnit(player)
+    if fx == 0 and fy == 0 then return true end
+
+    return (dx*fx + dy*fy) >= cosThr
+end
+
+-- Apply knockdown or stagger to a zombie.
+local function applyEffectToZombie(z, knockChance)
+    if ZombRandSafe(100) < knockChance then
+        z:setKnockedDown(true)
+    else
+        z:setStaggerBack(true)
+    end
+end
+
+-- Recursively propagate the shove effect to zombies behind the initial targets.
+local function propagateForward(fromZombie, depth, propStrength, knockChance, stepX, stepY, processed)
+    if depth <= 0 then return end
+    if stepX == 0 and stepY == 0 then return end
+    if not isStaggerableZombie(fromZombie) then return end
+
+    local sq = fromZombie:getSquare()
+    if not sq then return end
+    local cell = sq:getCell()
+    if not cell then return end
+
+    local nextSq = cell:getGridSquare(sq:getX() + stepX, sq:getY() + stepY, sq:getZ())
+    if not nextSq then return end
+
+    local mobs = nextSq:getMovingObjects()
+    if not mobs then return end
+
+    local nextCarrier = nil
+    for i = 0, mobs:size() - 1 do
+        local other = mobs:get(i)
+        if isStaggerableZombie(other) and not (processed and processed[other]) then
+            if ZombRandSafe(100) < propStrength then
+                applyEffectToZombie(other, knockChance)
+                if processed then processed[other] = true end
+                if not nextCarrier then nextCarrier = other end
+            end
+        end
+    end
+
+    if nextCarrier then
+        propagateForward(nextCarrier, depth - 1, propStrength, knockChance, stepX, stepY, processed)
+    end
+end
+
+-- Main logic to apply shove to zombies near the door.
+local function applyDoorShoveLocal(player, originSquares)
+    local sbox = sv()
+    if not sbox.ShoveNearbyZombies then return end
+    if not player or not originSquares or #originSquares == 0 then return end
+
+    local cell = getCell()
+    if not cell then return end
+
+    local zlist = cell:getZombieList()
+    if not zlist then return end
+
+    local range = tonumber(sbox.ShoveRange) or 1.8
+    if range <= 0 then return end
+    local r2 = range * range
+
+    local angleDeg = tonumber(sbox.ShoveAngle) or 70.0
+    if angleDeg < 0 then angleDeg = 0 elseif angleDeg > 180 then angleDeg = 180 end
+
+    local knockChance = math.floor(tonumber(sbox.KnockdownChance) or 25)
+    if knockChance < 0 then knockChance = 0 elseif knockChance > 100 then knockChance = 100 end
+
+    local doProp = (sbox.EnablePropagation == true)
+    local depth = math.floor(tonumber(sbox.PropagationDepth) or 0)
+    if depth < 0 then depth = 0 end
+
+    local propStrength = math.floor(tonumber(sbox.PropagationStrength) or 0)
+    if propStrength < 0 then propStrength = 0 elseif propStrength > 100 then propStrength = 100 end
+
+    local stepX, stepY = 0, 0
+    if doProp and depth > 0 and propStrength > 0 then
+        stepX, stepY = getForwardStep(player)
+    end
+
+    local processed = {}
+
+    local carriers = {}
+
+    for _, osq in ipairs(originSquares) do
+        if osq then
+            local cx = osq:getX() + 0.5
+            local cy = osq:getY() + 0.5
+            local cz = osq:getZ()
+
+            local carrier = nil
+
+            for i = 0, zlist:size() - 1 do
+                local z = zlist:get(i)
+                if isStaggerableZombie(z) and z:getZ() == cz and not processed[z] then
+                    local dx = z:getX() - cx
+                    local dy = z:getY() - cy
+                    if (dx*dx + dy*dy) <= r2 then
+                        if inOutwardCone(player, cx, cy, z, angleDeg) then
+                            applyEffectToZombie(z, knockChance)
+                            processed[z] = true
+                            if doProp and not carrier then carrier = z end
+                        end
+                    end
+                end
+            end
+
+            if doProp and carrier and depth > 0 and propStrength > 0 then
+                table.insert(carriers, carrier)
+            end
+        end
+    end
+
+    if doProp and depth > 0 and propStrength > 0 and #carriers > 0 then
+        for _, c in ipairs(carriers) do
+            propagateForward(c, depth, propStrength, knockChance, stepX, stepY, processed)
+        end
+    end
+end
+
+-- Entry point for requesting a door shove action.
+local function requestDoorShove(player, door)
+    local sbox = sv()
+    if not sbox.ShoveNearbyZombies then return end
+    if not door then return end
+
+    local originSquares = getDoorOriginSquares(door)
+    if not originSquares or #originSquares == 0 then return end
+
+    applyDoorShoveLocal(player, originSquares)
+end
+
+-- =========================================================
+-- Internal State Management (Cooldowns & Keys)
+-- =========================================================
+-- Generate a unique key for a door based on its properties and location.
 local function doorKeyFrom(door)
     local sq = door:getSquare()
     if not sq then return tostring(door) end
@@ -166,44 +507,58 @@ local function doorKeyFrom(door)
     return string.format("%s:%d:%d:%d:%s", kind, sq:getX(), sq:getY(), sq:getZ(), north and "N" or "W")
 end
 
--- Checks if a specific door key is in cooldown
+-- Check if a door is currently in cooldown.
 local function inCooldown(key)
     local untilMs = MOD._state.cooldownUntil[key]
     return untilMs and nowMs() < untilMs
 end
 
--- Sets a cooldown for a specific door key
+-- Set cooldown for a door.
 local function setCooldown(key, ms)
     MOD._state.cooldownUntil[key] = nowMs() + ms
 end
 
--- Toggles the door state (Open/Close) with compatibility fallback
+-- =========================================================
+-- Core Action Logic
+-- =========================================================
+-- Toggle the door state (Open/Close).
 local function toggleDoor(player, door)
     local ok = pcall(function() door:ToggleDoor(player) end)
     if not ok then
-        -- Compatibility fallback
         pcall(function() door:toggleDoor(player) end)
     end
     pcall(function() door:update() end)
 end
 
--- Calculates squared distance to the center of a square
-local function distSqToSquareCenter(px, py, sq)
-    local cx = sq:getX() + 0.5
-    local cy = sq:getY() + 0.5
-    local dx = px - cx
-    local dy = py - cy
-    return dx*dx + dy*dy
+-- Handle the "Open Up" action: open door, shove zombies, track state.
+local function openDoorByMod(player, door)
+    local key = doorKeyFrom(door)
+    if inCooldown(key) then return end
+    if MOD._state.pendingClose[key] ~= nil then return end
+
+    toggleDoor(player, door)
+
+    requestDoorShove(player, door)
+
+    local sq = door:getSquare()
+    local th = isThumpDoor(door)
+    local north = false
+    local okN, vN = pcall(function() return door:getNorth() end)
+    if okN then north = vN end
+
+    MOD._state.pendingClose[key] = {
+        square = sq,
+        thumpable = th,
+        north = north,
+        openedAt = nowMs(),
+    }
+    setCooldown(key, DOOR_COOLDOWN_MS)
 end
 
 -- =========================================================
--- AutoClose manager (without TimedAction)
+-- AutoClose Management
 -- =========================================================
-local function manhattanDistSq(a, b)
-    return math.abs(a:getX() - b:getX()) + math.abs(a:getY() - b:getY())
-end
-
--- Attempts to re-locate the door object based on stored state (square, direction)
+-- Find the door object again based on stored state (in case object ref changed).
 local function findDoorNearSquare(state)
     local baseSq = state.square
     if not baseSq then return nil end
@@ -215,7 +570,6 @@ local function findDoorNearSquare(state)
         local d2 = sq:getDoor(false)
         if d2 then return d2 end
 
-        -- Thumpable door scan
         local so = sq:getSpecialObjects()
         if so then
             for i = 0, so:size() - 1 do
@@ -241,7 +595,6 @@ local function findDoorNearSquare(state)
 
     local candidates = { baseSq }
     if state.thumpable then
-        -- For large gates, check adjacent tiles based on orientation
         if state.north then
             local s = baseSq
             for _ = 1, 3 do s = s and s:getE(); if s then table.insert(candidates, s) end end
@@ -254,7 +607,6 @@ local function findDoorNearSquare(state)
             for _ = 1, 3 do s = s and s:getS(); if s then table.insert(candidates, s) end end
         end
     else
-        -- For standard doors, check immediate neighbors just in case
         table.insert(candidates, baseSq:getN())
         table.insert(candidates, baseSq:getS())
         table.insert(candidates, baseSq:getE())
@@ -268,7 +620,7 @@ local function findDoorNearSquare(state)
     return nil
 end
 
--- Main loop for auto-closing doors
+-- Update loop for auto-closing doors after the player passes through.
 local function updateAutoClose()
     local sbox = sv()
     if not sbox.AutoCloseDoor then return end
@@ -287,7 +639,6 @@ local function updateAutoClose()
                 local dsq = state.square
                 if dsq and psq:getZ() == dsq:getZ() then
                     local elapsed = t - (state.openedAt or t)
-                    -- Close if MIN time passed and player is no longer adjacent
                     local distSq = distSqToSquareCenter(player:getX(), player:getY(), dsq)
                     local limitSq = AUTO_CLOSE_ADJACENT_DIST * AUTO_CLOSE_ADJACENT_DIST
 
@@ -297,11 +648,9 @@ local function updateAutoClose()
                         setCooldown(key, DOOR_COOLDOWN_MS)
                     end
                 else
-                    -- Player changed Z level or door square invalid, stop tracking
                     pending[key] = nil
                 end
             else
-                -- Door already closed or gone
                 pending[key] = nil
             end
         end
@@ -309,42 +658,15 @@ local function updateAutoClose()
 end
 
 -- =========================================================
--- Open logic (common)
+-- Trigger Handlers: RUNNING & SPRINTING
 -- =========================================================
--- Handles the actual opening of the door and sets up auto-close state
-local function openDoorByMod(player, door)
-    local key = doorKeyFrom(door)
-    if inCooldown(key) then return end
-    if MOD._state.pendingClose[key] ~= nil then return end -- Already waiting for close
-
-    toggleDoor(player, door)
-
-    local sq = door:getSquare()
-    local th = isThumpDoor(door)
-    local north = false
-    local okN, vN = pcall(function() return door:getNorth() end)
-    if okN then north = vN end
-
-    MOD._state.pendingClose[key] = {
-        square = sq,
-        thumpable = th,
-        north = north,
-        openedAt = nowMs(),
-    }
-    setCooldown(key, DOOR_COOLDOWN_MS)
-end
-
--- =========================================================
--- RUNNING: collision handler
--- =========================================================
--- Triggered when player collides with an object (Running only)
+-- Handler for collision events (Running into doors).
 local function onObjectCollide(obj, collided)
     local sbox = sv()
     if not sbox.WhileRunning then return end
     if not obj or not instanceof(obj, "IsoPlayer") then return end
     if _localPlayerObjIndex ~= nil and obj:getObjectIndex() ~= _localPlayerObjIndex then return end
 
-    -- Only RUNNING (not sprinting)
     if not obj:IsRunning() then return end
     if obj:isSprinting() then return end
 
@@ -354,23 +676,7 @@ local function onObjectCollide(obj, collided)
     openDoorByMod(obj, collided)
 end
 
--- =========================================================
--- SPRINT: probe ahead (avoids collision fall)
--- =========================================================
--- Converts IsoDirection to vector
-local function dirToVector(dir)
-    if dir == IsoDirections.N then return 0, -1 end
-    if dir == IsoDirections.S then return 0, 1 end
-    if dir == IsoDirections.E then return 1, 0 end
-    if dir == IsoDirections.W then return -1, 0 end
-    if dir == IsoDirections.NE then return 1, -1 end
-    if dir == IsoDirections.NW then return -1, -1 end
-    if dir == IsoDirections.SE then return 1, 1 end
-    if dir == IsoDirections.SW then return -1, 1 end
-    return 0, 0
-end
-
--- Finds a closed, usable door on a specific square
+-- Find a closed, usable door on a specific square.
 local function findClosedDoorOnSquare(player, sq)
     if not sq then return nil end
     local d = sq:getDoor(true)
@@ -378,7 +684,6 @@ local function findClosedDoorOnSquare(player, sq)
     d = sq:getDoor(false)
     if d and canUseDoor(player, d) then return d end
 
-    -- Thumpable doors
     local so = sq:getSpecialObjects()
     if so then
         for i = 0, so:size() - 1 do
@@ -396,7 +701,7 @@ local function findClosedDoorOnSquare(player, sq)
     return nil
 end
 
--- Probes ahead of the sprinting player to open doors before collision
+-- Raycast probe for sprinting (opens doors slightly before collision).
 local function sprintProbe()
     local sbox = sv()
     if not sbox.WhileSprinting then return end
@@ -409,24 +714,21 @@ local function sprintProbe()
     MOD._state.lastSprintProbeAt = t
 
     local sq = player:getSquare()
-    local x, y, z = sq:getX(), sq:getY(), sq:getZ()
+    local z = sq:getZ()
     local dx, dy = dirToVector(player:getDir())
 
     if dx == 0 and dy == 0 then return end
 
     local cell = getCell()
 
-    -- Player's real position (float)
     local px, py = player:getX(), player:getY()
 
-    -- Normalize diagonals so "0.7" means 0.7 real tiles
     local ndx, ndy = dx, dy
     if dx ~= 0 and dy ~= 0 then
         local inv = 1 / math.sqrt(2)
         ndx, ndy = dx * inv, dy * inv
     end
 
-    -- Optional: checking dist=0 isn't strictly necessary, but kept for safety (doors on same tile)
     for dist = 0, SPRINT_PROBE_MAX_DIST, SPRINT_PROBE_STEP_DIST do
         local tx = math.floor(px + ndx * dist)
         local ty = math.floor(py + ndy * dist)
@@ -443,6 +745,7 @@ end
 -- =========================================================
 -- Events
 -- =========================================================
+-- Initialize local player index.
 local function OnCreatePlayer(playerIndex, player)
     _localPlayerIndex = playerIndex or 0
     if player then
@@ -450,6 +753,7 @@ local function OnCreatePlayer(playerIndex, player)
     end
 end
 
+-- Main tick loop.
 local function OnTick()
     sprintProbe()
     updateAutoClose()

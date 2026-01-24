@@ -6,4 +6,25 @@ Sandbox_FI = {
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Oven automaattinen avaaminen/sulkeminen ajon aikana",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintti",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automaattinen oven avaaminen/sulkeminen sprintin aikana",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Työnnä lähellä olevia zombeja",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Kun modi avaa oven, työntää zombeja oven lähelle (ja saattaa kaataa ne alas).",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Työntöalue",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Säde laatoissa oven ympärillä, johon työntö vaikuttaa.",
+
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Työntökaari (astetta)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Vaikuttaa vain oven edessä oleviin zombeihin, pelaajan suuntaan. Leveämpi kulma = vaikuttaa enemmän kartioon.",
+
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Pudotuksen mahdollisuus (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Mahdollisuus, että zombit kaatuvat alas (muuten ne horjuvat).",
+
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Ota levitys käyttöön",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Jos se on käytössä, shove voi levitä eteenpäin ensimmäisten takana oleville zombeille (kuten shove-aalto).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Levityssyvyys",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Kuinka monta laattaa eteenpäin shove-aalto voi jatkua (0 = ei etenemistä).",
+
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Levitysvoimakkuus (%)",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Mahdollisuus, että shove-aalto vaikuttaa seuraavan laatan zombeihin eteenpäin (korkeampi = leviää enemmän).",
 }
