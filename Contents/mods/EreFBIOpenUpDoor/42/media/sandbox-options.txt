@@ -3,7 +3,7 @@ VERSION = 1,
 option EreFBIOpenUpDoor.AutoCloseDoor
 {
 	type = boolean,
-	default = true,
+	default = false,
 	page = EreFBIOpenUpDoor,
 	translation = EreFBIOpenUpDoor_AutoCloseDoor,
 }

@@ -1,7 +1,7 @@
 Sandbox_NL = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI opent deur",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisch gesloten deur",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activeert de getimede actie om de deur te sluiten",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Indien ingeschakeld, sluiten deuren automatisch nadat de speler er doorheen gaat.\n\nWAARSCHUWING: niet aanbevolen voor multiplayer. Snelle statusveranderingen veroorzaakt door latentie (desynchronisatie) kunnen ervoor zorgen dat deuren onverwacht weer opengaan of vastlopen voor andere spelers.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Rennen",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisch openen/sluiten van de deur tijdens het hardlopen",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinten",

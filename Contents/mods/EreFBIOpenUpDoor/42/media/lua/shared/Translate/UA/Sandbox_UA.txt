@@ -1,7 +1,7 @@
 Sandbox_UA = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Автоматичне закриття дверей",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Активує тимчасову дію для закриття дверей",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Якщо ввімкнено, двері автоматично закриватимуться після того, як гравець пройде крізь них.\n\nУВАГА: не рекомендовано для багатокористувацької гри. Швидкі зміни стану, викликані затримкою (десинхронізація), можуть призвести до того, що двері неочікувано знову відкриються або застрягнуть для інших гравців.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Біг",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Автоматичне відкриття/закриття дверей під час роботи",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Спринт",

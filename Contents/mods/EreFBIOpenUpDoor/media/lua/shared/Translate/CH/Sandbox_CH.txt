@@ -1,7 +1,7 @@
 Sandbox_CH = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "聯邦調查局敞開大門",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "自動關門",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "激活定時動作以關門",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "如果啟用，門將在玩家通過後自動關閉。 \n\n警告：不建議用於多人遊戲。由延遲（不同步）引起的快速狀態變化可能會導致門意外重新打開或被其他玩家卡住。",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "跑步",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "運行時自動開關門",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "短跑",

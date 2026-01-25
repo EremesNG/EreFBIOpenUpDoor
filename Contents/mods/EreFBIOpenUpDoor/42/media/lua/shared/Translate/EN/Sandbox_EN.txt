@@ -1,7 +1,7 @@
 Sandbox_EN = {
 	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Close Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activates the timed action to close the door",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "If enabled, doors will automatically close after the player passes through them.\n\nWARN: Not recommended for Multiplayer. Rapid state changes caused by latency (desync) can cause doors to reopen unexpectedly or get stuck for other players.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Running",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Auto open/close door while running",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",

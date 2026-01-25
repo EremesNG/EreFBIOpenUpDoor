@@ -1,7 +1,7 @@
 Sandbox_DA = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI åbner døren",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatisk lukning af dør",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiverer den tidsindstillede handling for at lukke døren",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Hvis det er aktiveret, lukkes dørene automatisk, efter at spilleren har passeret dem.\n\nADVAR: Anbefales ikke til multiplayer. Hurtige tilstandsændringer forårsaget af latency (desynkronisering) kan få døre til at genåbne uventet eller sætte sig fast for andre spillere.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Løb",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Åbner/lukker døren automatisk under kørsel",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",

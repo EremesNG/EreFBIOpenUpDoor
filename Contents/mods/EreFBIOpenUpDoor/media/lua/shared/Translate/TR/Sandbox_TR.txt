@@ -1,7 +1,7 @@
 Sandbox_TR = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI Kapıyı Açtı",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Otomatik Kapanan Kapı",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Kapıyı kapatmak için zamanlanmış eylemi etkinleştirir",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Etkinleştirilirse, oyuncu kapılardan geçtikten sonra kapılar otomatik olarak kapanacaktır.\n\nUYARI: Çok Oyunculu için önerilmez. Gecikmenin (desenkronizasyon) neden olduğu hızlı durum değişiklikleri, kapıların beklenmedik bir şekilde yeniden açılmasına veya diğer oyuncular için takılıp kalmasına neden olabilir.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Koşma",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Çalışırken kapıyı otomatik aç / kapat",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",

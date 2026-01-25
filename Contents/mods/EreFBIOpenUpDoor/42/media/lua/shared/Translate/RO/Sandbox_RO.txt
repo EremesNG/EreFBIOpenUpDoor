@@ -1,7 +1,7 @@
 Sandbox_RO = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI deschide ușa",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Închidere automată ușă",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activează acțiunea temporizată pentru a închide ușa",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Dacă este activată, ușile se vor închide automat după ce jucătorul trece prin ele.\n\nAVERTISMENT: Nu este recomandat pentru Multiplayer. Schimbările rapide de stare cauzate de latență (desincronizare) pot face ca ușile să se redeschidă în mod neașteptat sau să rămână blocate pentru alți jucători.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Funcţionare",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Deschide/închide automat ușa în timpul rulării",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",

@@ -1,7 +1,7 @@
 Sandbox_FI = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI Avaa Ovi",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Oven automaattinen sulkeminen",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivoi ajastetun toiminnon oven sulkemiseksi",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Jos tämä on käytössä, ovet sulkeutuvat automaattisesti, kun pelaaja kulkee niiden läpi.\n\nVAROITUS: Ei suositella moninpeliin. Latenssin (desync) aiheuttamat nopeat tilanmuutokset voivat aiheuttaa ovien uudelleen avautumisen odottamatta tai juuttua muille pelaajille.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Juoksemassa",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Oven automaattinen avaaminen/sulkeminen ajon aikana",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintti",
