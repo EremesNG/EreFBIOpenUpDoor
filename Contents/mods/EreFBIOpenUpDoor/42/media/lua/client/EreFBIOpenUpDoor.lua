@@ -419,6 +419,9 @@ local function applyDoorShoveLocal(player, originSquares)
     local zlist = cell:getZombieList()
     if not zlist then return end
 
+    -- =========================================================
+    -- 1. Configuración de Variables
+    -- =========================================================
     local range = tonumber(sbox.ShoveRange) or 1.8
     if range <= 0 then return end
     local r2 = range * range
@@ -430,19 +433,99 @@ local function applyDoorShoveLocal(player, originSquares)
     if knockChance < 0 then knockChance = 0 elseif knockChance > 100 then knockChance = 100 end
 
     local doProp = (sbox.EnablePropagation == true)
-    local depth = math.floor(tonumber(sbox.PropagationDepth) or 0)
-    if depth < 0 then depth = 0 end
+    local maxDepth = math.floor(tonumber(sbox.PropagationDepth) or 0)
+    if maxDepth < 0 then maxDepth = 0 end
 
     local propStrength = math.floor(tonumber(sbox.PropagationStrength) or 0)
     if propStrength < 0 then propStrength = 0 elseif propStrength > 100 then propStrength = 100 end
 
     local stepX, stepY = 0, 0
-    if doProp and depth > 0 and propStrength > 0 then
+    if doProp and maxDepth > 0 and propStrength > 0 then
         stepX, stepY = getForwardStep(player)
     end
 
-    local processed = {}
+    -- =========================================================
+    -- 2. Sistema de Sincronización MP y Helpers Internos
+    -- =========================================================
+    local processed = {} -- Evitar golpear al mismo zombie dos veces
+    local syncData = {}  -- Tabla para guardar los datos a enviar al servidor
+    local isMultiplayer = isClient()
 
+    -- Función interna para aplicar efecto y guardar datos
+    local function applyEffectAndRecord(z, forcedAction)
+        if not isStaggerableZombie(z) then return end
+
+        local isKnock = false
+
+        -- Determinamos si es Knock o Stagger
+        if forcedAction == "knock" then
+            isKnock = true
+            z:setKnockedDown(true)
+        elseif forcedAction == "stagger" then
+            isKnock = false
+            z:setStaggerBack(true)
+        else
+            -- Cálculo aleatorio (Autoridad del Cliente)
+            if ZombRandSafe(100) < knockChance then
+                z:setKnockedDown(true)
+                isKnock = true
+            else
+                z:setStaggerBack(true)
+                isKnock = false
+            end
+        end
+
+        processed[z] = true
+
+        -- Si es MP, guardamos el ID y la acción para enviarlo
+        if isMultiplayer then
+            local onlineID = z:getOnlineID()
+            if onlineID and onlineID ~= -1 then
+                table.insert(syncData, {
+                    id = onlineID,
+                    action = isKnock and "knock" or "stagger"
+                })
+            end
+        end
+    end
+
+    -- Función recursiva interna para la propagación
+    local function propagateRecursive(fromZombie, currentDepth)
+        if currentDepth <= 0 then return end
+        if stepX == 0 and stepY == 0 then return end
+
+        local sq = fromZombie:getSquare()
+        if not sq then return end
+        local c = sq:getCell()
+
+        -- Calcular siguiente cuadro basado en la dirección del jugador
+        local nextSq = c:getGridSquare(sq:getX() + stepX, sq:getY() + stepY, sq:getZ())
+        if not nextSq then return end
+
+        local mobs = nextSq:getMovingObjects()
+        if not mobs then return end
+
+        local nextCarrier = nil
+
+        for i = 0, mobs:size() - 1 do
+            local other = mobs:get(i)
+            if isStaggerableZombie(other) and not processed[other] then
+                -- Tiramos dados de propagación
+                if ZombRandSafe(100) < propStrength then
+                    applyEffectAndRecord(other, nil) -- nil para que calcule knockChance normal
+                    if not nextCarrier then nextCarrier = other end
+                end
+            end
+        end
+
+        if nextCarrier then
+            propagateRecursive(nextCarrier, currentDepth - 1)
+        end
+    end
+
+    -- =========================================================
+    -- 3. Ejecución Principal (Zombies en la Puerta)
+    -- =========================================================
     local carriers = {}
 
     for _, osq in ipairs(originSquares) do
@@ -458,26 +541,37 @@ local function applyDoorShoveLocal(player, originSquares)
                 if isStaggerableZombie(z) and z:getZ() == cz and not processed[z] then
                     local dx = z:getX() - cx
                     local dy = z:getY() - cy
+
+                    -- Chequeo de distancia y ángulo
                     if (dx*dx + dy*dy) <= r2 then
                         if inOutwardCone(player, cx, cy, z, angleDeg) then
-                            applyEffectToZombie(z, knockChance)
-                            processed[z] = true
+                            applyEffectAndRecord(z, nil)
                             if doProp and not carrier then carrier = z end
                         end
                     end
                 end
             end
 
-            if doProp and carrier and depth > 0 and propStrength > 0 then
+            if doProp and carrier and maxDepth > 0 and propStrength > 0 then
                 table.insert(carriers, carrier)
             end
         end
     end
 
-    if doProp and depth > 0 and propStrength > 0 and #carriers > 0 then
+    -- =========================================================
+    -- 4. Ejecución de Propagación (Zombies detrás)
+    -- =========================================================
+    if #carriers > 0 then
         for _, c in ipairs(carriers) do
-            propagateForward(c, depth, propStrength, knockChance, stepX, stepY, processed)
+            propagateRecursive(c, maxDepth)
         end
+    end
+
+    -- =========================================================
+    -- 5. Envío de Comando al Servidor
+    -- =========================================================
+    if isMultiplayer and #syncData > 0 then
+        sendClientCommand(player, "EreFBI", "ZombieShoveSync", { zombies = syncData })
     end
 end
 
@@ -540,18 +634,22 @@ local function openDoorByMod(player, door)
 
     requestDoorShove(player, door)
 
-    local sq = door:getSquare()
-    local th = isThumpDoor(door)
-    local north = false
-    local okN, vN = pcall(function() return door:getNorth() end)
-    if okN then north = vN end
+    local sbox = sv()
+    if sbox.AutoCloseDoor then
+        local sq = door:getSquare()
+        local th = isThumpDoor(door)
+        local north = false
+        local okN, vN = pcall(function() return door:getNorth() end)
+        if okN then north = vN end
 
-    MOD._state.pendingClose[key] = {
-        square = sq,
-        thumpable = th,
-        north = north,
-        openedAt = nowMs(),
-    }
+        MOD._state.pendingClose[key] = {
+            square = sq,
+            thumpable = th,
+            north = north,
+            openedAt = nowMs(),
+        }
+    end
+
     setCooldown(key, DOOR_COOLDOWN_MS)
 end
 
@@ -759,6 +857,48 @@ local function OnTick()
     updateAutoClose()
 end
 
+local function OnServerCommand(module, command, args)
+    if module ~= "EreFBI" then return end
+
+    if command == "SyncShove" and args and args.zombies then
+        local zombiesToUpdate = args.zombies
+
+        -- Buscamos los zombies en NUESTRA lista local
+        -- Project Zomboid no tiene una forma super rápida de buscar por ID en Lua
+        -- así que iteramos la lista de zombies cargados.
+        local cell = getCell()
+        if not cell then return end
+        local zlist = cell:getZombieList()
+
+        -- Mapeamos IDs recibidos para acceso rápido
+        local targetZombies = {}
+        for _, data in ipairs(zombiesToUpdate) do
+            targetZombies[data.id] = data.action
+        end
+
+        for i = 0, zlist:size() - 1 do
+            local z = zlist:get(i)
+            local id = z:getOnlineID()
+
+            -- Si este zombie está en la lista que mandó el servidor
+            if id ~= -1 and targetZombies[id] then
+                local action = targetZombies[id]
+
+                -- Aplicamos el efecto sin calcular RNG, usamos el que decidió el Cliente A
+                if action == "knock" then
+                    z:setKnockedDown(true)
+                else
+                    z:setStaggerBack(true)
+                end
+
+                -- Remover de la lista para optimizar (opcional)
+                targetZombies[id] = nil
+            end
+        end
+    end
+end
+
+Events.OnServerCommand.Add(OnServerCommand)
 Events.OnCreatePlayer.Add(OnCreatePlayer)
 Events.OnObjectCollide.Add(onObjectCollide)
 Events.OnTick.Add(OnTick)
