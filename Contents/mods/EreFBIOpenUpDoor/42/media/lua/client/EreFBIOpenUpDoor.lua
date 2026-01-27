@@ -8,10 +8,14 @@ local MOD = EreFBIOpenUpDoor
 local RUN_PROBE_INTERVAL_MS = 60
 local RUN_PROBE_STEP_DIST   = 0.1
 local RUN_PROBE_MAX_DIST    = 0.5
+local MIN_RUN_TIME_MS       = 250
+
 local SPRINT_PROBE_INTERVAL_MS = 60   -- How often to check for doors while sprinting
 local SPRINT_PROBE_STEP_DIST   = 0.1  -- Raycast step distance
 local SPRINT_PROBE_MAX_DIST    = 0.8  -- Max distance to check ahead when sprinting
 local ISO_DIR_COMPENSATION     = 0.6
+local MIN_SPRINT_TIMER         = 7.0
+
 local AUTO_CLOSE_MIN_DELAY_MS  = 300  -- Minimum time before auto-close triggers
 local AUTO_CLOSE_ADJACENT_DIST = 1.1  -- Distance threshold to consider player "past" the door
 local DOOR_COOLDOWN_MS         = 300  -- Cooldown to prevent spamming open/close
@@ -27,7 +31,8 @@ MOD._state = MOD._state or {
     cooldownUntil = {},
     lastSprintProbeAt = 0,
     lastRunProbeAt = 0,
-    dashUntilByPlayer = {}
+    dashUntilByPlayer = {},
+    runningStartedAt = 0,
 }
 
 
@@ -883,6 +888,23 @@ local function findClosedDoorOnSquare(player, sq)
     return nil
 end
 
+-- =========================================================
+-- Movement Timer Logic (NEW)
+-- =========================================================
+local function updateMovementTimers()
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player then return end
+
+    -- Como NO existe getBeenRunningFor(), lo calculamos manualmente:
+    if player:IsRunning() and not player:isSprinting() then
+        if MOD._state.runningStartedAt == 0 then
+            MOD._state.runningStartedAt = nowMs()
+        end
+    else
+        MOD._state.runningStartedAt = 0
+    end
+end
+
 local function runProbe()
     local sbox = sv()
     if not sbox.WhileRunning then return end
@@ -895,6 +917,10 @@ local function runProbe()
 
     if player:isSprinting() then return end
     if not player:IsRunning() then return end
+
+    if MOD._state.runningStartedAt == 0 or (nowMs() - MOD._state.runningStartedAt) < MIN_RUN_TIME_MS then
+        return
+    end
 
     local t = nowMs()
     if (t - (MOD._state.lastRunProbeAt or 0)) < RUN_PROBE_INTERVAL_MS then return end
@@ -954,6 +980,11 @@ local function sprintProbe()
 
     if not player:isSprinting() then return end
 
+    local ok, val = pcall(function() return player:getBeenSprintingFor() end)
+    if ok and val and val < MIN_SPRINT_TIMER then
+        return
+    end
+
     local t = nowMs()
     if (t - (MOD._state.lastSprintProbeAt or 0)) < SPRINT_PROBE_INTERVAL_MS then return end
     MOD._state.lastSprintProbeAt = t
@@ -1007,6 +1038,7 @@ end
 -- Main tick loop.
 local function OnTick()
     updateDoorDashAnim()
+    updateMovementTimers()
     runProbe()
     sprintProbe()
     updateAutoClose()
