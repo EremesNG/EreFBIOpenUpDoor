@@ -115,3 +115,13 @@ option EreFBIOpenUpDoor.FitnessReducesCost
     page = EreFBIOpenUpDoor,
     translation = EreFBIOpenUpDoor_FitnessReducesCost,
 }
+
+option EreFBIOpenUpDoor.FitnessXPGain
+{
+    type = double,
+    default = 2.5,
+    min = 0.0,
+    max = 10.0,
+    page = EreFBIOpenUpDoor,
+    translation = EreFBIOpenUpDoor_FitnessXPGain,
+}

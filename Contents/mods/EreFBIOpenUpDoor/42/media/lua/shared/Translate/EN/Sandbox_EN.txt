@@ -37,4 +37,7 @@ Sandbox_EN = {
 
     Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Fitness Scales Cost",
     Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "If enabled, higher Fitness skill reduces the endurance cost (approx 5% reduction per level).",
+
+    Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Fitness XP Gain",
+    Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Experience points gained in Fitness skill for each door breached (0.0 to disable). For reference: A squat gives ~4 XP.",
 }
