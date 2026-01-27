@@ -69,9 +69,10 @@ local function sv()
 
         EnableAnimation     = (root == nil or root.EnableAnimation ~= true),
 
-        -- New Options
         BreachCost          = (root ~= nil and root.BreachCost) or 0.02,
         FitnessReducesCost  = (root == nil or root.FitnessReducesCost ~= true),
+
+        FitnessXPGain       = (root ~= nil and root.FitnessXPGain) or 2.5,
     }
 end
 
@@ -657,7 +658,7 @@ local function triggerDoorDashAnim(player)
     local k = getDashKey(player)
 
     local untilMs = MOD._state.dashUntilByPlayer[k]
-    if untilMs and t < untilMs then 
+    if untilMs and t < untilMs then
         return -- Already dashing, do not re-trigger
     end
 
@@ -746,6 +747,17 @@ local function openDoorByMod(player, door)
 
             if newEndurance < 0 then newEndurance = 0 end
             stats:setEndurance(newEndurance)
+
+            -- =========================================================
+            -- NEW: GAIN FITNESS XP
+            -- =========================================================
+            if sbox.FitnessXPGain > 0 then
+                local xp = player:getXp()
+                if xp then
+                    -- Add XP to Fitness skill
+                    xp:AddXP(Perks.Fitness, sbox.FitnessXPGain)
+                end
+            end
         end
         -- =========================================================
 
