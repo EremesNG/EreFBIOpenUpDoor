@@ -27,7 +27,7 @@ option EreFBIOpenUpDoor.WhileSprinting
 option EreFBIOpenUpDoor.ShoveNearbyZombies
 {
     type = boolean,
-    default = false,
+    default = true,
     page = EreFBIOpenUpDoor,
     translation = EreFBIOpenUpDoor_ShoveNearbyZombies,
 }
@@ -65,7 +65,7 @@ option EreFBIOpenUpDoor.KnockdownChance
 option EreFBIOpenUpDoor.EnablePropagation
 {
     type = boolean,
-    default = false,
+    default = true,
     page = EreFBIOpenUpDoor,
     translation = EreFBIOpenUpDoor_EnablePropagation,
 }
@@ -101,7 +101,7 @@ option EreFBIOpenUpDoor.EnableAnimation
 option EreFBIOpenUpDoor.BreachCost
 {
     type = double,
-    default = 0.01,
+    default = 0.02,
     min = 0.0,
     max = 1.0,
     page = EreFBIOpenUpDoor,
