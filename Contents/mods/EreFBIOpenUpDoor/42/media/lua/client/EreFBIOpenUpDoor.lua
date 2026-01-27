@@ -8,13 +8,13 @@ local MOD = EreFBIOpenUpDoor
 local RUN_PROBE_INTERVAL_MS = 60
 local RUN_PROBE_STEP_DIST   = 0.1
 local RUN_PROBE_MAX_DIST    = 0.5
-local MIN_RUN_TIME_MS       = 250     -- Tiempo mínimo corriendo (ms) para activar
+local MIN_RUN_TIME_MS       = 250     -- Minimum running time (ms) to activate logic
 
 local SPRINT_PROBE_INTERVAL_MS = 60
 local SPRINT_PROBE_STEP_DIST   = 0.1
 local SPRINT_PROBE_MAX_DIST    = 0.8
 local ISO_DIR_COMPENSATION     = 0.6
-local MIN_SPRINT_TIMER         = 10.0 -- ~70.0 es aprox 1 seg.
+local MIN_SPRINT_TIMER         = 10.0 -- ~70.0 is approx 1 sec.
 
 local AUTO_CLOSE_MIN_DELAY_MS  = 300
 local AUTO_CLOSE_ADJACENT_DIST = 1.1
@@ -26,8 +26,8 @@ local DASH_DURATION_MS = 1150
 local DASH_RUN_DURATION_MULTI = 1.1
 local DASH_SPRINT_DURATION_MULTI = 1.5
 
--- Constantes internas de balance
-local FITNESS_REDUCTION_PER_LEVEL = 0.05 -- 5% de reducción de costo por nivel de Fitness
+-- Internal balance constants
+local FITNESS_REDUCTION_PER_LEVEL = 0.05 -- 5% cost reduction per Fitness level
 
 MOD._state = MOD._state or {
     pendingClose = {},
@@ -50,7 +50,7 @@ local function nowMs()
     return os.time() * 1000
 end
 
--- Fetch Sandbox Variables with fallback defaults matching your settings.
+-- Fetch Sandbox Variables with fallback defaults matching configuration settings.
 local function sv()
     local root = SandboxVars and SandboxVars.EreFBIOpenUpDoor
     return {
@@ -99,6 +99,7 @@ local function dirToVector(dir)
     return dirToVectorLocal(dir)
 end
 
+-- Calculates the forward unit vector based on player's facing direction or angle.
 local function getForwardUnit(player)
     local ok, ang = pcall(function()
         local fd = player:getForwardDirection()
@@ -117,6 +118,7 @@ local function getForwardUnit(player)
     return dx, dy
 end
 
+-- Returns a simplified step direction (1, 0, -1) for grid propagation.
 local function getForwardStep(player)
     local fx, fy = getForwardUnit(player)
     local sx, sy = 0, 0
@@ -136,6 +138,7 @@ end
 -- =========================================================
 -- Helpers: Door Property Checks
 -- =========================================================
+-- Checks if object is a thumpable door (player built or specific map objects).
 local function isThumpDoor(obj)
     return instanceof(obj, "IsoThumpable") and obj:isDoor()
 end
@@ -158,6 +161,7 @@ local function doorIsBarricaded(door)
     return false
 end
 
+-- Checks if a door is locked (key or padlock).
 local function doorIsLocked(player, door)
     if instanceof(door, "IsoDoor") then
         local okExt, isExt = pcall(function() return door:isExteriorDoor(player) end)
@@ -174,6 +178,7 @@ local function doorIsLocked(player, door)
     return false
 end
 
+-- Checks obstruction for large gates/double doors across multiple squares.
 local function getThumpObstructedAcrossSquares(thumpDoor)
     local sq = thumpDoor:getSquare()
     if not sq then return true end
@@ -214,6 +219,7 @@ local function getThumpObstructedAcrossSquares(thumpDoor)
     return false
 end
 
+-- General check if a door is obstructed by objects or zombies.
 local function doorIsObstructed(door)
     local ok, v = pcall(function() return door:isObstructed() end)
     if ok and v then return true end
@@ -224,6 +230,7 @@ local function doorIsObstructed(door)
     return false
 end
 
+-- Validates if the player can interact with the door (not open, not barricaded, etc.).
 local function canUseDoor(player, door)
     if not door or not isDoor(door) then return false end
     if doorIsOpen(door) then return false end
@@ -251,6 +258,7 @@ local function northSafe(obj, fallback)
     return fallback
 end
 
+-- Finds a gate part on a specific square that matches the base door's properties.
 local function findMatchingGatePartOnSquare(baseDoor, sq)
     if not sq then return nil end
     local baseNorth = northSafe(baseDoor, false)
@@ -286,6 +294,7 @@ local function findMatchingGatePartOnSquare(baseDoor, sq)
     return nil
 end
 
+-- Returns all squares occupied by a door (handles multi-tile gates).
 local function getDoorOriginSquares(door)
     local out, seen = {}, {}
     local sq = door and door:getSquare()
@@ -343,6 +352,7 @@ end
 -- =========================================================
 -- Helpers: Zombie Shove & Propagation
 -- =========================================================
+-- Checks if a zombie is valid for shoving/staggering.
 local function isStaggerableZombie(z)
     return z
             and instanceof(z, "IsoZombie")
@@ -350,6 +360,7 @@ local function isStaggerableZombie(z)
             and not z:isKnockedDown()
 end
 
+-- Determines if a zombie is within a cone in front of the door/player.
 local function inOutwardCone(player, doorCx, doorCy, zombie, angleDeg)
     if angleDeg >= 180 then return true end
     if angleDeg <= 0 then
@@ -378,6 +389,7 @@ local function applyEffectToZombie(z, knockChance)
     end
 end
 
+-- Propagates the shove effect to zombies behind the initial target.
 local function propagateForward(fromZombie, depth, propStrength, knockChance, stepX, stepY, processed)
     if depth <= 0 then return end
     if stepX == 0 and stepY == 0 then return end
@@ -411,6 +423,7 @@ local function propagateForward(fromZombie, depth, propStrength, knockChance, st
     end
 end
 
+-- Applies the shove effect to zombies near the door, handling multiplayer sync.
 local function applyDoorShoveLocal(player, originSquares)
     local sbox = sv()
     if not sbox.ShoveNearbyZombies then return end
@@ -555,6 +568,7 @@ local function applyDoorShoveLocal(player, originSquares)
     end
 end
 
+-- Entry point to request a door shove action.
 local function requestDoorShove(player, door)
     local sbox = sv()
     if not sbox.ShoveNearbyZombies then return end
@@ -569,6 +583,7 @@ end
 -- =========================================================
 -- Internal State Management (Cooldowns & Keys)
 -- =========================================================
+-- Generates a unique key for a door based on position and type.
 local function doorKeyFrom(door)
     local sq = door:getSquare()
     if not sq then return tostring(door) end
@@ -591,6 +606,7 @@ end
 -- =========================================================
 -- Door dash (animset selector) - run/sprint
 -- =========================================================
+-- Helper to delay execution by a number of ticks.
 MOD._state.dashCancelByPlayer = MOD._state.dashCancelByPlayer or {}
 
 local function delayTicks(ticks, fn)
@@ -631,11 +647,12 @@ local function triggerDoorDashAnim(player)
     local k = getDashKey(player)
 
     local untilMs = MOD._state.dashUntilByPlayer[k]
-    if untilMs and t < untilMs then
-        return -- ya está en dash, no re-dispares
+    if untilMs and t < untilMs then 
+        return -- Already dashing, do not re-trigger
     end
 
     local durationMs = DASH_DURATION_MS
+    -- Adjust duration based on movement speed
     if player:IsRunning() then
         durationMs = durationMs / DASH_RUN_DURATION_MULTI
     elseif player:isSprinting() then
@@ -670,7 +687,7 @@ local function toggleDoor(player, door)
     pcall(function() door:update() end)
 end
 
--- Handle the "Open Up" action: open door, shove zombies, track state.
+-- Handle the "Open Up" action: open door, shove zombies, track state, apply endurance cost.
 local function openDoorByMod(player, door)
     local key = doorKeyFrom(door)
     if inCooldown(key) then return end
@@ -689,29 +706,29 @@ local function openDoorByMod(player, door)
         local sbox = sv()
 
         -- =========================================================
-        -- CALCULO DE ENDURANCE BASADO EN FITNESS
+        -- ENDURANCE CALCULATION BASED ON FITNESS
         -- =========================================================
         local stats = player:getStats()
         if stats then
             local cost = sbox.BreachCost -- Base
 
-            -- Si la opción de Fitness está activada, aplicamos descuento
+            -- If Fitness option is enabled, apply discount
             if sbox.FitnessReducesCost then
-                -- Obtenemos nivel de Fitness (0-10)
+                -- Get Fitness level (0-10)
                 local fitnessLevel = player:getPerkLevel(Perks.Fitness)
 
-                -- Calculamos reducción: Nivel * 0.05
-                -- Ej: Nivel 5 * 0.05 = 0.25 (25% menos costo)
-                -- Ej: Nivel 10 * 0.05 = 0.50 (50% menos costo)
+                -- Calculate reduction: Level * 0.05
+                -- Ex: Level 5 * 0.05 = 0.25 (25% less cost)
+                -- Ex: Level 10 * 0.05 = 0.50 (50% less cost)
                 local reductionFactor = fitnessLevel * FITNESS_REDUCTION_PER_LEVEL
 
-                -- Clampeamos por seguridad (max 90% reducción, aunque con nivel 10 es 50%)
+                -- Clamp for safety (max 90% reduction, though level 10 is 50%)
                 if reductionFactor > 0.9 then reductionFactor = 0.9 end
 
                 cost = cost * (1.0 - reductionFactor)
             end
 
-            -- Aplicamos el costo
+            -- Apply the cost
             local currentEndurance = stats:getEndurance()
             local newEndurance = currentEndurance - cost
 
@@ -742,6 +759,7 @@ end
 -- =========================================================
 -- AutoClose Management
 -- =========================================================
+-- Attempts to find the door object again (it might have changed reference or state).
 local function findDoorNearSquare(state)
     local baseSq = state.square
     if not baseSq then return nil end
@@ -803,6 +821,7 @@ local function findDoorNearSquare(state)
     return nil
 end
 
+-- Checks pending auto-close actions and executes them if conditions are met.
 local function updateAutoClose()
     local sbox = sv()
     if not sbox.AutoCloseDoor then return end
@@ -846,6 +865,7 @@ local function onObjectCollide(obj, collided)
     return
 end
 
+-- Scans a square for a closed door that the player can interact with.
 local function findClosedDoorOnSquare(player, sq)
     if not sq then return nil end
     local d = sq:getDoor(true)
@@ -873,6 +893,7 @@ end
 -- =========================================================
 -- Movement Timer Logic (NEW)
 -- =========================================================
+-- Tracks how long the player has been running to prevent instant triggers.
 local function updateMovementTimers()
     local player = getSpecificPlayer(_localPlayerIndex or 0)
     if not player then return end
@@ -886,6 +907,7 @@ local function updateMovementTimers()
     end
 end
 
+-- Probes ahead of the player while running to detect doors.
 local function runProbe()
     local sbox = sv()
     if not sbox.WhileRunning then return end
@@ -942,6 +964,7 @@ local function runProbe()
     end
 end
 
+-- Probes ahead of the player while sprinting to detect doors.
 local function sprintProbe()
     local sbox = sv()
     if not sbox.WhileSprinting then return end
