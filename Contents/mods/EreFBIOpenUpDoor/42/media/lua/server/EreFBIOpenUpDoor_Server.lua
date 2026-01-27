@@ -4,12 +4,12 @@ if not isServer() then return end
 
 local Commands = {}
 
--- Función que recibe la orden del Cliente A
+-- Function that receives the command from the source Client.
 Commands.ZombieShoveSync = function(player, args)
-    -- args contiene: { zombies = { {id=123, type="knock"}, {id=456, type="stagger"} } }
+    -- args contains: { zombies = { {id=123, type="knock"}, {id=456, type="stagger"} } }
 
-    -- Retransmitimos este comando a TODOS los clientes conectados.
-    -- El módulo se llama "EreFBI" y el comando "SyncShove".
+    -- Retransmit this command to ALL connected clients.
+    -- The module is named "EreFBI" and the command "SyncShove".
     sendServerCommand("EreFBI", "SyncShove", args)
 end
 

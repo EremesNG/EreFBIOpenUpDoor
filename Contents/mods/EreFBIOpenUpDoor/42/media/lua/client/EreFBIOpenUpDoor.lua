@@ -83,6 +83,7 @@ end
 -- =========================================================
 -- Helpers: Geometry & Direction
 -- =========================================================
+-- Converts an IsoDirection to a local vector (dx, dy).
 local function dirToVectorLocal(dir)
     if dir == IsoDirections.N  then return 0, -1 end
     if dir == IsoDirections.S  then return 0,  1 end
@@ -127,6 +128,7 @@ local function getForwardStep(player)
     return sx, sy
 end
 
+-- Calculates squared distance from a point (px, py) to the center of a target square.
 local function distSqToSquareCenter(px, py, sq)
     local cx = sq:getX() + 0.5
     local cy = sq:getY() + 0.5
@@ -147,6 +149,7 @@ local function isDoor(obj)
     return instanceof(obj, "IsoDoor") or isThumpDoor(obj)
 end
 
+-- Safely checks if a door is open (handles both IsoDoor and IsoThumpable).
 local function doorIsOpen(door)
     local ok, v = pcall(function() return door:IsOpen() end)
     if ok then return v end
@@ -155,6 +158,7 @@ local function doorIsOpen(door)
     return false
 end
 
+-- Safely checks if a door is barricaded.
 local function doorIsBarricaded(door)
     local ok, v = pcall(function() return door:isBarricaded() end)
     if ok then return v end
@@ -381,6 +385,7 @@ local function inOutwardCone(player, doorCx, doorCy, zombie, angleDeg)
     return (dx*fx + dy*fy) >= cosThr
 end
 
+-- Applies knockdown or stagger to a zombie based on chance.
 local function applyEffectToZombie(z, knockChance)
     if ZombRandSafe(100) < knockChance then
         z:setKnockedDown(true)
@@ -594,11 +599,13 @@ local function doorKeyFrom(door)
     return string.format("%s:%d:%d:%d:%s", kind, sq:getX(), sq:getY(), sq:getZ(), north and "N" or "W")
 end
 
+-- Checks if a specific door key is currently in cooldown.
 local function inCooldown(key)
     local untilMs = MOD._state.cooldownUntil[key]
     return untilMs and nowMs() < untilMs
 end
 
+-- Sets a cooldown for a specific door key.
 local function setCooldown(key, ms)
     MOD._state.cooldownUntil[key] = nowMs() + ms
 end
@@ -633,14 +640,17 @@ local function delayTicks(ticks, fn)
     end
 end
 
+-- Sets the dash animation variable on the player.
 local function setDashVar(player, value)
     pcall(function() player:setVariable(DASH_VAR, value) end)
 end
 
+-- Gets a unique key for the player for dash tracking.
 local function getDashKey(player)
     return tostring(player:getObjectIndex() or player)
 end
 
+-- Triggers the door dash animation variable on the player.
 local function triggerDoorDashAnim(player)
     if not player then return end
     local t = nowMs()
@@ -663,6 +673,7 @@ local function triggerDoorDashAnim(player)
     MOD._state.dashUntilByPlayer[k] = t + durationMs
 end
 
+-- Updates the door dash animation state, resetting it after duration.
 local function updateDoorDashAnim()
     local player = getSpecificPlayer(_localPlayerIndex or 0)
     if not player then return end
@@ -679,6 +690,7 @@ end
 -- =========================================================
 -- Core Action Logic
 -- =========================================================
+-- Toggles the door state (Open/Close) safely.
 local function toggleDoor(player, door)
     local ok = pcall(function() door:ToggleDoor(player) end)
     if not ok then
@@ -1023,6 +1035,7 @@ end
 -- =========================================================
 -- Events
 -- =========================================================
+-- Handles player creation to store local player index.
 local function OnCreatePlayer(playerIndex, player)
     _localPlayerIndex = playerIndex or 0
     if player then
@@ -1030,6 +1043,7 @@ local function OnCreatePlayer(playerIndex, player)
     end
 end
 
+-- Main tick loop for updating timers, probes, and auto-close logic.
 local function OnTick()
     updateDoorDashAnim()
     updateMovementTimers()
@@ -1038,6 +1052,7 @@ local function OnTick()
     updateAutoClose()
 end
 
+-- Handles commands received from the server (e.g., syncing shoves).
 local function OnServerCommand(module, command, args)
     if module ~= "EreFBI" then return end
 
