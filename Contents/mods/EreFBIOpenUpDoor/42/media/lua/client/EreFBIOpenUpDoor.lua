@@ -5,19 +5,31 @@ local MOD = EreFBIOpenUpDoor
 -- =========================================================
 -- Tunables (Safe default configuration)
 -- =========================================================
+local RUN_PROBE_INTERVAL_MS = 60
+local RUN_PROBE_STEP_DIST   = 0.1
+local RUN_PROBE_MAX_DIST    = 0.5
 local SPRINT_PROBE_INTERVAL_MS = 60   -- How often to check for doors while sprinting
-local SPRINT_PROBE_STEP_DIST   = 0.5  -- Raycast step distance
-local SPRINT_PROBE_MAX_DIST    = 0.5  -- Max distance to check ahead when sprinting
-local AUTO_CLOSE_MIN_DELAY_MS  = 100  -- Minimum time before auto-close triggers
-local AUTO_CLOSE_ADJACENT_DIST = 0.7  -- Distance threshold to consider player "past" the door
+local SPRINT_PROBE_STEP_DIST   = 0.1  -- Raycast step distance
+local SPRINT_PROBE_MAX_DIST    = 0.8  -- Max distance to check ahead when sprinting
+local ISO_DIR_COMPENSATION     = 0.6
+local AUTO_CLOSE_MIN_DELAY_MS  = 300  -- Minimum time before auto-close triggers
+local AUTO_CLOSE_ADJACENT_DIST = 1.1  -- Distance threshold to consider player "past" the door
 local DOOR_COOLDOWN_MS         = 300  -- Cooldown to prevent spamming open/close
-local GATE_SCAN_MAX_TILES      = 3    -- Max tiles to scan for multi-tile gates
+local GATE_SCAN_MAX_TILES      = 3.0    -- Max tiles to scan for multi-tile gates
+
+local DASH_VAR         = "EreFBI_DoorDash"
+local DASH_DURATION_MS = 1150
+local DASH_RUN_DURATION_MULTI = 1.1
+local DASH_SPRINT_DURATION_MULTI = 1.5
 
 MOD._state = MOD._state or {
     pendingClose = {},
     cooldownUntil = {},
-    lastSprintProbeAt = 0
+    lastSprintProbeAt = 0,
+    lastRunProbeAt = 0,
+    dashUntilByPlayer = {}
 }
+
 
 local _localPlayerIndex = 0
 local _localPlayerObjIndex = nil
@@ -36,6 +48,7 @@ local function sv()
     local root = SandboxVars and SandboxVars.EreFBIOpenUpDoor
     return {
         AutoCloseDoor  = (root == nil or root.AutoCloseDoor ~= false),
+        EnableAnimation = (root == nil or root.EnableAnimation ~= false),
         WhileRunning   = (root == nil or root.WhileRunning ~= false),
         WhileSprinting = (root == nil or root.WhileSprinting ~= false),
 
@@ -613,6 +626,79 @@ local function setCooldown(key, ms)
 end
 
 -- =========================================================
+-- Door dash (animset selector) - run/sprint
+-- =========================================================
+MOD._state.dashCancelByPlayer = MOD._state.dashCancelByPlayer or {}
+
+local function delayTicks(ticks, fn)
+    ticks = ticks or 1
+    local t = 0
+    local canceled = false
+
+    local function onTick()
+        if canceled then
+            Events.OnTick.Remove(onTick)
+            return
+        end
+        t = t + 1
+        if t >= ticks then
+            Events.OnTick.Remove(onTick)
+            fn()
+        end
+    end
+
+    Events.OnTick.Add(onTick)
+    return function()
+        canceled = true
+        Events.OnTick.Remove(onTick)
+    end
+end
+
+local function setDashVar(player, value)
+    pcall(function() player:setVariable(DASH_VAR, value) end)
+end
+
+local function getDashKey(player)
+    return tostring(player:getObjectIndex() or player)
+end
+
+local function triggerDoorDashAnim(player)
+    if not player then return end
+    local t = nowMs()
+    local k = getDashKey(player)
+
+    local untilMs = MOD._state.dashUntilByPlayer[k]
+    if untilMs and t < untilMs then
+        return -- ya está en dash, no re-dispares
+    end
+
+    -- Si jugador sprint utilizar DASH_DURATION_MS / DASH_SPRINT_DURATION_MULTI si es running / DASH_RUN_DURATION_MULTI
+    local durationMs = DASH_DURATION_MS
+    if player:IsRunning() then
+        durationMs = durationMs / DASH_RUN_DURATION_MULTI
+    elseif player:isSprinting() then
+        durationMs = durationMs / DASH_SPRINT_DURATION_MULTI
+    end
+
+    -- asegúrate que entra limpio
+    setDashVar(player, true)
+    MOD._state.dashUntilByPlayer[k] = t + durationMs
+end
+
+local function updateDoorDashAnim()
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player then return end
+
+    local k = getDashKey(player)
+    local untilMs = MOD._state.dashUntilByPlayer[k]
+    if untilMs and nowMs() >= untilMs then
+        setDashVar(player, false)
+        MOD._state.dashUntilByPlayer[k] = nil
+    end
+end
+
+
+-- =========================================================
 -- Core Action Logic
 -- =========================================================
 -- Toggle the door state (Open/Close).
@@ -630,27 +716,36 @@ local function openDoorByMod(player, door)
     if inCooldown(key) then return end
     if MOD._state.pendingClose[key] ~= nil then return end
 
-    toggleDoor(player, door)
-
-    requestDoorShove(player, door)
-
+    -- LEEMOS LAS OPCIONES AQUÍ
     local sbox = sv()
-    if sbox.AutoCloseDoor then
-        local sq = door:getSquare()
-        local th = isThumpDoor(door)
-        local north = false
-        local okN, vN = pcall(function() return door:getNorth() end)
-        if okN then north = vN end
 
-        MOD._state.pendingClose[key] = {
-            square = sq,
-            thumpable = th,
-            north = north,
-            openedAt = nowMs(),
-        }
+    -- SOLO DISPARAMOS LA ANIMACIÓN SI ESTÁ ACTIVADA
+    if sbox.EnableAnimation then
+        triggerDoorDashAnim(player)
     end
 
-    setCooldown(key, DOOR_COOLDOWN_MS)
+    delayTicks(1, function()
+        toggleDoor(player, door)
+        requestDoorShove(player, door)
+
+        local sbox = sv()
+        if sbox.AutoCloseDoor then
+            local sq = door:getSquare()
+            local th = isThumpDoor(door)
+            local north = false
+            local okN, vN = pcall(function() return door:getNorth() end)
+            if okN then north = vN end
+
+            MOD._state.pendingClose[key] = {
+                square = sq,
+                thumpable = th,
+                north = north,
+                openedAt = nowMs(),
+            }
+        end
+
+        setCooldown(key, DOOR_COOLDOWN_MS)
+    end)
 end
 
 -- =========================================================
@@ -760,18 +855,7 @@ end
 -- =========================================================
 -- Handler for collision events (Running into doors).
 local function onObjectCollide(obj, collided)
-    local sbox = sv()
-    if not sbox.WhileRunning then return end
-    if not obj or not instanceof(obj, "IsoPlayer") then return end
-    if _localPlayerObjIndex ~= nil and obj:getObjectIndex() ~= _localPlayerObjIndex then return end
-
-    if not obj:IsRunning() then return end
-    if obj:isSprinting() then return end
-
-    if not collided or not isDoor(collided) then return end
-    if not canUseDoor(obj, collided) then return end
-
-    openDoorByMod(obj, collided)
+    return
 end
 
 -- Find a closed, usable door on a specific square.
@@ -799,12 +883,75 @@ local function findClosedDoorOnSquare(player, sq)
     return nil
 end
 
+local function runProbe()
+    local sbox = sv()
+    if not sbox.WhileRunning then return end
+
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player or not player:getSquare() then return end
+
+    -- Si ya estamos en dash, evitamos solapar acciones
+    if player and player:getVariableBoolean("EreFBI_DoorDash") then return end
+
+    if player:isSprinting() then return end
+    if not player:IsRunning() then return end
+
+    local t = nowMs()
+    if (t - (MOD._state.lastRunProbeAt or 0)) < RUN_PROBE_INTERVAL_MS then return end
+    MOD._state.lastRunProbeAt = t
+
+    local sq = player:getSquare()
+    local z = sq:getZ()
+    local dx, dy = dirToVector(player:getDir())
+    if dx == 0 and dy == 0 then return end
+
+    local px, py = player:getX(), player:getY()
+
+    local ndx, ndy = dx, dy
+    if dx ~= 0 and dy ~= 0 then
+        local inv = 1 / math.sqrt(2)
+        ndx, ndy = dx * inv, dy * inv
+    end
+
+    local cell = getCell()
+
+    -- =========================================================
+    -- LÓGICA DE COMPENSACIÓN ISOMÉTRICA (Aplicada a Run)
+    -- =========================================================
+    local currentMaxDist = RUN_PROBE_MAX_DIST
+
+    -- Si vamos hacia direcciones positivas (Sur/Este), extendemos el alcance
+    -- para detectar la puerta que técnicamente reside en la siguiente casilla.
+    if ndx > 0 or ndy > 0 then
+        currentMaxDist = currentMaxDist + (ISO_DIR_COMPENSATION or 0.6)
+    end
+
+    for dist = 0, currentMaxDist, RUN_PROBE_STEP_DIST do
+        local tx = math.floor(px + ndx * dist)
+        local ty = math.floor(py + ndy * dist)
+
+        if cell then
+            local testSq = cell:getGridSquare(tx, ty, z)
+            local door = findClosedDoorOnSquare(player, testSq)
+            if door then
+                openDoorByMod(player, door)
+                return
+            end
+        end
+    end
+end
+
 -- Raycast probe for sprinting (opens doors slightly before collision).
 local function sprintProbe()
     local sbox = sv()
     if not sbox.WhileSprinting then return end
+
     local player = getSpecificPlayer(_localPlayerIndex or 0)
     if not player or not player:getSquare() then return end
+
+    -- Si ya estamos en dash, no hacemos nada
+    if player:getVariableBoolean("EreFBI_DoorDash") then return end
+
     if not player:isSprinting() then return end
 
     local t = nowMs()
@@ -818,7 +965,6 @@ local function sprintProbe()
     if dx == 0 and dy == 0 then return end
 
     local cell = getCell()
-
     local px, py = player:getX(), player:getY()
 
     local ndx, ndy = dx, dy
@@ -827,15 +973,22 @@ local function sprintProbe()
         ndx, ndy = dx * inv, dy * inv
     end
 
-    for dist = 0, SPRINT_PROBE_MAX_DIST, SPRINT_PROBE_STEP_DIST do
+    local currentMaxDist = SPRINT_PROBE_MAX_DIST
+    if ndx > 0 or ndy > 0 then
+        currentMaxDist = currentMaxDist + ISO_DIR_COMPENSATION
+    end
+
+    for dist = 0, currentMaxDist, SPRINT_PROBE_STEP_DIST do
         local tx = math.floor(px + ndx * dist)
         local ty = math.floor(py + ndy * dist)
-        local testSq = cell:getGridSquare(tx, ty, z)
 
-        local door = findClosedDoorOnSquare(player, testSq)
-        if door then
-            openDoorByMod(player, door)
-            return
+        if cell then
+            local testSq = cell:getGridSquare(tx, ty, z)
+            local door = findClosedDoorOnSquare(player, testSq)
+            if door then
+                openDoorByMod(player, door)
+                return
+            end
         end
     end
 end
@@ -853,6 +1006,8 @@ end
 
 -- Main tick loop.
 local function OnTick()
+    updateDoorDashAnim()
+    runProbe()
     sprintProbe()
     updateAutoClose()
 end

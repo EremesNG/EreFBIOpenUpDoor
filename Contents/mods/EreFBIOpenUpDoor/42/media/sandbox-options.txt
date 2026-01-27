@@ -89,3 +89,11 @@ option EreFBIOpenUpDoor.PropagationStrength
 	page = EreFBIOpenUpDoor,
 	translation = EreFBIOpenUpDoor_PropagationStrength,
 }
+
+option EreFBIOpenUpDoor.EnableAnimation
+{
+    type = boolean,
+    default = true,
+    page = EreFBIOpenUpDoor,
+    translation = EreFBIOpenUpDoor_EnableAnimation,
+}

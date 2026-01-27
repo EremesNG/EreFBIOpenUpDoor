@@ -27,4 +27,7 @@ Sandbox_EN = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Propagation strength (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance for the shove wave to affect zombies on the next tile forward (higher = spreads more).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Enable animation",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "If enabled, will play an animation when opening a door."
 }
