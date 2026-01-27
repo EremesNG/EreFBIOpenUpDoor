@@ -1,33 +1,40 @@
 Sandbox_EN = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Close Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "If enabled, doors will automatically close after the player passes through them.\n\nWARN: Not recommended for Multiplayer. Rapid state changes caused by latency (desync) can cause doors to reopen unexpectedly or get stuck for other players.",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Running",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Auto open/close door while running",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Auto open/close door while sprinting",
+    Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto-Close Doors",
+    Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "If enabled, doors opened by the mod will automatically close after the player passes through them.",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Shove nearby zombies",
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "When the door is opened by the mod, pushes zombies near the door (and may knock them down).",
+    Sandbox_EreFBIOpenUpDoor_WhileRunning = "Enable while Running",
+    Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Allow breaching doors while in standard running mode.",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove range",
-	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radius in tiles around the door affected by the shove.",
+    Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Enable while Sprinting",
+    Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Allow breaching doors while in full sprint (Alt key).",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove arc (degrees)",
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Only affects zombies in front of the door, in the player's facing direction. Wider angle = affects more in a cone.",
+    Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Shove Zombies Behind Door",
+    Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "When bursting through a door, zombies on the other side will be shoved or knocked down.",
 
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Knockdown chance (%)",
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance for affected zombies to be knocked down (otherwise they stagger).",
+    Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove Range (Tiles)",
+    Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Distance behind the door to check for zombies to shove.",
 
-	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Enable propagation",
-	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "If enabled, the shove can propagate forward to zombies behind the first ones (like a shove wave).",
+    Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove Angle (Degrees)",
+    Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "The cone angle for detecting zombies.",
 
-	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Propagation depth",
-	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "How many tiles forward the shove wave can continue (0 = no propagation).",
+    Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Knockdown Chance (%)",
+    Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Chance (0-100) that a shoved zombie will fall to the ground.",
 
-	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Propagation strength (%)",
-	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance for the shove wave to affect zombies on the next tile forward (higher = spreads more).",
+    Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Enable Domino Effect",
+    Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "If enabled, the force propagates to zombies standing behind the first line of targets.",
 
-	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Enable animation",
-	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "If enabled, will play an animation when opening a door."
+    Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Domino Depth",
+    Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "How many rows of zombies deep the force can travel.",
+
+    Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Domino Strength (%)",
+    Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance for the force to transfer to the next zombie in the chain.",
+
+    Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Enable Breach Animation",
+    Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "If enabled, plays a shoulder-bash animation when breaching doors.",
+
+    Sandbox_EreFBIOpenUpDoor_BreachCost = "Endurance Cost",
+    Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Base endurance lost per door breach (0.0 - 1.0). Example: 0.01 is similar to an axe swing.",
+
+    Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Fitness Scales Cost",
+    Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "If enabled, higher Fitness skill reduces the endurance cost (approx 5% reduction per level).",
 }
