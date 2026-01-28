@@ -36,11 +36,14 @@ MOD._state = MOD._state or {
     lastRunProbeAt = 0,
     dashUntilByPlayer = {},
     runningStartedAt = 0,
+    dashUntilByOnlineID = {},
+    dashCancelByPlayer = {},
 }
 
 
 local _localPlayerIndex = 0
 local _localPlayerObjIndex = nil
+local isMultiplayer = isClient()
 local Perks = Perks
 
 -- =========================================================
@@ -466,7 +469,6 @@ local function applyDoorShoveLocal(player, originSquares)
 
     local processed = {}
     local syncData = {}
-    local isMultiplayer = isClient()
 
     local function applyEffectAndRecord(z, forcedAction)
         if not isStaggerableZombie(z) then return end
@@ -615,8 +617,47 @@ end
 -- =========================================================
 -- Door dash (animset selector) - run/sprint
 -- =========================================================
--- Helper to delay execution by a number of ticks.
-MOD._state.dashCancelByPlayer = MOD._state.dashCancelByPlayer or {}
+
+local function findOnlinePlayerByID(oid)
+    if not oid then return nil end
+    if getPlayerByOnlineID then
+        local p = getPlayerByOnlineID(oid)
+        if p then return p end
+    end
+    if getOnlinePlayers then
+        local list = getOnlinePlayers()
+        if list then
+            for i = 0, list:size() - 1 do
+                local p = list:get(i)
+                if p and p:getOnlineID() == oid then return p end
+            end
+        end
+    end
+    return nil
+end
+
+local function setDashVarSafe(player, value)
+    if not player then return end
+    pcall(function() player:setVariable(DASH_VAR, value) end)
+end
+
+local function calcDashDurationMs(player)
+    local durationMs = DASH_DURATION_MS
+    if player:IsRunning() then
+        durationMs = durationMs / DASH_RUN_DURATION_MULTI
+    elseif player:isSprinting() then
+        durationMs = durationMs / DASH_SPRINT_DURATION_MULTI
+    end
+    return durationMs
+end
+
+local function markDashUntilForOnlineID(oid, untilMs)
+    if not oid then return end
+    local prev = MOD._state.dashUntilByOnlineID[oid]
+    if (not prev) or untilMs > prev then
+        MOD._state.dashUntilByOnlineID[oid] = untilMs
+    end
+end
 
 local function delayTicks(ticks, fn)
     ticks = ticks or 1
@@ -673,6 +714,16 @@ local function triggerDoorDashAnim(player)
 
     setDashVar(player, true)
     MOD._state.dashUntilByPlayer[k] = t + durationMs
+
+    if isMultiplayer then
+        local oid = player:getOnlineID()
+        if oid and oid ~= -1 then
+            sendClientCommand(player, "EreFBI", "DoorDashSync", {
+                playerId = oid,
+                durationMs = durationMs
+            })
+        end
+    end
 end
 
 -- Updates the door dash animation state, resetting it after duration.
@@ -688,6 +739,20 @@ local function updateDoorDashAnim()
     end
 end
 
+local function updateRemoteDoorDashAnim()
+    if not isMultiplayer then return end
+    local t = nowMs()
+
+    for oid, untilMs in pairs(MOD._state.dashUntilByOnlineID) do
+        if t >= untilMs then
+            local p = findOnlinePlayerByID(oid)
+            if p then
+                setDashVarSafe(p, false)
+            end
+            MOD._state.dashUntilByOnlineID[oid] = nil
+        end
+    end
+end
 
 -- =========================================================
 -- Core Action Logic
@@ -739,7 +804,7 @@ local function openDoorByMod(player, door)
             if not needCost and not needXP then return end
 
             -- Multiplayer: do NOT change endurance/XP locally. Ask server.
-            if isClient() then
+            if isMultiplayer then
                 sendClientCommand(player, "EreFBI", "ApplyBreachCost", {})
                 return
             end
@@ -1071,6 +1136,11 @@ end
 -- Main tick loop for updating timers, probes, and auto-close logic.
 local function OnTick()
     updateDoorDashAnim()
+    -- only in MP
+    if isMultiplayer then
+        updateRemoteDoorDashAnim()
+    end
+
     updateMovementTimers()
     runProbe()
     sprintProbe()
@@ -1106,6 +1176,16 @@ local function OnServerCommand(module, command, args)
                 targetZombies[id] = nil
             end
         end
+    elseif command == "SyncDoorDash" and args then
+        local oid = args.playerId
+        local durationMs = tonumber(args.durationMs) or DASH_DURATION_MS
+        if not oid or oid == -1 then return end
+
+        local p = findOnlinePlayerByID(oid)
+        if not p then return end
+
+        setDashVarSafe(p, true)
+        markDashUntilForOnlineID(oid, nowMs() + durationMs)
     end
 end
 

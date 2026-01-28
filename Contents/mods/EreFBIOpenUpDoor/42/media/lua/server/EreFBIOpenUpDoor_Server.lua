@@ -24,6 +24,18 @@ local function canApplyCost(player)
     return true
 end
 
+local _lastDashAt = {}
+local function canDash(player)
+    local id = player and player:getOnlineID() or -1
+    local t = nowMs()
+    local last = _lastDashAt[id]
+    if last and (t - last) < 150 then
+        return false
+    end
+    _lastDashAt[id] = t
+    return true
+end
+
 local Commands = {}
 
 -- Function that receives the command from the source Client.
@@ -80,6 +92,23 @@ Commands.ApplyBreachCost = function(player, args)
             xp:AddXP(Perks.Fitness, xpGain, false, true, true)
         end
     end
+end
+
+Commands.DoorDashSync = function(player, args)
+    if not player or player:isDead() then return end
+    if not canDash(player) then return end
+
+    local oid = player:getOnlineID()
+    if not oid or oid == -1 then return end
+
+    local durationMs = args and tonumber(args.durationMs) or 1150
+    if durationMs < 100 then durationMs = 100 end
+    if durationMs > 5000 then durationMs = 5000 end
+
+    sendServerCommand("EreFBI", "SyncDoorDash", {
+        playerId = oid,
+        durationMs = durationMs,
+    })
 end
 
 local function OnClientCommand(module, command, player, args)
