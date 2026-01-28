@@ -1,30 +1,43 @@
 Sandbox_CA = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "L'FBI obre la porta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tancament automàtic de la porta",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa l'acció cronometrada per tancar la porta",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Córrer",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Obre/tanca automàticament la porta mentre s'executa",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Obre/tanca automàticament la porta mentre s'esprint",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Si està activat, les portes es tancaran automàticament després que el jugador hi passi.\n\nADVERTIMENT: No es recomana per al multijugador. Els canvis ràpids d'estat causats per la latència (dessincronització) poden fer que les portes es tornin a obrir inesperadament o es bloquegin per a altres jugadors.",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Corrent",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Obre/tanca automàticament la porta mentre corres",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Esprintant",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Obre/tanca automàticament la porta mentre esprintes",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Empuja els zombis propers",
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Quan el mod obre la porta, empeny els zombis a prop de la porta (i pot derrocar-los).",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Empènyer els zombis propers",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Quan el mod obre la porta, empeny els zombis a prop de la porta (i pot tombar-los).",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Gamma d'empenta",
-	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radi en rajoles al voltant de la porta afectada per l'empenta.",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Abast de l'empenta",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Radi en caselles al voltant de la porta afectada per l'empenta.",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Empujar l'arc (graus)",
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Només afecta els zombis davant de la porta, en la direcció del jugador. Angle més ampli = afecta més en un con.",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Arc de l'empenta (graus)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Només afecta els zombis davant de la porta, en la direcció del jugador. Angle més ample = afecta més en un con.",
 
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Probabilitat de caiguda (%)",
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Possibilitat que els zombis afectats siguin enderrocats (en cas contrari es trontollen).",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Probabilitat de tombar (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Possibilitat que els zombis afectats siguin tombats (en cas contrari es trontollen).",
 
-	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Activa la propagació",
-	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Si està activat, l'empenta es pot propagar cap als zombis darrere dels primers (com una ona d'empenta).",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Habilitar propagació",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Si està habilitat, l'empenta es pot propagar cap als zombis darrere dels primers (com una ona d'empenta).",
 
 	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Profunditat de propagació",
-	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Quantes fitxes cap endavant pot continuar l'ona d'empenta (0 = sense propagació).",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "Quantes caselles cap endavant pot continuar l'ona d'empenta (0 = sense propagació).",
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagació (%)",
-	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilitat que l'onada d'empenta afecti els zombis a la fitxa següent cap endavant (més alt = s'estén més).",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilitat que l'ona d'empenta afecti els zombis a la següent casella endavant (més alt = s'estén més).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Habilitar animació d'envestida",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Si s'habilita, reprodueix una animació d'envestida amb l'espatlla en obrir portes per la força.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Cost de resistència",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Pèrdua de resistència base per porta oberta (0.0 - 1.0). Exemple: 0.01 és similar a un cop de destral.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "La bona forma redueix el cost",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Si s'habilita, un nivell de Bona Forma més alt redueix el cost de resistència (aprox. 5% de reducció per nivell).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Guany d'XP de Bona Forma",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Punts d'experiència guanyats en l'habilitat Bona Forma per cada porta oberta (0.0 per desactivar). Referència: Una esquats dóna ~4 XP.",
+
 }

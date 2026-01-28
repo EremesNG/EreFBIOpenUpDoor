@@ -1,7 +1,7 @@
 Sandbox_JP = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI オープン・アップ・ドア",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "オートクローズドア",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "ドアを閉める時限アクションをアクティブ化します",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "有効にすると、プレイヤーが通過した後にドアが自動的に閉まります。\n\n警告: マルチプレイヤーには推奨されません。遅延 (非同期) によって状態が急激に変化すると、ドアが予期せず再び開いたり、他のプレイヤーが動けなくなったりする可能性があります。",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "ランニング",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "走行中ドア自動開閉",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "スプリント",
@@ -27,4 +27,17 @@ Sandbox_JP = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "伝播強度(%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "突き飛ばす波が前方の次のタイルのゾンビに影響を与える可能性があります (高い = 広がりが大きくなります)。",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "アニメーションを有効化",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "有効にすると、ドアを突き破る際にショルダーバッシュのアニメーションが再生されます。",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "持久力コスト",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "ドア突破ごとの基本持久力消費 (0.0 - 1.0)。例: 0.01は斧を振るのと同程度です。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "フィットネスでコスト軽減",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "有効にすると、フィットネススキルが高いほど持久力コストが減少します（レベルごとに約5%減少）。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "フィットネスXP獲得",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "ドア突破ごとに獲得するフィットネススキルの経験値 (0.0で無効)。参考: スクワットは〜4 XPを与えます。",
+
 }

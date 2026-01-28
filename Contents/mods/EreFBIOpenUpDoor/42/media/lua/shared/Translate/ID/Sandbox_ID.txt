@@ -1,7 +1,7 @@
 Sandbox_ID = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI Buka Pintu",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tutup Pintu Otomatis",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Mengaktifkan tindakan berwaktu untuk menutup pintu",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Jika diaktifkan, pintu akan otomatis tertutup setelah pemain melewatinya.\n\nPERINGATAN: Tidak direkomendasikan untuk Multipemain. Perubahan status yang cepat yang disebabkan oleh latensi (desinkronisasi) dapat menyebabkan pintu dibuka kembali secara tidak terduga atau terhenti bagi pemain lain.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Berlari",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Buka/tutup pintu otomatis saat berjalan",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Berlari",
@@ -27,4 +27,17 @@ Sandbox_ID = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Kekuatan propagasi (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Peluang gelombang dorong mempengaruhi zombie di ubin berikutnya ke depan (lebih tinggi = menyebar lebih banyak).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Aktifkan Animasi Dobrak",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Jika diaktifkan, memutar animasi bahu saat mendobrak pintu.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Biaya Stamina",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Kehilangan stamina dasar per pendobrakan pintu (0.0 - 1.0). Contoh: 0.01 mirip dengan ayunan kapak.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kebugaran Mengurangi Biaya",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Jika diaktifkan, keterampilan Kebugaran yang lebih tinggi mengurangi biaya stamina (sekitar 5% pengurangan per level).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Perolehan XP Kebugaran",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Poin pengalaman yang diperoleh dalam keterampilan Kebugaran untuk setiap pintu yang didobrak (0.0 untuk menonaktifkan). Sebagai referensi: Satu squat memberikan ~4 XP.",
+
 }

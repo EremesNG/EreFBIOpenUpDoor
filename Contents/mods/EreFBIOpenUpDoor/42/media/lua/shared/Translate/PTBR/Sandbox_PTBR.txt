@@ -1,7 +1,7 @@
 Sandbox_PTBR = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "Porta aberta do FBI",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Fechamento automático da porta",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Ativa a ação cronometrada para fechar a porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Se ativado, as portas fecharão automaticamente depois que o jogador passar por elas.\n\nAVISO: Não recomendado para multijogador. Mudanças rápidas de estado causadas por latência (dessincronização) podem fazer com que as portas reabram inesperadamente ou fiquem presas para outros jogadores.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Correndo",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Abertura/fechamento automático da porta durante a execução",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Corrida",
@@ -27,4 +27,17 @@ Sandbox_PTBR = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagação (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance da onda de empurrão afetar os zumbis no próximo bloco à frente (maior = espalha mais).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Habilitar Animação",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Se ativado, reproduz uma animação de ombro ao arrombar portas.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Custo de Resistência",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Perda base de resistência por porta arrombada (0.0 - 1.0). Exemplo: 0.01 é similar a um golpe de machado.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Aptidão Reduz Custo",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Se ativado, maior habilidade de Aptidão reduz o custo de resistência (aprox. 5% de redução por nível).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Ganho de XP em Aptidão",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Pontos de experiência ganhos na habilidade Aptidão por cada porta arrombada (0.0 para desativar). Referência: Um agachamento dá ~4 XP.",
+
 }

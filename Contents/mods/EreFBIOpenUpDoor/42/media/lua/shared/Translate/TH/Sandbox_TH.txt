@@ -1,7 +1,7 @@
 Sandbox_TH = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI เปิดประตู",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "ปิดประตูอัตโนมัติ",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "เปิดใช้งานการดำเนินการตามกำหนดเวลาเพื่อปิดประตู",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "หากเปิดใช้งาน ประตูจะปิดโดยอัตโนมัติหลังจากที่ผู้เล่นเดินผ่านประตูเหล่านั้น\n\nคำเตือน: ไม่แนะนำสำหรับผู้เล่นหลายคน การเปลี่ยนแปลงสถานะอย่างรวดเร็วที่เกิดจากเวลาแฝง (ไม่ซิงค์) อาจทำให้ประตูเปิดอีกครั้งโดยไม่คาดคิดหรือติดค้างสำหรับผู้เล่นอื่น",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "วิ่ง",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "ประตูเปิด/ปิดอัตโนมัติขณะวิ่ง",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "การวิ่ง",
@@ -27,4 +27,17 @@ Sandbox_TH = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "ความแข็งแรงของการขยายพันธุ์ (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "โอกาสที่คลื่นผลักจะส่งผลต่อซอมบี้ในช่องต่อไปข้างหน้า (สูง = กระจายมากขึ้น)",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "เปิดใช้งานอนิเมชั่น",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "หากเปิดใช้งาน จะเล่นอนิเมชั่นใช้ไหล่กระแทกเมื่อพังประตู",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "ค่าความเหนื่อย",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "ความเหนื่อยพื้นฐานที่เสียไปต่อการพังประตู (0.0 - 1.0) ตัวอย่าง: 0.01 คล้ายกับการเหวี่ยงขวาน",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "ความฟิตลดค่าใช้จ่าย",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "หากเปิดใช้งาน ทักษะความฟิตที่สูงขึ้นจะลดค่าความเหนื่อย (ลดลงประมาณ 5% ต่อเลเวล)",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "ได้รับ XP ความฟิต",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "ค่าประสบการณ์ที่ได้รับในทักษะความฟิตสำหรับแต่ละประตูที่พัง (0.0 เพื่อปิดใช้งาน) สำหรับอ้างอิง: การสควอทให้ ~4 XP",
+
 }

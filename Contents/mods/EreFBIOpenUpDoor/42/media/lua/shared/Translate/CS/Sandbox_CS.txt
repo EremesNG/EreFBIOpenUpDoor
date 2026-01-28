@@ -1,30 +1,43 @@
 Sandbox_CS = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatické zavření dveří",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivuje načasovanou akci k zavření dveří",
+	Sandbox_EreFBIOpenUpDoor = "FBI otevírá dveře",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatické zavírání dveří",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Pokud je povoleno, dveře se po průchodu hráče automaticky zavřou.\n\nVAROVÁNÍ: Nedoporučuje se pro hru více hráčů. Rychlé změny stavu způsobené latencí (desynchronizací) mohou způsobit, že se dveře neočekávaně znovu otevřou nebo zaseknou pro ostatní hráče.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Běh",
-	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatické otevírání/zavírání dveří za chodu",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintovat",
-	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatické otevírání/zavírání dveří při sprintu",
+	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatické otevření/zavření dveří při běhu",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
+	Sandbox_EreFBIOpenUpDoor_WhileSprinting_tooltip = "Automatické otevření/zavření dveří při sprintu",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Strčte blízké zombie",
-	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Když mod otevře dveře, tlačí zombie blízko dveří (a může je srazit dolů).",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies = "Strčit do blízkých zombíků",
+	Sandbox_EreFBIOpenUpDoor_ShoveNearbyZombies_tooltip = "Když mod otevře dveře, strčí do zombíků poblíž dveří (a může je srazit k zemi).",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Shove range",
-	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Poloměr v dlaždicích kolem dveří ovlivněných strkáním.",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange = "Dosah strčení",
+	Sandbox_EreFBIOpenUpDoor_ShoveRange_tooltip = "Poloměr v políčkách kolem dveří ovlivněný strčením.",
 
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Shove oblouk (stupně)",
-	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Ovlivňuje pouze zombíky přede dveřmi, ve směru hráče čelem. Širší úhel = působí více v kuželu.",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle = "Úhel strčení (stupně)",
+	Sandbox_EreFBIOpenUpDoor_ShoveAngle_tooltip = "Ovlivňuje pouze zombíky před dveřmi, ve směru pohledu hráče. Širší úhel = ovlivňuje více v kuželu.",
 
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Šance na seskočení (%)",
-	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Šance na sražení postižených zombie (jinak se potácejí).",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance = "Šance na sražení (%)",
+	Sandbox_EreFBIOpenUpDoor_KnockdownChance_tooltip = "Šance, že zasažení zombíci budou sraženi k zemi (jinak zavrávorají).",
 
 	Sandbox_EreFBIOpenUpDoor_EnablePropagation = "Povolit šíření",
-	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Pokud je povoleno, shove se může šířit dopředu k zombie za prvními (jako vlna shove).",
+	Sandbox_EreFBIOpenUpDoor_EnablePropagation_tooltip = "Pokud je povoleno, strčení se může šířit vpřed na zombíky za těmi prvními (jako rázová vlna).",
 
 	Sandbox_EreFBIOpenUpDoor_PropagationDepth = "Hloubka šíření",
-	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "O kolik dlaždic vpřed může shove vlna pokračovat (0 = žádné šíření).",
+	Sandbox_EreFBIOpenUpDoor_PropagationDepth_tooltip = "O kolik políček vpřed může rázová vlna pokračovat (0 = žádné šíření).",
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Síla šíření (%)",
-	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Šance, že vlna shove ovlivní zombíky na další destičce vpřed (vyšší = více se rozšíří).",
+	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Šance, že rázová vlna ovlivní zombíky na dalším políčku vpřed (vyšší = šíří se více).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Povolit animaci vyrážení",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Pokud je povoleno, při vyrážení dveří se přehraje animace nárazu ramenem.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Cena výdrže",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Základní ztráta výdrže za vyražení dveří (0.0 - 1.0). Příklad: 0.01 je podobné máchnutí sekerou.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kondice snižuje cenu",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Pokud je povoleno, vyšší úroveň Kondice snižuje cenu výdrže (přibližně 5% snížení za úroveň).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Zisk XP Kondice",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Získané zkušenostní body v dovednosti Kondice za každé vyražené dveře (0.0 pro vypnutí). Pro informaci: Dřep dává ~4 XP.",
+
 }

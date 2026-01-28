@@ -1,7 +1,7 @@
 Sandbox_FI = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI Avaa Ovi",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Oven automaattinen sulkeminen",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktivoi ajastetun toiminnon oven sulkemiseksi",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Jos tämä on käytössä, ovet sulkeutuvat automaattisesti, kun pelaaja kulkee niiden läpi.\n\nVAROITUS: Ei suositella moninpeliin. Latenssin (desync) aiheuttamat nopeat tilanmuutokset voivat aiheuttaa ovien uudelleen avautumisen odottamatta tai juuttua muille pelaajille.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Juoksemassa",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Oven automaattinen avaaminen/sulkeminen ajon aikana",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintti",
@@ -27,4 +27,17 @@ Sandbox_FI = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Levitysvoimakkuus (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Mahdollisuus, että shove-aalto vaikuttaa seuraavan laatan zombeihin eteenpäin (korkeampi = leviää enemmän).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Ota käyttöön murtautumisanimaatio",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Jos käytössä, toistaa olkapäätaklaus-animaation ovia murrettaessa.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Kestävyyskustannus",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Peruskestävyyden menetys per oven murto (0.0 - 1.0). Esimerkki: 0.01 vastaa kirveen heilautusta.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kunto vähentää kustannusta",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Jos käytössä, korkeampi kuntotaso vähentää kestävyyskustannusta (noin 5% vähennys per taso).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Kunnon XP-saanti",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Kokemuspisteet, jotka saadaan Kunto-taidossa jokaisesta murretusta ovesta (0.0 poistaa käytöstä). Viite: Yksi kyykky antaa ~4 XP.",
+
 }

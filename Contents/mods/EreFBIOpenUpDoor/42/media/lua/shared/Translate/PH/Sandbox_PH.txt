@@ -1,7 +1,7 @@
 Sandbox_PH = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "Buksan ang Pinto ng FBI",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Auto Isara ang Pinto",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Ina-activate ang naka-time na pagkilos para isara ang pinto",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Kung naka-enable, awtomatikong magsasara ang mga pinto pagkatapos na dumaan sa kanila ang player.\n\nWARN: Hindi inirerekomenda para sa Multiplayer. Ang mga mabilis na pagbabago sa estado na dulot ng latency (desync) ay maaaring magsanhi ng mga pinto upang muling mabuksan nang hindi inaasahan o ma-stuck para sa iba pang mga manlalaro.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Tumatakbo",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Awtomatikong buksan/isara ang pinto habang tumatakbo",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinting",
@@ -27,4 +27,17 @@ Sandbox_PH = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Lakas ng pagpapalaganap (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Pagkakataon para sa shove wave na makaapekto sa mga zombie sa susunod na tile forward (mas mataas = mas kumakalat).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Paganahin ang Animasyon ng Pag-breach",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Kung pinagana, magpe-play ng shoulder-bash animation kapag sinisira ang mga pinto.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Gastos sa Stamina",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Base na pagkawala ng stamina bawat pagkasira ng pinto (0.0 - 1.0). Halimbawa: Ang 0.01 ay katulad ng pagwasiwas ng palakol.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Ang Fitness ay Nagpapababa ng Gastos",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Kung pinagana, ang mas mataas na kasanayan sa Fitness ay nagpapababa ng gastos sa stamina (humigit-kumulang 5% na pagbawas bawat antas).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Fitness XP Gain",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Mga puntos ng karanasan na nakuha sa kasanayan sa Fitness para sa bawat pinto na nasira (0.0 upang huwag paganahin). Para sa sanggunian: Ang isang squat ay nagbibigay ng ~4 XP.",
+
 }

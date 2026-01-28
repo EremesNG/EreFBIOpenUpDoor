@@ -1,7 +1,7 @@
 Sandbox_HU = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI nyit ajtót",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatikus ajtózárás",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiválja az időzített műveletet az ajtó bezárásához",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Ha engedélyezve van, az ajtók automatikusan bezáródnak, miután a játékos áthalad rajtuk.\n\nFIGYELMEZTETÉS: Többjátékoshoz nem ajánlott. A késleltetés okozta gyors állapotváltozások (deszinkronizálás) az ajtók váratlan újranyitását vagy elakadást okozhatnak a többi játékos számára.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Futás",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Az ajtó automatikus nyitása/zárása futás közben",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprintelés",

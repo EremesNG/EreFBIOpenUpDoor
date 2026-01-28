@@ -1,7 +1,7 @@
 Sandbox_JP = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI オープン・アップ・ドア",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "オートクローズドア",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "ドアを閉める時限アクションをアクティブ化します",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "有効にすると、プレイヤーが通過した後にドアが自動的に閉まります。\n\n警告: マルチプレイヤーには推奨されません。遅延 (非同期) によって状態が急激に変化すると、ドアが予期せず再び開いたり、他のプレイヤーが動けなくなったりする可能性があります。",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "ランニング",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "走行中ドア自動開閉",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "スプリント",

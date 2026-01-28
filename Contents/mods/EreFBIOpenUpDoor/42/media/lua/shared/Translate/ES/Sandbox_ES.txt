@@ -1,7 +1,7 @@
 Sandbox_ES = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI abre la puerta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Puerta cerrada automáticamente",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Activa la acción temporizada para cerrar la puerta.",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Si está habilitado, las puertas se cerrarán automáticamente después de que el jugador las atraviese.\n\nADVERTENCIA: No recomendado para multijugador. Los cambios rápidos de estado causados por la latencia (desincronización) pueden hacer que las puertas se vuelvan a abrir inesperadamente o se bloqueen para otros jugadores.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Correr",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/cierre automático de puerta mientras se ejecuta",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "corriendo",
@@ -27,4 +27,17 @@ Sandbox_ES = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Fuerza de propagación (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Posibilidad de que la ola de empujón afecte a los zombis en la siguiente casilla (mayor = se propaga más).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Habilitar Animación",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Si se habilita, reproduce una animación de embestida con el hombro al abrir puertas a la fuerza.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Costo de Resistencia",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Resistencia base perdida por cada puerta abierta a la fuerza (0.0 - 1.0). Ejemplo: 0.01 es similar a un golpe de hacha.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Estado Físico Reduce Costo",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Si se habilita, un mayor nivel de Estado Físico reduce el costo de resistencia (aprox. 5% de reducción por nivel).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Ganancia de XP de Estado Físico",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Puntos de experiencia ganados en la habilidad Estado Físico por cada puerta abierta a la fuerza (0.0 para desactivar). Referencia: Una sentadilla da ~4 XP.",
+
 }

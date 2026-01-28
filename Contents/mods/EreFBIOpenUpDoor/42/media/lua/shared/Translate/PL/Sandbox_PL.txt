@@ -1,7 +1,7 @@
 Sandbox_PL = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI Otwórz drzwi",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatyczne zamykanie drzwi",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktywuje działanie czasowe zamykania drzwi",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Jeśli ta opcja jest włączona, drzwi zamkną się automatycznie po przejściu przez nie gracza.\n\nOSTRZEŻENIE: Niezalecane w przypadku gry wieloosobowej. Gwałtowne zmiany stanu spowodowane opóźnieniem (desynchronizacją) mogą spowodować nieoczekiwane ponowne otwarcie drzwi lub zablokowanie gry dla innych graczy.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Działanie",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatyczne otwieranie/zamykanie drzwi podczas pracy",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
@@ -27,4 +27,17 @@ Sandbox_PL = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Siła propagacji (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Szansa, że ​​fala pchnięcia wpłynie na zombie na następnym polu do przodu (wyżej = większy zasięg).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Włącz animację",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Jeśli włączone, odtwarza animację uderzenia barkiem podczas wyważania drzwi.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Koszt wytrzymałości",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Podstawowa utrata wytrzymałości na wyważenie drzwi (0.0 - 1.0). Przykład: 0.01 jest podobne do zamachnięcia się siekierą.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Sprawność zmniejsza koszt",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Jeśli włączone, wyższa umiejętność Sprawność zmniejsza koszt wytrzymałości (ok. 5% redukcji na poziom).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Zysk XP Sprawności",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Punkty doświadczenia zdobyte w umiejętności Sprawność za każde wyważone drzwi (0.0 aby wyłączyć). Dla odniesienia: Przysiad daje ~4 XP.",
+
 }

@@ -1,7 +1,7 @@
 Sandbox_CN = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "联邦调查局敞开大门",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "自动关门",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "激活定时动作以关门",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "如果启用，门将在玩家通过后自动关闭。\n\n警告：不建议用于多人游戏。由延迟（不同步）引起的快速状态变化可能会导致门意外重新打开或被其他玩家卡住。",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "跑步",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "运行时自动开关门",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "短跑",
@@ -27,4 +27,17 @@ Sandbox_CN = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "传播强度（%）",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "推动波有机会影响前方下一个方块上的僵尸（越高=传播得越多）。",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "启用破门动画",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "如果启用，破门时播放肩撞动画。",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "耐力消耗",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "每次破门的基础耐力损失 (0.0 - 1.0)。示例：0.01 类似于挥动一次斧头。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "体能降低消耗",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "如果启用，较高的体能技能会降低耐力消耗（每级约减少 5%）。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "体能经验获取",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "每次破门获得的体能技能经验值 (0.0 为禁用)。参考：一次深蹲给予 ~4 经验。",
+
 }

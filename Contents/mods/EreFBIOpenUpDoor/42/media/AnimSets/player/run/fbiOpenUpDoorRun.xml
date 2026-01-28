@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animNode x_extends="defaultRun.xml">
+    <m_Name>fbiOpenUpDoorRun</m_Name>
+    <m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName>
+
+    <!-- CLAVE: que NO se sincronice con la fase del run -->
+    <m_Looped>false</m_Looped>
+    <m_SyncTrackingEnabled>false</m_SyncTrackingEnabled>
+    <m_EarlyTransitionOut>true</m_EarlyTransitionOut>
+
+    <!-- Para que “agarre” rápido desde frame 0 -->
+    <m_BlendTime>0.05</m_BlendTime>
+    <m_SpeedScale>1.1</m_SpeedScale>
+
+    <!-- Para ganarle a otros nodes (handgun, spear, etc) -->
+    <m_ConditionPriority>9999</m_ConditionPriority>
+    <m_Priority>9999</m_Priority>
+
+    <!-- Mantén la estructura tipo RunHandgun (sin X/Y también funciona).
+         Si quieres más “correcto”, puedes copiar los 8 blends del defaultRun con IDs,
+         pero no es obligatorio. -->
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+    <m_2DBlends><m_AnimName>Bob_EreFBIOpenUpDoor_Dash</m_AnimName></m_2DBlends>
+
+    <!-- Usa SOLO 1 variable. Las 3 variables eran redundantes y aumentan riesgo de “stuck true”. -->
+    <m_Conditions>
+        <m_Name>EreFBI_DoorDash</m_Name>
+        <m_Type>BOOL</m_Type>
+        <m_Value>true</m_Value>
+    </m_Conditions>
+</animNode>

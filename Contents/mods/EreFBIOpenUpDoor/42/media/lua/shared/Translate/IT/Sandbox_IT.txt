@@ -1,7 +1,7 @@
 Sandbox_IT = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "L'FBI apre la porta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Chiusura automatica della porta",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Attiva l'azione temporizzata di chiusura della porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Se abilitato, le porte si chiuderanno automaticamente dopo che il giocatore le attraversa.\n\nATTENZIONE: non consigliato per il multiplayer. I rapidi cambiamenti di stato causati dalla latenza (dissincronizzazione) possono causare la riapertura inaspettata delle porte o il blocco per gli altri giocatori.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Corsa",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/chiusura automatica della porta durante la corsa",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",
@@ -27,4 +27,17 @@ Sandbox_IT = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Forza di propagazione (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilità che l'ondata di spinta colpisca gli zombi sulla tessera successiva in avanti (maggiore = si diffonde di più).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Abilita Animazione",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Se abilitato, riproduce un'animazione di spallata quando si sfondano le porte.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Costo Resistenza",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Perdita di resistenza base per ogni porta sfondata (0.0 - 1.0). Esempio: 0.01 è simile a un colpo d'ascia.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Fitness Riduce Costo",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Se abilitato, un livello di Fitness più alto riduce il costo di resistenza (circa 5% di riduzione per livello).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Guadagno XP Fitness",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Punti esperienza guadagnati nell'abilità Fitness per ogni porta sfondata (0.0 per disabilitare). Riferimento: Uno squat dà ~4 XP.",
+
 }

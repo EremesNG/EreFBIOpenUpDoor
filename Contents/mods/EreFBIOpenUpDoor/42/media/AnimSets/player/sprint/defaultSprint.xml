@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<animNode>
+	<m_Name>defaultSprint</m_Name>
+	<m_AnimName>Bob_Sprint</m_AnimName>
+	<m_BlendTime>0.15</m_BlendTime>
+	<m_SpeedScale>0.96</m_SpeedScale>
+	<m_Scalar>WalkInjury</m_Scalar>
+	<m_Scalar2>WalkSpeed</m_Scalar2>
+	<m_2DBlends referenceID="1">
+		<m_AnimName>Bob_Sprint</m_AnimName>
+		<m_XPos>0.00</m_XPos>
+		<m_YPos>1.00</m_YPos>
+		<m_SpeedScale>0.80</m_SpeedScale>
+	</m_2DBlends>
+	<m_2DBlends referenceID="2">
+		<m_AnimName>Bob_Run</m_AnimName>
+		<m_XPos>0.00</m_XPos>
+		<m_YPos>0.50</m_YPos>
+		<m_SpeedScale>0.80</m_SpeedScale>
+	</m_2DBlends>
+	<m_2DBlends referenceID="3">
+		<m_AnimName>Bob_Run</m_AnimName>
+		<m_XPos>0.00</m_XPos>
+		<m_YPos>0.00</m_YPos>
+		<m_SpeedScale>0.80</m_SpeedScale>
+	</m_2DBlends>
+	<m_2DBlends referenceID="4">
+		<m_AnimName>Bob_Run</m_AnimName>
+		<m_XPos>-0.50</m_XPos>
+		<m_YPos>0.50</m_YPos>
+		<m_SpeedScale>0.80</m_SpeedScale>
+	</m_2DBlends>
+	<m_2DBlends referenceID="5">
+		<m_AnimName>Bob_Run</m_AnimName>
+		<m_XPos>0.50</m_XPos>
+		<m_YPos>0.50</m_YPos>
+		<m_SpeedScale>0.80</m_SpeedScale>
+	</m_2DBlends>
+	<m_Events x_name="1ca49916-b59e-4514-98cd-bbff7ca246f8">
+		<m_EventName>Footstep</m_EventName>
+		<m_TimePc>0.15</m_TimePc>
+		<m_ParameterValue>sprint</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="da2dc414-75d4-4829-a1d2-c595ff879783">
+		<m_EventName>Footstep</m_EventName>
+		<m_TimePc>0.6</m_TimePc>
+		<m_ParameterValue>sprint</m_ParameterValue>
+	</m_Events>
+	<m_2DBlendTri>
+		<node1>2</node1>
+		<node2>4</node2>
+		<node3>3</node3>
+	</m_2DBlendTri>
+	<m_2DBlendTri>
+		<node1>1</node1>
+		<node2>2</node2>
+		<node3>5</node3>
+	</m_2DBlendTri>
+	<m_2DBlendTri>
+		<node1>3</node1>
+		<node2>5</node2>
+		<node3>2</node3>
+	</m_2DBlendTri>
+	<m_2DBlendTri>
+		<node1>4</node1>
+		<node2>2</node2>
+		<node3>1</node3>
+	</m_2DBlendTri>
+	<m_Transitions>
+		<m_Target>Idle</m_Target>
+		<m_AnimName>Bob_SprintToStop</m_AnimName>
+		<m_blendInTime>0.5</m_blendInTime>
+		<m_blendOutTime>0.5</m_blendOutTime>
+		<m_speedScale>1</m_speedScale>
+		<m_Conditions x_name="63767a7d-3c10-4edd-be47-561d69e555cd">
+			<m_Name>walkinjury</m_Name>
+			<m_Type>EQU</m_Type>
+			<m_Value>0</m_Value>
+		</m_Conditions>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>defaultWalk</m_Target>
+		<m_blendInTime>0.5</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>sneakWalk</m_Target>
+		<m_blendInTime>0.5</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>sneakWalkLow</m_Target>
+		<m_blendInTime>0.5</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>strafeDefault</m_Target>
+		<m_AnimName>Bob_SprintToAim1H</m_AnimName>
+		<m_blendInTime>0.1</m_blendInTime>
+		<m_blendOutTime>0.3</m_blendOutTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>aim_1handed</m_Target>
+		<m_AnimName>Bob_SprintToAim1H</m_AnimName>
+		<m_blendInTime>0.1</m_blendInTime>
+		<m_blendOutTime>0.3</m_blendOutTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>vaultOverSprint</m_Target>
+		<m_blendInTime>0.1</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>defaultRun</m_Target>
+		<m_blendInTime>0.2</m_blendInTime>
+		<m_blendOutTime>0.2</m_blendOutTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>sneakRun</m_Target>
+		<m_blendInTime>0.5</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>sneakRunLow</m_Target>
+		<m_blendInTime>0.5</m_blendInTime>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>sneakidle</m_Target>
+		<m_AnimName>Bob_RunSneakToStop</m_AnimName>
+		<m_blendInTime>0.5</m_blendInTime>
+		<m_blendOutTime>0.5</m_blendOutTime>
+		<m_speedScale>1</m_speedScale>
+	</m_Transitions>
+	<m_Transitions>
+		<m_Target>Idle</m_Target>
+		<m_Conditions x_name="122d6154-479a-45cf-b008-49247d8b04c9">
+			<m_Name>walkinjury</m_Name>
+			<m_Type>NEQ</m_Type>
+			<m_Value>0</m_Value>
+		</m_Conditions>
+	</m_Transitions>
+</animNode>

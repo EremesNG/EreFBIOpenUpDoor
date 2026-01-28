@@ -1,7 +1,7 @@
 Sandbox_DE = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "FBI öffnet die Tür",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tür automatisch schließen",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Aktiviert die zeitgesteuerte Aktion zum Schließen der Tür",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Wenn aktiviert, werden Türen automatisch geschlossen, nachdem der Spieler sie passiert hat.\n\nWARNUNG: Nicht für den Mehrspielermodus empfohlen. Durch Latenz verursachte schnelle Zustandsänderungen (Desync) können dazu führen, dass sich Türen unerwartet wieder öffnen oder für andere Spieler stecken bleiben.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Läuft",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Automatisches Öffnen/Schließen der Tür während des Betriebs",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprinten",
@@ -27,4 +27,17 @@ Sandbox_DE = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Ausbreitungsstärke (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Es besteht eine Chance, dass die Stoßwelle Zombies auf dem nächsten Feld betrifft (höher = breitet sich stärker aus).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Animation aktivieren",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Wenn aktiviert, wird beim Aufbrechen von Türen eine Schulterstoß-Animation abgespielt.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Ausdauerkosten",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Basis-Ausdauerverlust pro aufgebrochener Tür (0.0 - 1.0). Beispiel: 0.01 ist ähnlich wie ein Axtschlag.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Fitness reduziert Kosten",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Wenn aktiviert, verringert eine höhere Fitness-Stufe die Ausdauerkosten (ca. 5% Reduktion pro Stufe).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Fitness-XP-Gewinn",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Erfahrungspunkte für die Fitness-Fertigkeit pro aufgebrochener Tür (0.0 zum Deaktivieren). Referenz: Eine Kniebeuge gibt ~4 XP.",
+
 }

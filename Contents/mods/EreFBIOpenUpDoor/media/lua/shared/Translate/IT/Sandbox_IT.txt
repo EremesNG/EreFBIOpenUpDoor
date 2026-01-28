@@ -1,7 +1,7 @@
 Sandbox_IT = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
+	Sandbox_EreFBIOpenUpDoor = "L'FBI apre la porta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Chiusura automatica della porta",
-	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_tooltip = "Attiva l'azione temporizzata di chiusura della porta",
+	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Se abilitato, le porte si chiuderanno automaticamente dopo che il giocatore le attraversa.\n\nATTENZIONE: non consigliato per il multiplayer. I rapidi cambiamenti di stato causati dalla latenza (dissincronizzazione) possono causare la riapertura inaspettata delle porte o il blocco per gli altri giocatori.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Corsa",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning_tooltip = "Apertura/chiusura automatica della porta durante la corsa",
 	Sandbox_EreFBIOpenUpDoor_WhileSprinting = "Sprint",

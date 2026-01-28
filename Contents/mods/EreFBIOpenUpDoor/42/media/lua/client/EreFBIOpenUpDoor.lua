@@ -5,52 +5,81 @@ local MOD = EreFBIOpenUpDoor
 -- =========================================================
 -- Tunables (Safe default configuration)
 -- =========================================================
-local SPRINT_PROBE_INTERVAL_MS = 60   -- How often to check for doors while sprinting
-local SPRINT_PROBE_STEP_DIST   = 0.5  -- Raycast step distance
-local SPRINT_PROBE_MAX_DIST    = 0.5  -- Max distance to check ahead when sprinting
-local AUTO_CLOSE_MIN_DELAY_MS  = 100  -- Minimum time before auto-close triggers
-local AUTO_CLOSE_ADJACENT_DIST = 0.7  -- Distance threshold to consider player "past" the door
-local DOOR_COOLDOWN_MS         = 300  -- Cooldown to prevent spamming open/close
-local GATE_SCAN_MAX_TILES      = 3    -- Max tiles to scan for multi-tile gates
+local RUN_PROBE_INTERVAL_MS = 60
+local RUN_PROBE_STEP_DIST   = 0.1
+local RUN_PROBE_MAX_DIST    = 0.5
+local MIN_RUN_TIME_MS       = 250     -- Minimum running time (ms) to activate logic
+
+local SPRINT_PROBE_INTERVAL_MS = 60
+local SPRINT_PROBE_STEP_DIST   = 0.1
+local SPRINT_PROBE_MAX_DIST    = 0.8
+local ISO_DIR_COMPENSATION     = 0.6
+local MIN_SPRINT_TIMER         = 10.0 -- ~70.0 is approx 1 sec.
+
+local AUTO_CLOSE_MIN_DELAY_MS  = 300
+local AUTO_CLOSE_ADJACENT_DIST = 1.1
+local DOOR_COOLDOWN_MS         = 300
+local GATE_SCAN_MAX_TILES      = 3.0
+
+local DASH_VAR         = "EreFBI_DoorDash"
+local DASH_DURATION_MS = 1150
+local DASH_RUN_DURATION_MULTI = 1.1
+local DASH_SPRINT_DURATION_MULTI = 1.5
+
+-- Internal balance constants
+local FITNESS_REDUCTION_PER_LEVEL = 0.05 -- 5% cost reduction per Fitness level
 
 MOD._state = MOD._state or {
     pendingClose = {},
     cooldownUntil = {},
-    lastSprintProbeAt = 0
+    lastSprintProbeAt = 0,
+    lastRunProbeAt = 0,
+    dashUntilByPlayer = {},
+    runningStartedAt = 0,
+    dashUntilByOnlineID = {},
+    dashCancelByPlayer = {},
 }
+
 
 local _localPlayerIndex = 0
 local _localPlayerObjIndex = nil
+local isMultiplayer = isClient()
+local Perks = Perks
 
 -- =========================================================
 -- Helpers: Basics
 -- =========================================================
--- Get current timestamp in milliseconds.
 local function nowMs()
     if getTimestampMs then return getTimestampMs() end
     return os.time() * 1000
 end
 
--- Fetch Sandbox Variables with fallback defaults.
+-- Fetch Sandbox Variables with fallback defaults matching configuration settings.
 local function sv()
     local root = SandboxVars and SandboxVars.EreFBIOpenUpDoor
     return {
-        AutoCloseDoor  = (root == nil or root.AutoCloseDoor ~= false),
-        WhileRunning   = (root == nil or root.WhileRunning ~= false),
-        WhileSprinting = (root == nil or root.WhileSprinting ~= false),
+        AutoCloseDoor       = (root ~= nil and root.AutoCloseDoor) or false,
+        WhileRunning        = (root == nil or root.WhileRunning ~= false), -- Default True
+        WhileSprinting      = (root == nil or root.WhileSprinting ~= false), -- Default True
 
-        ShoveNearbyZombies = (root ~= nil and root.ShoveNearbyZombies == true),
-        ShoveRange         = (root ~= nil and root.ShoveRange) or 1.8,
-        ShoveAngle         = (root ~= nil and root.ShoveAngle) or 70.0,
-        KnockdownChance    = (root ~= nil and root.KnockdownChance) or 25,
+        ShoveNearbyZombies  = (root ~= nil and root.ShoveNearbyZombies) or false,
+        ShoveRange          = (root ~= nil and root.ShoveRange) or 1.8,
+        ShoveAngle          = (root ~= nil and root.ShoveAngle) or 120.0,
+        KnockdownChance     = (root ~= nil and root.KnockdownChance) or 35,
 
-        EnablePropagation  = (root ~= nil and root.EnablePropagation == true),
-        PropagationDepth   = (root ~= nil and root.PropagationDepth) or 1,
-        PropagationStrength= (root ~= nil and root.PropagationStrength) or 60,
+        EnablePropagation   = (root ~= nil and root.EnablePropagation) or false,
+        PropagationDepth    = (root ~= nil and root.PropagationDepth) or 2,
+        PropagationStrength = (root ~= nil and root.PropagationStrength) or 60,
+
+        EnableAnimation     = (root == nil or root.EnableAnimation ~= false), -- Default True
+
+        BreachCost          = (root ~= nil and root.BreachCost) or 0.01,
+        FitnessReducesCost  = (root == nil or root.FitnessReducesCost ~= false), -- Default True
+
+        FitnessXPGain       = (root ~= nil and root.FitnessXPGain) or 2.5,
     }
 end
 
--- Safe wrapper for random number generation.
 local function ZombRandSafe(max)
     if ZombRand then return ZombRand(max) end
     return math.random(max)
@@ -59,7 +88,7 @@ end
 -- =========================================================
 -- Helpers: Geometry & Direction
 -- =========================================================
--- Convert IsoDirection to a local vector (x, y).
+-- Converts an IsoDirection to a local vector (dx, dy).
 local function dirToVectorLocal(dir)
     if dir == IsoDirections.N  then return 0, -1 end
     if dir == IsoDirections.S  then return 0,  1 end
@@ -76,7 +105,7 @@ local function dirToVector(dir)
     return dirToVectorLocal(dir)
 end
 
--- Get the player's forward direction as a unit vector.
+-- Calculates the forward unit vector based on player's facing direction or angle.
 local function getForwardUnit(player)
     local ok, ang = pcall(function()
         local fd = player:getForwardDirection()
@@ -95,7 +124,7 @@ local function getForwardUnit(player)
     return dx, dy
 end
 
--- Get a simplified step vector (1, 0, -1) based on player facing.
+-- Returns a simplified step direction (1, 0, -1) for grid propagation.
 local function getForwardStep(player)
     local fx, fy = getForwardUnit(player)
     local sx, sy = 0, 0
@@ -104,7 +133,7 @@ local function getForwardStep(player)
     return sx, sy
 end
 
--- Calculate squared distance from point to the center of a square.
+-- Calculates squared distance from a point (px, py) to the center of a target square.
 local function distSqToSquareCenter(px, py, sq)
     local cx = sq:getX() + 0.5
     local cy = sq:getY() + 0.5
@@ -116,17 +145,16 @@ end
 -- =========================================================
 -- Helpers: Door Property Checks
 -- =========================================================
--- Check if object is a thumpable door (player built or specific types).
+-- Checks if object is a thumpable door (player built or specific map objects).
 local function isThumpDoor(obj)
     return instanceof(obj, "IsoThumpable") and obj:isDoor()
 end
 
--- Check if object is any valid door type.
 local function isDoor(obj)
     return instanceof(obj, "IsoDoor") or isThumpDoor(obj)
 end
 
--- Check if door is currently open.
+-- Safely checks if a door is open (handles both IsoDoor and IsoThumpable).
 local function doorIsOpen(door)
     local ok, v = pcall(function() return door:IsOpen() end)
     if ok then return v end
@@ -135,14 +163,14 @@ local function doorIsOpen(door)
     return false
 end
 
--- Check if door is barricaded.
+-- Safely checks if a door is barricaded.
 local function doorIsBarricaded(door)
     local ok, v = pcall(function() return door:isBarricaded() end)
     if ok then return v end
     return false
 end
 
--- Check if door is locked (key or padlock).
+-- Checks if a door is locked (key or padlock).
 local function doorIsLocked(player, door)
     if instanceof(door, "IsoDoor") then
         local okExt, isExt = pcall(function() return door:isExteriorDoor(player) end)
@@ -159,7 +187,7 @@ local function doorIsLocked(player, door)
     return false
 end
 
--- Check for obstructions on multi-tile thumpable doors.
+-- Checks obstruction for large gates/double doors across multiple squares.
 local function getThumpObstructedAcrossSquares(thumpDoor)
     local sq = thumpDoor:getSquare()
     if not sq then return true end
@@ -200,7 +228,7 @@ local function getThumpObstructedAcrossSquares(thumpDoor)
     return false
 end
 
--- Check if door is obstructed by objects or characters.
+-- General check if a door is obstructed by objects or zombies.
 local function doorIsObstructed(door)
     local ok, v = pcall(function() return door:isObstructed() end)
     if ok and v then return true end
@@ -211,7 +239,7 @@ local function doorIsObstructed(door)
     return false
 end
 
--- Comprehensive check if a player can interact with the door.
+-- Validates if the player can interact with the door (not open, not barricaded, etc.).
 local function canUseDoor(player, door)
     if not door or not isDoor(door) then return false end
     if doorIsOpen(door) then return false end
@@ -224,7 +252,6 @@ end
 -- =========================================================
 -- Helpers: Multi-tile Gate Scanning
 -- =========================================================
--- Safely get sprite name.
 local function spriteNameSafe(obj)
     local ok, sp = pcall(function() return obj:getSprite() end)
     if ok and sp then
@@ -234,14 +261,13 @@ local function spriteNameSafe(obj)
     return nil
 end
 
--- Safely get object orientation (North/West).
 local function northSafe(obj, fallback)
     local ok, v = pcall(function() return obj:getNorth() end)
     if ok then return v end
     return fallback
 end
 
--- Find a part of a multi-tile gate on a specific square that matches the base door.
+-- Finds a gate part on a specific square that matches the base door's properties.
 local function findMatchingGatePartOnSquare(baseDoor, sq)
     if not sq then return nil end
     local baseNorth = northSafe(baseDoor, false)
@@ -277,7 +303,7 @@ local function findMatchingGatePartOnSquare(baseDoor, sq)
     return nil
 end
 
--- Get all squares occupied by a door (handles large gates).
+-- Returns all squares occupied by a door (handles multi-tile gates).
 local function getDoorOriginSquares(door)
     local out, seen = {}, {}
     local sq = door and door:getSquare()
@@ -335,7 +361,7 @@ end
 -- =========================================================
 -- Helpers: Zombie Shove & Propagation
 -- =========================================================
--- Check if zombie is valid for physics effects.
+-- Checks if a zombie is valid for shoving/staggering.
 local function isStaggerableZombie(z)
     return z
             and instanceof(z, "IsoZombie")
@@ -343,7 +369,7 @@ local function isStaggerableZombie(z)
             and not z:isKnockedDown()
 end
 
--- Check if a zombie is within a cone behind the door relative to the player.
+-- Determines if a zombie is within a cone in front of the door/player.
 local function inOutwardCone(player, doorCx, doorCy, zombie, angleDeg)
     if angleDeg >= 180 then return true end
     if angleDeg <= 0 then
@@ -364,7 +390,7 @@ local function inOutwardCone(player, doorCx, doorCy, zombie, angleDeg)
     return (dx*fx + dy*fy) >= cosThr
 end
 
--- Apply knockdown or stagger to a zombie.
+-- Applies knockdown or stagger to a zombie based on chance.
 local function applyEffectToZombie(z, knockChance)
     if ZombRandSafe(100) < knockChance then
         z:setKnockedDown(true)
@@ -373,7 +399,7 @@ local function applyEffectToZombie(z, knockChance)
     end
 end
 
--- Recursively propagate the shove effect to zombies behind the initial targets.
+-- Propagates the shove effect to zombies behind the initial target.
 local function propagateForward(fromZombie, depth, propStrength, knockChance, stepX, stepY, processed)
     if depth <= 0 then return end
     if stepX == 0 and stepY == 0 then return end
@@ -407,7 +433,7 @@ local function propagateForward(fromZombie, depth, propStrength, knockChance, st
     end
 end
 
--- Main logic to apply shove to zombies near the door.
+-- Applies the shove effect to zombies near the door, handling multiplayer sync.
 local function applyDoorShoveLocal(player, originSquares)
     local sbox = sv()
     if not sbox.ShoveNearbyZombies then return end
@@ -423,25 +449,91 @@ local function applyDoorShoveLocal(player, originSquares)
     if range <= 0 then return end
     local r2 = range * range
 
-    local angleDeg = tonumber(sbox.ShoveAngle) or 70.0
+    local angleDeg = tonumber(sbox.ShoveAngle) or 120.0
     if angleDeg < 0 then angleDeg = 0 elseif angleDeg > 180 then angleDeg = 180 end
 
-    local knockChance = math.floor(tonumber(sbox.KnockdownChance) or 25)
+    local knockChance = math.floor(tonumber(sbox.KnockdownChance) or 35)
     if knockChance < 0 then knockChance = 0 elseif knockChance > 100 then knockChance = 100 end
 
     local doProp = (sbox.EnablePropagation == true)
-    local depth = math.floor(tonumber(sbox.PropagationDepth) or 0)
-    if depth < 0 then depth = 0 end
+    local maxDepth = math.floor(tonumber(sbox.PropagationDepth) or 2)
+    if maxDepth < 0 then maxDepth = 0 end
 
-    local propStrength = math.floor(tonumber(sbox.PropagationStrength) or 0)
+    local propStrength = math.floor(tonumber(sbox.PropagationStrength) or 60)
     if propStrength < 0 then propStrength = 0 elseif propStrength > 100 then propStrength = 100 end
 
     local stepX, stepY = 0, 0
-    if doProp and depth > 0 and propStrength > 0 then
+    if doProp and maxDepth > 0 and propStrength > 0 then
         stepX, stepY = getForwardStep(player)
     end
 
     local processed = {}
+    local syncData = {}
+
+    local function applyEffectAndRecord(z, forcedAction)
+        if not isStaggerableZombie(z) then return end
+
+        local isKnock = false
+
+        if forcedAction == "knock" then
+            isKnock = true
+            z:setKnockedDown(true)
+        elseif forcedAction == "stagger" then
+            isKnock = false
+            z:setStaggerBack(true)
+        else
+            if ZombRandSafe(100) < knockChance then
+                z:setKnockedDown(true)
+                isKnock = true
+            else
+                z:setStaggerBack(true)
+                isKnock = false
+            end
+        end
+
+        processed[z] = true
+
+        if isMultiplayer then
+            local onlineID = z:getOnlineID()
+            if onlineID and onlineID ~= -1 then
+                table.insert(syncData, {
+                    id = onlineID,
+                    action = isKnock and "knock" or "stagger"
+                })
+            end
+        end
+    end
+
+    local function propagateRecursive(fromZombie, currentDepth)
+        if currentDepth <= 0 then return end
+        if stepX == 0 and stepY == 0 then return end
+
+        local sq = fromZombie:getSquare()
+        if not sq then return end
+        local c = sq:getCell()
+
+        local nextSq = c:getGridSquare(sq:getX() + stepX, sq:getY() + stepY, sq:getZ())
+        if not nextSq then return end
+
+        local mobs = nextSq:getMovingObjects()
+        if not mobs then return end
+
+        local nextCarrier = nil
+
+        for i = 0, mobs:size() - 1 do
+            local other = mobs:get(i)
+            if isStaggerableZombie(other) and not processed[other] then
+                if ZombRandSafe(100) < propStrength then
+                    applyEffectAndRecord(other, nil)
+                    if not nextCarrier then nextCarrier = other end
+                end
+            end
+        end
+
+        if nextCarrier then
+            propagateRecursive(nextCarrier, currentDepth - 1)
+        end
+    end
 
     local carriers = {}
 
@@ -458,30 +550,34 @@ local function applyDoorShoveLocal(player, originSquares)
                 if isStaggerableZombie(z) and z:getZ() == cz and not processed[z] then
                     local dx = z:getX() - cx
                     local dy = z:getY() - cy
+
                     if (dx*dx + dy*dy) <= r2 then
                         if inOutwardCone(player, cx, cy, z, angleDeg) then
-                            applyEffectToZombie(z, knockChance)
-                            processed[z] = true
+                            applyEffectAndRecord(z, nil)
                             if doProp and not carrier then carrier = z end
                         end
                     end
                 end
             end
 
-            if doProp and carrier and depth > 0 and propStrength > 0 then
+            if doProp and carrier and maxDepth > 0 and propStrength > 0 then
                 table.insert(carriers, carrier)
             end
         end
     end
 
-    if doProp and depth > 0 and propStrength > 0 and #carriers > 0 then
+    if #carriers > 0 then
         for _, c in ipairs(carriers) do
-            propagateForward(c, depth, propStrength, knockChance, stepX, stepY, processed)
+            propagateRecursive(c, maxDepth)
         end
+    end
+
+    if isMultiplayer and #syncData > 0 then
+        sendClientCommand(player, "EreFBI", "ZombieShoveSync", { zombies = syncData })
     end
 end
 
--- Entry point for requesting a door shove action.
+-- Entry point to request a door shove action.
 local function requestDoorShove(player, door)
     local sbox = sv()
     if not sbox.ShoveNearbyZombies then return end
@@ -496,7 +592,7 @@ end
 -- =========================================================
 -- Internal State Management (Cooldowns & Keys)
 -- =========================================================
--- Generate a unique key for a door based on its properties and location.
+-- Generates a unique key for a door based on position and type.
 local function doorKeyFrom(door)
     local sq = door:getSquare()
     if not sq then return tostring(door) end
@@ -507,21 +603,161 @@ local function doorKeyFrom(door)
     return string.format("%s:%d:%d:%d:%s", kind, sq:getX(), sq:getY(), sq:getZ(), north and "N" or "W")
 end
 
--- Check if a door is currently in cooldown.
+-- Checks if a specific door key is currently in cooldown.
 local function inCooldown(key)
     local untilMs = MOD._state.cooldownUntil[key]
     return untilMs and nowMs() < untilMs
 end
 
--- Set cooldown for a door.
+-- Sets a cooldown for a specific door key.
 local function setCooldown(key, ms)
     MOD._state.cooldownUntil[key] = nowMs() + ms
 end
 
 -- =========================================================
+-- Door dash (animset selector) - run/sprint
+-- =========================================================
+
+local function findOnlinePlayerByID(oid)
+    if not oid then return nil end
+    if getPlayerByOnlineID then
+        local p = getPlayerByOnlineID(oid)
+        if p then return p end
+    end
+    if getOnlinePlayers then
+        local list = getOnlinePlayers()
+        if list then
+            for i = 0, list:size() - 1 do
+                local p = list:get(i)
+                if p and p:getOnlineID() == oid then return p end
+            end
+        end
+    end
+    return nil
+end
+
+local function setDashVarSafe(player, value)
+    if not player then return end
+    pcall(function() player:setVariable(DASH_VAR, value) end)
+end
+
+local function calcDashDurationMs(player)
+    local durationMs = DASH_DURATION_MS
+    if player:IsRunning() then
+        durationMs = durationMs / DASH_RUN_DURATION_MULTI
+    elseif player:isSprinting() then
+        durationMs = durationMs / DASH_SPRINT_DURATION_MULTI
+    end
+    return durationMs
+end
+
+local function markDashUntilForOnlineID(oid, untilMs)
+    if not oid then return end
+    local prev = MOD._state.dashUntilByOnlineID[oid]
+    if (not prev) or untilMs > prev then
+        MOD._state.dashUntilByOnlineID[oid] = untilMs
+    end
+end
+
+local function delayTicks(ticks, fn)
+    ticks = ticks or 1
+    local t = 0
+    local canceled = false
+
+    local function onTick()
+        if canceled then
+            Events.OnTick.Remove(onTick)
+            return
+        end
+        t = t + 1
+        if t >= ticks then
+            Events.OnTick.Remove(onTick)
+            fn()
+        end
+    end
+
+    Events.OnTick.Add(onTick)
+    return function()
+        canceled = true
+        Events.OnTick.Remove(onTick)
+    end
+end
+
+-- Sets the dash animation variable on the player.
+local function setDashVar(player, value)
+    pcall(function() player:setVariable(DASH_VAR, value) end)
+end
+
+-- Gets a unique key for the player for dash tracking.
+local function getDashKey(player)
+    return tostring(player:getObjectIndex() or player)
+end
+
+-- Triggers the door dash animation variable on the player.
+local function triggerDoorDashAnim(player)
+    if not player then return end
+    local t = nowMs()
+    local k = getDashKey(player)
+
+    local untilMs = MOD._state.dashUntilByPlayer[k]
+    if untilMs and t < untilMs then
+        return -- Already dashing, do not re-trigger
+    end
+
+    local durationMs = DASH_DURATION_MS
+    -- Adjust duration based on movement speed
+    if player:IsRunning() then
+        durationMs = durationMs / DASH_RUN_DURATION_MULTI
+    elseif player:isSprinting() then
+        durationMs = durationMs / DASH_SPRINT_DURATION_MULTI
+    end
+
+    setDashVar(player, true)
+    MOD._state.dashUntilByPlayer[k] = t + durationMs
+
+    if isMultiplayer then
+        local oid = player:getOnlineID()
+        if oid and oid ~= -1 then
+            sendClientCommand(player, "EreFBI", "DoorDashSync", {
+                playerId = oid,
+                durationMs = durationMs
+            })
+        end
+    end
+end
+
+-- Updates the door dash animation state, resetting it after duration.
+local function updateDoorDashAnim()
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player then return end
+
+    local k = getDashKey(player)
+    local untilMs = MOD._state.dashUntilByPlayer[k]
+    if untilMs and nowMs() >= untilMs then
+        setDashVar(player, false)
+        MOD._state.dashUntilByPlayer[k] = nil
+    end
+end
+
+local function updateRemoteDoorDashAnim()
+    if not isMultiplayer then return end
+    local t = nowMs()
+
+    for oid, untilMs in pairs(MOD._state.dashUntilByOnlineID) do
+        if t >= untilMs then
+            local p = findOnlinePlayerByID(oid)
+            if p then
+                setDashVarSafe(p, false)
+            end
+            MOD._state.dashUntilByOnlineID[oid] = nil
+        end
+    end
+end
+
+-- =========================================================
 -- Core Action Logic
 -- =========================================================
--- Toggle the door state (Open/Close).
+-- Toggles the door state (Open/Close) safely.
 local function toggleDoor(player, door)
     local ok = pcall(function() door:ToggleDoor(player) end)
     if not ok then
@@ -530,35 +766,102 @@ local function toggleDoor(player, door)
     pcall(function() door:update() end)
 end
 
--- Handle the "Open Up" action: open door, shove zombies, track state.
+-- Handle the "Open Up" action: open door, shove zombies, track state, apply endurance cost.
 local function openDoorByMod(player, door)
     local key = doorKeyFrom(door)
     if inCooldown(key) then return end
     if MOD._state.pendingClose[key] ~= nil then return end
 
-    toggleDoor(player, door)
+    if not player then return end
 
-    requestDoorShove(player, door)
+    local sbox = sv()
 
-    local sq = door:getSquare()
-    local th = isThumpDoor(door)
-    local north = false
-    local okN, vN = pcall(function() return door:getNorth() end)
-    if okN then north = vN end
+    if sbox.EnableAnimation then
+        triggerDoorDashAnim(player)
+    end
 
-    MOD._state.pendingClose[key] = {
-        square = sq,
-        thumpable = th,
-        north = north,
-        openedAt = nowMs(),
-    }
-    setCooldown(key, DOOR_COOLDOWN_MS)
+    delayTicks(1, function()
+        if not player or player:isDead() then return end
+
+        toggleDoor(player, door)
+        requestDoorShove(player, door)
+
+        local sbox = sv()
+
+        -- =========================================================
+        -- ENDURANCE & XP (MP-safe)
+        -- - SP: apply locally
+        -- - MP (client/host): ask server to apply (authoritative)
+        -- =========================================================
+        local ok, err = pcall(function()
+            if not player then return end
+            local stats = player:getStats()
+            if not stats then return end
+
+            local needCost = (tonumber(sbox.BreachCost) or 0) > 0
+            local needXP   = (tonumber(sbox.FitnessXPGain) or 0) > 0
+
+            if not needCost and not needXP then return end
+
+            -- Multiplayer: do NOT change endurance/XP locally. Ask server.
+            if isMultiplayer then
+                sendClientCommand(player, "EreFBI", "ApplyBreachCost", {})
+                return
+            end
+
+            -- Singleplayer (or any non-client context): apply locally.
+            local cost = tonumber(sbox.BreachCost) or 0
+
+            if sbox.FitnessReducesCost and Perks and Perks.Fitness then
+                local fitnessLevel = player:getPerkLevel(Perks.Fitness) or 0
+                local reductionFactor = fitnessLevel * FITNESS_REDUCTION_PER_LEVEL
+                if reductionFactor > 0.9 then reductionFactor = 0.9 end
+                cost = cost * (1.0 - reductionFactor)
+            end
+
+            if cost > 0 and CharacterStat and CharacterStat.ENDURANCE then
+                local currentEndurance = stats:get(CharacterStat.ENDURANCE)
+                local newEndurance = currentEndurance - cost
+                if newEndurance < 0 then newEndurance = 0 end
+                stats:set(CharacterStat.ENDURANCE, newEndurance)
+            end
+
+            if needXP and Perks and Perks.Fitness then
+                local xp = player:getXp()
+                if xp then
+                    xp:AddXP(Perks.Fitness, tonumber(sbox.FitnessXPGain) or 0)
+                end
+            end
+        end)
+
+        if not ok then
+            print("[EreFBIOpenUpDoor] Error applying Endurance/XP: " .. tostring(err))
+        end
+        -- =========================================================
+
+        if sbox.AutoCloseDoor then
+            local sq = door:getSquare()
+            local th = isThumpDoor(door)
+            local north = false
+            local okN, vN = pcall(function() return door:getNorth() end)
+            if okN then north = vN end
+
+            MOD._state.pendingClose[key] = {
+                square = sq,
+                thumpable = th,
+                north = north,
+                openedAt = nowMs(),
+            }
+        end
+
+        setCooldown(key, DOOR_COOLDOWN_MS)
+    end)
 end
 
 -- =========================================================
 -- AutoClose Management
 -- =========================================================
--- Find the door object again based on stored state (in case object ref changed).
+-- Attempts to find the door object again (it might have changed reference or state).
 local function findDoorNearSquare(state)
     local baseSq = state.square
     if not baseSq then return nil end
@@ -620,7 +923,7 @@ local function findDoorNearSquare(state)
     return nil
 end
 
--- Update loop for auto-closing doors after the player passes through.
+-- Checks pending auto-close actions and executes them if conditions are met.
 local function updateAutoClose()
     local sbox = sv()
     if not sbox.AutoCloseDoor then return end
@@ -660,23 +963,11 @@ end
 -- =========================================================
 -- Trigger Handlers: RUNNING & SPRINTING
 -- =========================================================
--- Handler for collision events (Running into doors).
 local function onObjectCollide(obj, collided)
-    local sbox = sv()
-    if not sbox.WhileRunning then return end
-    if not obj or not instanceof(obj, "IsoPlayer") then return end
-    if _localPlayerObjIndex ~= nil and obj:getObjectIndex() ~= _localPlayerObjIndex then return end
-
-    if not obj:IsRunning() then return end
-    if obj:isSprinting() then return end
-
-    if not collided or not isDoor(collided) then return end
-    if not canUseDoor(obj, collided) then return end
-
-    openDoorByMod(obj, collided)
+    return
 end
 
--- Find a closed, usable door on a specific square.
+-- Scans a square for a closed door that the player can interact with.
 local function findClosedDoorOnSquare(player, sq)
     if not sq then return nil end
     local d = sq:getDoor(true)
@@ -701,13 +992,96 @@ local function findClosedDoorOnSquare(player, sq)
     return nil
 end
 
--- Raycast probe for sprinting (opens doors slightly before collision).
+-- =========================================================
+-- Movement Timer Logic (NEW)
+-- =========================================================
+-- Tracks how long the player has been running to prevent instant triggers.
+local function updateMovementTimers()
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player then return end
+
+    if player:IsRunning() and not player:isSprinting() then
+        if MOD._state.runningStartedAt == 0 then
+            MOD._state.runningStartedAt = nowMs()
+        end
+    else
+        MOD._state.runningStartedAt = 0
+    end
+end
+
+-- Probes ahead of the player while running to detect doors.
+local function runProbe()
+    local sbox = sv()
+    if not sbox.WhileRunning then return end
+
+    local player = getSpecificPlayer(_localPlayerIndex or 0)
+    if not player or not player:getSquare() then return end
+
+    if player and player:getVariableBoolean("EreFBI_DoorDash") then return end
+
+    if player:isSprinting() then return end
+    if not player:IsRunning() then return end
+
+    if MOD._state.runningStartedAt == 0 or (nowMs() - MOD._state.runningStartedAt) < MIN_RUN_TIME_MS then
+        return
+    end
+
+    local t = nowMs()
+    if (t - (MOD._state.lastRunProbeAt or 0)) < RUN_PROBE_INTERVAL_MS then return end
+    MOD._state.lastRunProbeAt = t
+
+    local sq = player:getSquare()
+    local z = sq:getZ()
+    local dx, dy = dirToVector(player:getDir())
+    if dx == 0 and dy == 0 then return end
+
+    local px, py = player:getX(), player:getY()
+
+    local ndx, ndy = dx, dy
+    if dx ~= 0 and dy ~= 0 then
+        local inv = 1 / math.sqrt(2)
+        ndx, ndy = dx * inv, dy * inv
+    end
+
+    local cell = getCell()
+
+    local currentMaxDist = RUN_PROBE_MAX_DIST
+
+    if ndx > 0 or ndy > 0 then
+        currentMaxDist = currentMaxDist + (ISO_DIR_COMPENSATION or 0.6)
+    end
+
+    for dist = 0, currentMaxDist, RUN_PROBE_STEP_DIST do
+        local tx = math.floor(px + ndx * dist)
+        local ty = math.floor(py + ndy * dist)
+
+        if cell then
+            local testSq = cell:getGridSquare(tx, ty, z)
+            local door = findClosedDoorOnSquare(player, testSq)
+            if door then
+                openDoorByMod(player, door)
+                return
+            end
+        end
+    end
+end
+
+-- Probes ahead of the player while sprinting to detect doors.
 local function sprintProbe()
     local sbox = sv()
     if not sbox.WhileSprinting then return end
+
     local player = getSpecificPlayer(_localPlayerIndex or 0)
     if not player or not player:getSquare() then return end
+
+    if player:getVariableBoolean("EreFBI_DoorDash") then return end
+
     if not player:isSprinting() then return end
+
+    local ok, val = pcall(function() return player:getBeenSprintingFor() end)
+    if ok and val and val < MIN_SPRINT_TIMER then
+        return
+    end
 
     local t = nowMs()
     if (t - (MOD._state.lastSprintProbeAt or 0)) < SPRINT_PROBE_INTERVAL_MS then return end
@@ -720,7 +1094,6 @@ local function sprintProbe()
     if dx == 0 and dy == 0 then return end
 
     local cell = getCell()
-
     local px, py = player:getX(), player:getY()
 
     local ndx, ndy = dx, dy
@@ -729,15 +1102,22 @@ local function sprintProbe()
         ndx, ndy = dx * inv, dy * inv
     end
 
-    for dist = 0, SPRINT_PROBE_MAX_DIST, SPRINT_PROBE_STEP_DIST do
+    local currentMaxDist = SPRINT_PROBE_MAX_DIST
+    if ndx > 0 or ndy > 0 then
+        currentMaxDist = currentMaxDist + ISO_DIR_COMPENSATION
+    end
+
+    for dist = 0, currentMaxDist, SPRINT_PROBE_STEP_DIST do
         local tx = math.floor(px + ndx * dist)
         local ty = math.floor(py + ndy * dist)
-        local testSq = cell:getGridSquare(tx, ty, z)
 
-        local door = findClosedDoorOnSquare(player, testSq)
-        if door then
-            openDoorByMod(player, door)
-            return
+        if cell then
+            local testSq = cell:getGridSquare(tx, ty, z)
+            local door = findClosedDoorOnSquare(player, testSq)
+            if door then
+                openDoorByMod(player, door)
+                return
+            end
         end
     end
 end
@@ -745,7 +1125,7 @@ end
 -- =========================================================
 -- Events
 -- =========================================================
--- Initialize local player index.
+-- Handles player creation to store local player index.
 local function OnCreatePlayer(playerIndex, player)
     _localPlayerIndex = playerIndex or 0
     if player then
@@ -753,12 +1133,63 @@ local function OnCreatePlayer(playerIndex, player)
     end
 end
 
--- Main tick loop.
+-- Main tick loop for updating timers, probes, and auto-close logic.
 local function OnTick()
+    updateDoorDashAnim()
+    -- only in MP
+    if isMultiplayer then
+        updateRemoteDoorDashAnim()
+    end
+
+    updateMovementTimers()
+    runProbe()
     sprintProbe()
     updateAutoClose()
 end
 
+-- Handles commands received from the server (e.g., syncing shoves).
+local function OnServerCommand(module, command, args)
+    if module ~= "EreFBI" then return end
+
+    if command == "SyncShove" and args and args.zombies then
+        local zombiesToUpdate = args.zombies
+        local cell = getCell()
+        if not cell then return end
+        local zlist = cell:getZombieList()
+
+        local targetZombies = {}
+        for _, data in ipairs(zombiesToUpdate) do
+            targetZombies[data.id] = data.action
+        end
+
+        for i = 0, zlist:size() - 1 do
+            local z = zlist:get(i)
+            local id = z:getOnlineID()
+
+            if id ~= -1 and targetZombies[id] then
+                local action = targetZombies[id]
+                if action == "knock" then
+                    z:setKnockedDown(true)
+                else
+                    z:setStaggerBack(true)
+                end
+                targetZombies[id] = nil
+            end
+        end
+    elseif command == "SyncDoorDash" and args then
+        local oid = args.playerId
+        local durationMs = tonumber(args.durationMs) or DASH_DURATION_MS
+        if not oid or oid == -1 then return end
+
+        local p = findOnlinePlayerByID(oid)
+        if not p then return end
+
+        setDashVarSafe(p, true)
+        markDashUntilForOnlineID(oid, nowMs() + durationMs)
+    end
+end
+
+Events.OnServerCommand.Add(OnServerCommand)
 Events.OnCreatePlayer.Add(OnCreatePlayer)
 Events.OnObjectCollide.Add(onObjectCollide)
 Events.OnTick.Add(OnTick)
