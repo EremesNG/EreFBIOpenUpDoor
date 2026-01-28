@@ -27,4 +27,17 @@ Sandbox_CA = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagació (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Possibilitat que l'ona d'empenta afecti els zombis a la següent casella endavant (més alt = s'estén més).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Habilitar animació d'envestida",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Si s'habilita, reprodueix una animació d'envestida amb l'espatlla en obrir portes per la força.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Cost de resistència",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Pèrdua de resistència base per porta oberta (0.0 - 1.0). Exemple: 0.01 és similar a un cop de destral.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "La bona forma redueix el cost",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Si s'habilita, un nivell de Bona Forma més alt redueix el cost de resistència (aprox. 5% de reducció per nivell).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Guany d'XP de Bona Forma",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Punts d'experiència guanyats en l'habilitat Bona Forma per cada porta oberta (0.0 per desactivar). Referència: Una esquats dóna ~4 XP.",
+
 }

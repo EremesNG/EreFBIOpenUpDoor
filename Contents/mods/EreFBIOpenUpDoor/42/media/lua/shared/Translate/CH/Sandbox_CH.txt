@@ -27,4 +27,17 @@ Sandbox_CH = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "傳播強度（%）",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "推動波有機會影響前方下一個方塊上的殭屍（越高=傳播得越多）。",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "啟用破門動畫",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "如果啟用，破門時播放肩撞動畫。",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "耐力消耗",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "每次破門的基礎耐力損失 (0.0 - 1.0)。範例：0.01 類似於揮動一次斧頭。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "體能降低消耗",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "如果啟用，較高的體能技能會降低耐力消耗（每級約減少 5%）。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "體能經驗獲取",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "每次破門獲得的體能技能經驗值 (0.0 為停用)。參考：一次深蹲給予 ~4 經驗。",
+
 }

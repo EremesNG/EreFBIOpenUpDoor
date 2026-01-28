@@ -27,4 +27,17 @@ Sandbox_FI = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Levitysvoimakkuus (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Mahdollisuus, että shove-aalto vaikuttaa seuraavan laatan zombeihin eteenpäin (korkeampi = leviää enemmän).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Ota käyttöön murtautumisanimaatio",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Jos käytössä, toistaa olkapäätaklaus-animaation ovia murrettaessa.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Kestävyyskustannus",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Peruskestävyyden menetys per oven murto (0.0 - 1.0). Esimerkki: 0.01 vastaa kirveen heilautusta.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kunto vähentää kustannusta",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Jos käytössä, korkeampi kuntotaso vähentää kestävyyskustannusta (noin 5% vähennys per taso).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Kunnon XP-saanti",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Kokemuspisteet, jotka saadaan Kunto-taidossa jokaisesta murretusta ovesta (0.0 poistaa käytöstä). Viite: Yksi kyykky antaa ~4 XP.",
+
 }

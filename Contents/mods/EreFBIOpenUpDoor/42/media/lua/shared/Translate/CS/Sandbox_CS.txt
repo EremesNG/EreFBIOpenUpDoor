@@ -27,4 +27,17 @@ Sandbox_CS = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Síla šíření (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Šance, že rázová vlna ovlivní zombíky na dalším políčku vpřed (vyšší = šíří se více).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Povolit animaci vyrážení",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Pokud je povoleno, při vyrážení dveří se přehraje animace nárazu ramenem.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Cena výdrže",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Základní ztráta výdrže za vyražení dveří (0.0 - 1.0). Příklad: 0.01 je podobné máchnutí sekerou.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kondice snižuje cenu",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Pokud je povoleno, vyšší úroveň Kondice snižuje cenu výdrže (přibližně 5% snížení za úroveň).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Zisk XP Kondice",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Získané zkušenostní body v dovednosti Kondice za každé vyražené dveře (0.0 pro vypnutí). Pro informaci: Dřep dává ~4 XP.",
+
 }

@@ -27,4 +27,17 @@ Sandbox_KO = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "전파 강도 (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "밀치기 파동이 다음 타일의 좀비에게 영향을 줄 확률 (높을수록 더 많이 퍼짐).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "애니메이션 활성화",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "활성화하면 문을 부술 때 어깨로 밀치는 애니메이션이 재생됩니다.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "지구력 소모",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "문 파괴 시 기본 지구력 소모량 (0.0 - 1.0). 예: 0.01은 도끼 휘두르기와 비슷합니다.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "체력에 따른 소모 감소",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "활성화하면 체력 기술이 높을수록 지구력 소모가 감소합니다 (레벨당 약 5% 감소).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "체력 XP 획득",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "문 파괴 시 획득하는 체력 기술 경험치 (0.0은 비활성화). 참고: 스쿼트는 ~4 XP를 줍니다.",
+
 }

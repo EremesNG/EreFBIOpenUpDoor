@@ -27,4 +27,17 @@ Sandbox_FR = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Force de propagation (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance que la vague de poussée affecte les zombies sur la prochaine tuile en avant (plus élevée = se propage davantage).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Activer l'Animation",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Si activé, joue une animation de coup d'épaule lors de l'enfoncement des portes.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Coût d'Endurance",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Perte d'endurance de base par porte enfoncée (0.0 - 1.0). Exemple : 0.01 est similaire à un coup de hache.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "La Forme Réduit le Coût",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Si activé, un niveau de Forme plus élevé réduit le coût en endurance (env. 5% de réduction par niveau).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Gain d'XP de Forme",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Points d'expérience gagnés dans la compétence Forme pour chaque porte enfoncée (0.0 pour désactiver). Référence : Un squat donne ~4 XP.",
+
 }

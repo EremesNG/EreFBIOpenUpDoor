@@ -27,4 +27,17 @@ Sandbox_JP = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "伝播強度(%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "突き飛ばす波が前方の次のタイルのゾンビに影響を与える可能性があります (高い = 広がりが大きくなります)。",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "アニメーションを有効化",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "有効にすると、ドアを突き破る際にショルダーバッシュのアニメーションが再生されます。",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "持久力コスト",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "ドア突破ごとの基本持久力消費 (0.0 - 1.0)。例: 0.01は斧を振るのと同程度です。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "フィットネスでコスト軽減",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "有効にすると、フィットネススキルが高いほど持久力コストが減少します（レベルごとに約5%減少）。",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "フィットネスXP獲得",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "ドア突破ごとに獲得するフィットネススキルの経験値 (0.0で無効)。参考: スクワットは〜4 XPを与えます。",
+
 }

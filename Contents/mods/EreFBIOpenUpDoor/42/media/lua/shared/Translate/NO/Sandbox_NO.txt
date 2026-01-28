@@ -27,4 +27,17 @@ Sandbox_NO = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Formeringsstyrke (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Sjansen for skyvebølgen til å påvirke zombier på neste flis fremover (høyere = sprer seg mer).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Aktiver bruddanimasjon",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Hvis aktivert, spilles en skulderstøt-animasjon når dører brytes opp.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Utholdenhetskostnad",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Basis utholdenhetstap per dør som brytes (0.0 - 1.0). Eksempel: 0.01 tilsvarer et økseslag.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Kondisjon reduserer kostnad",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Hvis aktivert, reduserer høyere Kondisjon-ferdighet utholdenhetskostnaden (ca. 5% reduksjon per nivå).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Kondisjon XP-gevinst",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Erfaringspoeng opptjent i Kondisjon-ferdigheten for hver dør som brytes (0.0 for å deaktivere). Til referanse: En knebøy gir ~4 XP.",
+
 }

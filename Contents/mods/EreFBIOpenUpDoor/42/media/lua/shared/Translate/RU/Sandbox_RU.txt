@@ -27,4 +27,17 @@ Sandbox_RU = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Сила распространения (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Шанс, что волна толчка затронет зомби на следующей клетке вперед (чем выше = больше распространяется).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Включить анимацию",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Если включено, проигрывается анимация удара плечом при выбивании дверей.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Затраты выносливости",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Базовая потеря выносливости за выбитую дверь (0.0 - 1.0). Пример: 0.01 похоже на удар топором.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Фитнес снижает затраты",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Если включено, более высокий навык Фитнеса снижает затраты выносливости (примерно 5% снижения за уровень).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Получение опыта Фитнеса",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Очки опыта, получаемые в навык Фитнес за каждую выбитую дверь (0.0 для отключения). Для справки: Приседание дает ~4 опыта.",
+
 }

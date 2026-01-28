@@ -27,4 +27,17 @@ Sandbox_HU = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Terjedési erő (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Esély, hogy a shove hullám hatással lesz a zombikra a következő lapkán előre (magasabb = tovább terjed).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Betörés animáció engedélyezése",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Ha engedélyezve van, vállal lökés animációt játszik le ajtók betörésekor.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Állóképesség költség",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Alap állóképesség vesztés ajtóbetörésenként (0.0 - 1.0). Példa: 0.01 hasonló egy fejszecsapáshoz.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Az Erőnlét csökkenti a költséget",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Ha engedélyezve van, a magasabb Erőnlét szint csökkenti az állóképesség költséget (kb. 5% csökkenés szintenként).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Erőnlét XP szerzés",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Erőnlét készségben szerzett tapasztalati pontok minden betört ajtó után (0.0 a kikapcsoláshoz). Referencia: Egy guggolás ~4 XP-t ad.",
+
 }

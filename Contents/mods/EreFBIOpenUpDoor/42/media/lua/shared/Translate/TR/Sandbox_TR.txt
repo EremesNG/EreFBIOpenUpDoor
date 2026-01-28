@@ -27,4 +27,17 @@ Sandbox_TR = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Yayılma gücü (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "İtme dalgasının bir sonraki karodaki zombileri etkileme şansı (daha yüksek = daha fazla yayılır).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Animasyonu Etkinleştir",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Etkinleştirilirse, kapıları kırarken omuz atma animasyonu oynatılır.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Dayanıklılık Maliyeti",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Kapı kırma başına temel dayanıklılık kaybı (0.0 - 1.0). Örnek: 0.01 bir balta savurmaya benzer.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Form Maliyeti Düşürür",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Etkinleştirilirse, daha yüksek Form becerisi dayanıklılık maliyetini düşürür (seviye başına yaklaşık %5 azalma).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Form XP Kazanımı",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Her kapı kırma için Form becerisinde kazanılan deneyim puanları (devre dışı bırakmak için 0.0). Referans: Bir squat ~4 XP verir.",
+
 }

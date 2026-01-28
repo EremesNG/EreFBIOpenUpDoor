@@ -27,4 +27,17 @@ Sandbox_PT = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Força de propagação (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Chance da onda de empurrão afetar os zumbis no próximo bloco à frente (maior = espalha mais).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Ativar Animação de Arrombamento",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Se ativado, reproduz uma animação de ombro ao arrombar portas.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Custo de Resistência",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Perda base de resistência por porta arrombada (0.0 - 1.0). Exemplo: 0.01 é semelhante a um golpe de machado.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Aptidão Reduz Custo",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Se ativado, maior nível de Aptidão reduz o custo de resistência (aprox. 5% de redução por nível).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Ganho de XP de Aptidão",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Pontos de experiência ganhos na habilidade Aptidão por cada porta arrombada (0.0 para desativar). Referência: Um agachamento dá ~4 XP.",
+
 }

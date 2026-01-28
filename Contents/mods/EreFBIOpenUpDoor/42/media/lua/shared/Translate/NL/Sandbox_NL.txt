@@ -27,4 +27,17 @@ Sandbox_NL = {
 
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength = "Voortplantingssterkte (%)",
 	Sandbox_EreFBIOpenUpDoor_PropagationStrength_tooltip = "Kans dat de duwgolf invloed heeft op zombies op de volgende tegel naar voren (hoger = verspreidt zich meer).",
+
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation = "Doorbraakanimatie inschakelen",
+	Sandbox_EreFBIOpenUpDoor_EnableAnimation_tooltip = "Indien ingeschakeld, speelt een schouderduw-animatie af bij het openbreken van deuren.",
+
+	Sandbox_EreFBIOpenUpDoor_BreachCost = "Uithoudingsvermogen kosten",
+	Sandbox_EreFBIOpenUpDoor_BreachCost_tooltip = "Basisverlies uithoudingsvermogen per deuropenbreking (0.0 - 1.0). Voorbeeld: 0.01 is vergelijkbaar met een bijlslag.",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost = "Conditie vermindert kosten",
+	Sandbox_EreFBIOpenUpDoor_FitnessReducesCost_tooltip = "Indien ingeschakeld, vermindert een hoger Conditie-niveau de uithoudingsvermogenkosten (ongeveer 5% vermindering per niveau).",
+
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain = "Conditie XP winst",
+	Sandbox_EreFBIOpenUpDoor_FitnessXPGain_tooltip = "Ervaringspunten verdiend in de Conditie-vaardigheid voor elke opengebroken deur (0.0 om uit te schakelen). Ter referentie: Een squat geeft ~4 XP.",
+
 }
