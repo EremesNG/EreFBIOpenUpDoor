@@ -1,7 +1,7 @@
 name=FBI Open Up Door
 id=EreFBIOpenUpDoor
 author=EremesNG
-modversion=1.42
+modversion=1.41
 description=Auto open/close doors and gates (not barricaded, locked or obstructed) when running or sprinting. Configurable via Sandbox options.
 poster=poster.png
 icon=icon.png
