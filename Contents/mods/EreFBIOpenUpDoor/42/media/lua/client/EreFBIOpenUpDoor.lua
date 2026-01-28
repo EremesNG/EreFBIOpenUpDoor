@@ -41,6 +41,7 @@ MOD._state = MOD._state or {
 
 local _localPlayerIndex = 0
 local _localPlayerObjIndex = nil
+local Perks = Perks
 
 -- =========================================================
 -- Helpers: Basics
@@ -55,22 +56,22 @@ local function sv()
     local root = SandboxVars and SandboxVars.EreFBIOpenUpDoor
     return {
         AutoCloseDoor       = (root ~= nil and root.AutoCloseDoor) or false,
-        WhileRunning        = (root == nil or root.WhileRunning ~= true),
-        WhileSprinting      = (root == nil or root.WhileSprinting ~= true),
+        WhileRunning        = (root == nil or root.WhileRunning ~= false), -- Default True
+        WhileSprinting      = (root == nil or root.WhileSprinting ~= false), -- Default True
 
-        ShoveNearbyZombies  = (root ~= nil and root.ShoveNearbyZombies) or true,
+        ShoveNearbyZombies  = (root ~= nil and root.ShoveNearbyZombies) or false,
         ShoveRange          = (root ~= nil and root.ShoveRange) or 1.8,
         ShoveAngle          = (root ~= nil and root.ShoveAngle) or 120.0,
         KnockdownChance     = (root ~= nil and root.KnockdownChance) or 35,
 
-        EnablePropagation   = (root ~= nil and root.EnablePropagation) or true,
+        EnablePropagation   = (root ~= nil and root.EnablePropagation) or false,
         PropagationDepth    = (root ~= nil and root.PropagationDepth) or 2,
         PropagationStrength = (root ~= nil and root.PropagationStrength) or 60,
 
-        EnableAnimation     = (root == nil or root.EnableAnimation ~= true),
+        EnableAnimation     = (root == nil or root.EnableAnimation ~= false), -- Default True
 
-        BreachCost          = (root ~= nil and root.BreachCost) or 0.02,
-        FitnessReducesCost  = (root == nil or root.FitnessReducesCost ~= true),
+        BreachCost          = (root ~= nil and root.BreachCost) or 0.01,
+        FitnessReducesCost  = (root == nil or root.FitnessReducesCost ~= false), -- Default True
 
         FitnessXPGain       = (root ~= nil and root.FitnessXPGain) or 2.5,
     }
@@ -706,6 +707,8 @@ local function openDoorByMod(player, door)
     if inCooldown(key) then return end
     if MOD._state.pendingClose[key] ~= nil then return end
 
+    if not player then return end
+
     local sbox = sv()
 
     if sbox.EnableAnimation then
@@ -713,51 +716,61 @@ local function openDoorByMod(player, door)
     end
 
     delayTicks(1, function()
+        if not player or player:isDead() then return end
+
         toggleDoor(player, door)
         requestDoorShove(player, door)
 
         local sbox = sv()
 
         -- =========================================================
-        -- ENDURANCE CALCULATION BASED ON FITNESS
+        -- ENDURANCE & XP (MP-safe)
+        -- - SP: apply locally
+        -- - MP (client/host): ask server to apply (authoritative)
         -- =========================================================
-        local stats = player:getStats()
-        if stats then
-            local cost = sbox.BreachCost -- Base
+        local ok, err = pcall(function()
+            if not player then return end
+            local stats = player:getStats()
+            if not stats then return end
 
-            -- If Fitness option is enabled, apply discount
-            if sbox.FitnessReducesCost then
-                -- Get Fitness level (0-10)
-                local fitnessLevel = player:getPerkLevel(Perks.Fitness)
+            local needCost = (tonumber(sbox.BreachCost) or 0) > 0
+            local needXP   = (tonumber(sbox.FitnessXPGain) or 0) > 0
 
-                -- Calculate reduction: Level * 0.05
-                -- Ex: Level 5 * 0.05 = 0.25 (25% less cost)
-                -- Ex: Level 10 * 0.05 = 0.50 (50% less cost)
+            if not needCost and not needXP then return end
+
+            -- Multiplayer: do NOT change endurance/XP locally. Ask server.
+            if isClient() then
+                sendClientCommand(player, "EreFBI", "ApplyBreachCost", {})
+                return
+            end
+
+            -- Singleplayer (or any non-client context): apply locally.
+            local cost = tonumber(sbox.BreachCost) or 0
+
+            if sbox.FitnessReducesCost and Perks and Perks.Fitness then
+                local fitnessLevel = player:getPerkLevel(Perks.Fitness) or 0
                 local reductionFactor = fitnessLevel * FITNESS_REDUCTION_PER_LEVEL
-
-                -- Clamp for safety (max 90% reduction, though level 10 is 50%)
                 if reductionFactor > 0.9 then reductionFactor = 0.9 end
-
                 cost = cost * (1.0 - reductionFactor)
             end
 
-            -- Apply the cost
-            local currentEndurance = stats:getEndurance()
-            local newEndurance = currentEndurance - cost
+            if cost > 0 and CharacterStat and CharacterStat.ENDURANCE then
+                local currentEndurance = stats:get(CharacterStat.ENDURANCE)
+                local newEndurance = currentEndurance - cost
+                if newEndurance < 0 then newEndurance = 0 end
+                stats:set(CharacterStat.ENDURANCE, newEndurance)
+            end
 
-            if newEndurance < 0 then newEndurance = 0 end
-            stats:setEndurance(newEndurance)
-
-            -- =========================================================
-            -- NEW: GAIN FITNESS XP
-            -- =========================================================
-            if sbox.FitnessXPGain > 0 then
+            if needXP and Perks and Perks.Fitness then
                 local xp = player:getXp()
                 if xp then
-                    -- Add XP to Fitness skill
-                    xp:AddXP(Perks.Fitness, sbox.FitnessXPGain)
+                    xp:AddXP(Perks.Fitness, tonumber(sbox.FitnessXPGain) or 0)
                 end
             end
+        end)
+
+        if not ok then
+            print("[EreFBIOpenUpDoor] Error applying Endurance/XP: " .. tostring(err))
         end
         -- =========================================================
 

@@ -1,4 +1,4 @@
-VERSION = 1
+VERSION = 1,
 
 option EreFBIOpenUpDoor.AutoCloseDoor
 {
@@ -101,7 +101,7 @@ option EreFBIOpenUpDoor.EnableAnimation
 option EreFBIOpenUpDoor.BreachCost
 {
     type = double,
-    default = 0.02,
+    default = 0.01,
     min = 0.0,
     max = 1.0,
     page = EreFBIOpenUpDoor,
