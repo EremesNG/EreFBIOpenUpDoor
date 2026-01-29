@@ -38,6 +38,7 @@ MOD._state = MOD._state or {
     runningStartedAt = 0,
     dashUntilByOnlineID = {},
     dashCancelByPlayer = {},
+    openInFlight = {},
 }
 
 
@@ -247,6 +248,24 @@ local function canUseDoor(player, door)
     if doorIsLocked(player, door) then return false end
     if doorIsObstructed(door) then return false end
     return true
+end
+
+-- Check if the player's movement is directed towards the door when they share the same tile.
+local function isMovingTowardsDoor(player, door, moveX, moveY)
+    local pSq = player:getSquare()
+    local dSq = door:getSquare()
+
+    if pSq ~= dSq then return true end
+
+    local isNorth = false
+    local ok, v = pcall(function() return door:getNorth() end)
+    if ok then isNorth = v end
+
+    if isNorth then
+        return moveY < -0.01
+    else
+        return moveX < -0.01
+    end
 end
 
 -- =========================================================
@@ -766,13 +785,47 @@ local function toggleDoor(player, door)
     pcall(function() door:update() end)
 end
 
+-- MP-safe: request the server to set door state (needed for player-built IsoThumpable doors).
+local function requestDoorState(player, door, wantOpen)
+    if not player or not door then return end
+
+    local desired = (wantOpen == true)
+    if doorIsOpen(door) == desired then
+        return -- already in desired state
+    end
+
+    -- In MP client, ask server (authoritative).
+    if isMultiplayer and isThumpDoor(door) then
+        local sq = door:getSquare()
+        if not sq then return end
+
+        sendClientCommand(player, "EreFBI", "SetDoorState", {
+            x = sq:getX(),
+            y = sq:getY(),
+            z = sq:getZ(),
+            north = (northSafe(door, false) == true),
+            thumpable = true,
+            open = desired,
+        })
+        return
+    end
+
+    -- SP / host: do it locally.
+    toggleDoor(player, door)
+end
+
 -- Handle the "Open Up" action: open door, shove zombies, track state, apply endurance cost.
 local function openDoorByMod(player, door)
+    if not player or not door then return end
+
     local key = doorKeyFrom(door)
     if inCooldown(key) then return end
     if MOD._state.pendingClose[key] ~= nil then return end
 
-    if not player then return end
+    if MOD._state.openInFlight[key] then return end
+    MOD._state.openInFlight[key] = true
+
+    setCooldown(key, DOOR_COOLDOWN_MS)
 
     local sbox = sv()
 
@@ -781,9 +834,12 @@ local function openDoorByMod(player, door)
     end
 
     delayTicks(1, function()
+        MOD._state.openInFlight[key] = nil
+
         if not player or player:isDead() then return end
 
-        toggleDoor(player, door)
+        -- toggleDoor(player, door)
+        requestDoorState(player, door, true)
         requestDoorShove(player, door)
 
         local sbox = sv()
@@ -834,9 +890,9 @@ local function openDoorByMod(player, door)
             end
         end)
 
-        if not ok then
-            print("[EreFBIOpenUpDoor] Error applying Endurance/XP: " .. tostring(err))
-        end
+        --if not ok then
+        --    print("[EreFBIOpenUpDoor] Error applying Endurance/XP: " .. tostring(err))
+        --end
         -- =========================================================
 
         if sbox.AutoCloseDoor then
@@ -854,6 +910,7 @@ local function openDoorByMod(player, door)
             }
         end
 
+        -- TODO remove maybe?
         setCooldown(key, DOOR_COOLDOWN_MS)
     end)
 end
@@ -946,7 +1003,8 @@ local function updateAutoClose()
                     local limitSq = AUTO_CLOSE_ADJACENT_DIST * AUTO_CLOSE_ADJACENT_DIST
 
                     if elapsed >= AUTO_CLOSE_MIN_DELAY_MS and distSq > limitSq then
-                        toggleDoor(player, door)
+                        --toggleDoor(player, door)
+                        requestDoorState(player, door, false)
                         pending[key] = nil
                         setCooldown(key, DOOR_COOLDOWN_MS)
                     end
@@ -968,25 +1026,28 @@ local function onObjectCollide(obj, collided)
 end
 
 -- Scans a square for a closed door that the player can interact with.
-local function findClosedDoorOnSquare(player, sq)
+local function findClosedDoorOnSquare(player, sq, dx, dy)
     if not sq then return nil end
+
     local d = sq:getDoor(true)
-    if d and canUseDoor(player, d) then return d end
+    if d and canUseDoor(player, d) and isMovingTowardsDoor(player, d, dx, dy) then return d end
+
     d = sq:getDoor(false)
-    if d and canUseDoor(player, d) then return d end
+    if d and canUseDoor(player, d) and isMovingTowardsDoor(player, d, dx, dy) then return d end
 
     local so = sq:getSpecialObjects()
     if so then
         for i = 0, so:size() - 1 do
             local o = so:get(i)
-            if o and isThumpDoor(o) and canUseDoor(player, o) then return o end
+            if o and isThumpDoor(o) and canUseDoor(player, o) and isMovingTowardsDoor(player, o, dx, dy) then return o end
         end
     end
+
     local objs = sq:getObjects()
     if objs then
         for i = 0, objs:size() - 1 do
             local o = objs:get(i)
-            if o and isThumpDoor(o) and canUseDoor(player, o) then return o end
+            if o and isThumpDoor(o) and canUseDoor(player, o) and isMovingTowardsDoor(player, o, dx, dy) then return o end
         end
     end
     return nil
@@ -1057,7 +1118,7 @@ local function runProbe()
 
         if cell then
             local testSq = cell:getGridSquare(tx, ty, z)
-            local door = findClosedDoorOnSquare(player, testSq)
+            local door = findClosedDoorOnSquare(player, testSq, ndx, ndy)
             if door then
                 openDoorByMod(player, door)
                 return
@@ -1113,7 +1174,7 @@ local function sprintProbe()
 
         if cell then
             local testSq = cell:getGridSquare(tx, ty, z)
-            local door = findClosedDoorOnSquare(player, testSq)
+            local door = findClosedDoorOnSquare(player, testSq, ndx, ndy)
             if door then
                 openDoorByMod(player, door)
                 return
