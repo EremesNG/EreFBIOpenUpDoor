@@ -250,6 +250,24 @@ local function canUseDoor(player, door)
     return true
 end
 
+-- Check if the player's movement is directed towards the door when they share the same tile.
+local function isMovingTowardsDoor(player, door, moveX, moveY)
+    local pSq = player:getSquare()
+    local dSq = door:getSquare()
+
+    if pSq ~= dSq then return true end
+
+    local isNorth = false
+    local ok, v = pcall(function() return door:getNorth() end)
+    if ok then isNorth = v end
+
+    if isNorth then
+        return moveY < -0.01
+    else
+        return moveX < -0.01
+    end
+end
+
 -- =========================================================
 -- Helpers: Multi-tile Gate Scanning
 -- =========================================================
@@ -1008,25 +1026,28 @@ local function onObjectCollide(obj, collided)
 end
 
 -- Scans a square for a closed door that the player can interact with.
-local function findClosedDoorOnSquare(player, sq)
+local function findClosedDoorOnSquare(player, sq, dx, dy)
     if not sq then return nil end
+
     local d = sq:getDoor(true)
-    if d and canUseDoor(player, d) then return d end
+    if d and canUseDoor(player, d) and isMovingTowardsDoor(player, d, dx, dy) then return d end
+
     d = sq:getDoor(false)
-    if d and canUseDoor(player, d) then return d end
+    if d and canUseDoor(player, d) and isMovingTowardsDoor(player, d, dx, dy) then return d end
 
     local so = sq:getSpecialObjects()
     if so then
         for i = 0, so:size() - 1 do
             local o = so:get(i)
-            if o and isThumpDoor(o) and canUseDoor(player, o) then return o end
+            if o and isThumpDoor(o) and canUseDoor(player, o) and isMovingTowardsDoor(player, o, dx, dy) then return o end
         end
     end
+
     local objs = sq:getObjects()
     if objs then
         for i = 0, objs:size() - 1 do
             local o = objs:get(i)
-            if o and isThumpDoor(o) and canUseDoor(player, o) then return o end
+            if o and isThumpDoor(o) and canUseDoor(player, o) and isMovingTowardsDoor(player, o, dx, dy) then return o end
         end
     end
     return nil
@@ -1097,7 +1118,7 @@ local function runProbe()
 
         if cell then
             local testSq = cell:getGridSquare(tx, ty, z)
-            local door = findClosedDoorOnSquare(player, testSq)
+            local door = findClosedDoorOnSquare(player, testSq, ndx, ndy)
             if door then
                 openDoorByMod(player, door)
                 return
@@ -1153,7 +1174,7 @@ local function sprintProbe()
 
         if cell then
             local testSq = cell:getGridSquare(tx, ty, z)
-            local door = findClosedDoorOnSquare(player, testSq)
+            local door = findClosedDoorOnSquare(player, testSq, ndx, ndy)
             if door then
                 openDoorByMod(player, door)
                 return
