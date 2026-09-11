@@ -95,12 +95,14 @@
 		<m_AnimName>Bob_SprintToAim1H</m_AnimName>
 		<m_blendInTime>0.1</m_blendInTime>
 		<m_blendOutTime>0.3</m_blendOutTime>
+		<m_speedScale>1</m_speedScale>
 	</m_Transitions>
 	<m_Transitions>
 		<m_Target>aim_1handed</m_Target>
 		<m_AnimName>Bob_SprintToAim1H</m_AnimName>
 		<m_blendInTime>0.1</m_blendInTime>
 		<m_blendOutTime>0.3</m_blendOutTime>
+		<m_speedScale>1</m_speedScale>
 	</m_Transitions>
 	<m_Transitions>
 		<m_Target>vaultOverSprint</m_Target>
