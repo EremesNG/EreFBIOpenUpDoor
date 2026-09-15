@@ -1,5 +1,5 @@
 Sandbox_ID = {
-	Sandbox_EreFBIOpenUpDoor = "FBI Buka Pintu",
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tutup Pintu Otomatis",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Jika diaktifkan, pintu akan otomatis tertutup setelah pemain melewatinya.\n\nPERINGATAN: Tidak direkomendasikan untuk Multipemain. Perubahan status yang cepat yang disebabkan oleh latensi (desinkronisasi) dapat menyebabkan pintu dibuka kembali secara tidak terduga atau terhenti bagi pemain lain.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Berlari",

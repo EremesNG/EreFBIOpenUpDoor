@@ -1,5 +1,5 @@
 Sandbox_CS = {
-	Sandbox_EreFBIOpenUpDoor = "FBI otevírá dveře",
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Automatické zavírání dveří",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Pokud je povoleno, dveře se po průchodu hráče automaticky zavřou.\n\nVAROVÁNÍ: Nedoporučuje se pro hru více hráčů. Rychlé změny stavu způsobené latencí (desynchronizací) mohou způsobit, že se dveře neočekávaně znovu otevřou nebo zaseknou pro ostatní hráče.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Běh",
