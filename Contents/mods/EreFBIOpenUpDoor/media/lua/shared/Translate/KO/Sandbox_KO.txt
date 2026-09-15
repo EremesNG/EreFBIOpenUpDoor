@@ -1,5 +1,5 @@
 Sandbox_KO = {
-	Sandbox_EreFBIOpenUpDoor = "FBI 문 열어",
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "자동 문 닫기",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "활성화하면 플레이어가 통과한 후 문이 자동으로 닫힙니다.\n\n경고: 멀티플레이어에서는 권장하지 않습니다. 지연(비동기화)으로 인한 빠른 상태 변화로 인해 문이 예상치 못하게 다시 열리거나 다른 플레이어에게 문이 끼일 수 있습니다.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "달리기",

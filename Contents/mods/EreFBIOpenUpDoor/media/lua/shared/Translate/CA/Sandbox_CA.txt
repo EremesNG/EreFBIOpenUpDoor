@@ -1,5 +1,5 @@
 Sandbox_CA = {
-	Sandbox_EreFBIOpenUpDoor = "L'FBI obre la porta",
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Tancament automàtic de la porta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Si està activat, les portes es tancaran automàticament després que el jugador hi passi.\n\nADVERTIMENT: No es recomana per al multijugador. Els canvis ràpids d'estat causats per la latència (dessincronització) poden fer que les portes es tornin a obrir inesperadament o es bloquegin per a altres jugadors.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Corrent",

@@ -1,5 +1,5 @@
 Sandbox_PTBR = {
-	Sandbox_EreFBIOpenUpDoor = "Porta aberta do FBI",
+	Sandbox_EreFBIOpenUpDoor = "FBI Open Up Door",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor = "Fechamento automático da porta",
 	Sandbox_EreFBIOpenUpDoor_AutoCloseDoor_Tooltip = "Se ativado, as portas fecharão automaticamente depois que o jogador passar por elas.\n\nAVISO: Não recomendado para multijogador. Mudanças rápidas de estado causadas por latência (dessincronização) podem fazer com que as portas reabram inesperadamente ou fiquem presas para outros jogadores.",
 	Sandbox_EreFBIOpenUpDoor_WhileRunning = "Correndo",
